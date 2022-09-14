@@ -4,6 +4,8 @@ const passport = require('passport');
 const bodyParser = require("body-parser");
 const config = require('./config.json');
 require('dotenv').config();
+global.TextEncoder = require("util").TextEncoder;
+global.TextDecoder = require("util").TextDecoder;
 const { MongoClient, ObjectId , Logger } = require('mongodb');
 const http = require("http");
 const { io } = require("./utils/socket");
