@@ -15,13 +15,10 @@ const BearerStrategy = require('passport-azure-ad').BearerStrategy;
 var serverTimestamp = require('server-timestamp');
 const url = process.env.COSMOS_CONNECTION_STRING;
 const client = new MongoClient(url);
-//client.connect();
-mongoose.Promise = global.Promise;
+
 
 const db = client.db(`bacidb`);
 const collection = db.collection('retros');
-db.mongoose = mongoose;
-db.mongoose.set('debug', true)
 
 Logger.setLevel("debug");
 
