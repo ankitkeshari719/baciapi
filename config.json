@@ -1,0 +1,27 @@
+{
+    "credentials": {
+        "tenantName": "bacib2c.onmicrosoft.com",
+        "clientID": "6b571d9b-2c9b-4758-8e32-7a064ac462d2"
+    },
+    "policies": {
+        "policyName": "B2C_1_signupsignin1"
+    },
+    "metadata": {
+        "b2cDomain": "bacib2c.b2clogin.com",
+        "authority": "login.microsoftonline.com",
+        "discovery": ".well-known/openid-configuration",
+        "version": "v2.0"
+    },
+    "settings": {
+        "isB2C": true,
+        "validateIssuer": false,
+        "passReqToCallback": false,
+        "loggingLevel": "info"
+    },
+    "protectedRoutes": {
+        "hello": {
+            "endpoint": "/hello",
+            "scopes": ["tasks.read"]
+        }
+    }
+}
