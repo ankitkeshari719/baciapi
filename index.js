@@ -5,7 +5,6 @@ const bodyParser = require("body-parser");
 const config = require('./config.json');
 require('dotenv').config();
 const { MongoClient, ObjectId , Logger } = require('mongodb');
-const mongoose = require("mongoose");
 const http = require("http");
 const { io } = require("./utils/socket");
 const { Socket } = require("./utils/socket");
