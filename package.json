@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "jest --forceExit"
+    "test": "jest --forceExit --passWithNoTests"
   },
   "dependencies": {
     "dotenv": "^16.0.2",
