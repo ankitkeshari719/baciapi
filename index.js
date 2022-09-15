@@ -108,12 +108,12 @@ app.post('/addRetroAction', async (req,res) =>{
     const options = {upsert: true};
     const result = await collection.findOneAndUpdate(query, update);
     action.timestamp = Date.now();
-    console.log(`upsertResult1: ${JSON.stringify(result.value._id)}\n`);
+    console.log(`upsertResult1: ${JSON.stringify(result.value?._id)}\n`);
     Socket.emit("newMessage", [{
         action: action,
         retroId: retroId
       }]);
-    return res.status(200).json({id:result.value._id});
+    return res.status(200).json({id:result.value?._id});
 
 });
 
