@@ -13,15 +13,12 @@ const { Socket } = require("./utils/socket");
 
 
 const BearerStrategy = require('passport-azure-ad').BearerStrategy;
-var serverTimestamp = require('server-timestamp');
 const url = process.env.COSMOS_CONNECTION_STRING;
 const client = new MongoClient(url);
 
 
 const db = client.db(`bacidb`);
 const collection = db.collection('retros');
-
-Logger.setLevel("debug");
 
 const options = {
     identityMetadata: `https://${config.metadata.b2cDomain}/${config.credentials.tenantName}/${config.policies.policyName}/${config.metadata.version}/${config.metadata.discovery}`,
@@ -109,7 +106,7 @@ app.post('/addRetroAction', async (req,res) =>{
     const result = await collection.findOneAndUpdate(query, update);
     action.timestamp = Date.now();
     console.log(`upsertResult1: ${JSON.stringify(result.value?._id)}\n`);
-    Socket.emit("newMessage", [{
+    Socket.emit("newMessage",retroId, [{
         action: action,
         retroId: retroId
       }]);
