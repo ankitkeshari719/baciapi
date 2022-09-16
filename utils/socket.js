@@ -18,6 +18,7 @@ io.on("connection", function (socket) {
     console.log("A user connected");
     socket.on('retro', function(retroId) {
         console.log("making user join retroid rom",retroId)
+        
         socket.join(retroId);
     });
     socket.on('disconnect', () => {
