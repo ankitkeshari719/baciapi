@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'BACIAPI'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_94C55AC305334A959233338F7E00FC02 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_731C047D2F7643CB84FC4870946985A3 }}
           package: .
