@@ -54,6 +54,12 @@ app.use(express.urlencoded())
 
 passport.use(bearerStrategy);
 
+
+process.on('uncaughtException', function (err) {
+    console.error(err);
+    console.log("Node NOT Exiting...");
+  });
+
 const server = http.createServer(app);
 
 io.attach(server);
