@@ -166,7 +166,7 @@ app.post('/addFeedback', async (req,res) =>{
     return res.status(200).json({id:result.insertedId});
 
 });
-const port = process.env.PORT || 5010;
+const port = process.env.PORT || 8080;
 
 server.listen(port, () => {
     console.log('Listening on port ' + port);
