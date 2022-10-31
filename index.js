@@ -93,7 +93,9 @@ app.post('/createRetro', async (req,res) =>{
     const result = await collection.insertOne( {
         ...retro,
         creatorId: creator.id,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        retroStatus:"waiting",
+        waitingTimestamp:Date.now()
     });
     return res.status(200).json({id:result.insertedId});
 

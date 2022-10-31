@@ -9,7 +9,7 @@ const io = new Server(
 
 var Socket = {
     emit: function (event, room, data) {
-        console.log(event, data);
+        // console.log(event, data);
         io.sockets.in(room).emit(event, data);
     }
 };
