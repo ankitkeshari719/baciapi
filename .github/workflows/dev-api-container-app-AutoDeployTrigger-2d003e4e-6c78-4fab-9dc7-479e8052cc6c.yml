@@ -19,7 +19,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout to the branch
         uses: actions/checkout@v2
@@ -41,12 +41,16 @@ jobs:
           tags: bacibackend.azurecr.io/backend-dev:${{ github.sha }}
           file: ./Dockerfile
           context: ./
-          
-      - name: Scan container image
-        uses: Azure/container-scan@v0
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
         with:
-          image-name: bacibackend.azurecr.io/backend-dev:${{ github.sha }}
-          severity-threshold: CRITICAL
+          image-ref: 'bacibackend.azurecr.io/backend-dev:${{ github.sha }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
 
   deploy:
     runs-on: ubuntu-latest
