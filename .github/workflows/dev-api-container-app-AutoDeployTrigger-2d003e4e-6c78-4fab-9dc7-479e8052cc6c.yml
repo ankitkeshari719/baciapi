@@ -43,7 +43,8 @@ jobs:
         uses: Azure/container-scan@v0
         with:
           image-name: bacibackend.azurecr.io/backend-dev:${{ github.sha }}
-          severity-threshold: LOW
+          severity-threshold: CRITICAL
+          run-quality-checks: false
           DOCKLE_TIMEOUT_SEC: 600s
 
 
