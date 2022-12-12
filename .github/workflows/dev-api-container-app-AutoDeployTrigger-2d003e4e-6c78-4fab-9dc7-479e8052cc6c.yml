@@ -13,12 +13,9 @@ on:
   # Allow mannually trigger 
   workflow_dispatch:      
 
-env:
-  DOCKLE_TIMEOUT_SEC: 600s
-
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     
     steps:
       - name: Checkout to the branch
@@ -42,15 +39,16 @@ jobs:
           file: ./Dockerfile
           context: ./
 
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
+      - uses: azure/container-scan@v0
         with:
-          image-ref: bacibackend.azurecr.io/backend-dev:${{ github.sha }}
-          format: 'table'
-          exit-code: '1'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+          image-name: bacibackend.azurecr.io/backend-dev:${{ github.sha }}
+          username: ${{ secrets.DEVAPICONTAINERAPP_REGISTRY_USERNAME }}
+          password: ${{ secrets.DEVAPICONTAINERAPP_REGISTRY_PASSWORD }}
+          severity-threshold: CRITICAL
+          run-quality-checks: true
+        env:
+          DOCKLE_TIMEOUT_SEC: 600s
+
 
   deploy:
     runs-on: ubuntu-latest
