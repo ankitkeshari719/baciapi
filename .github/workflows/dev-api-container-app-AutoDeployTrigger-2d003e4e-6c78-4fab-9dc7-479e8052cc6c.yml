@@ -38,6 +38,11 @@ jobs:
           tags: bacibackend.azurecr.io/backend-dev:${{ github.sha }}
           file: ./Dockerfile
           context: ./
+          
+      - name: Scan container image
+        uses: Azure/container-scan@v0
+        with:
+          image-name: bacibackend.azurecr.io/backend-dev:${{ github.sha }}
 
 
   deploy:
