@@ -1,8 +1,9 @@
 FROM node:16
-RUN useradd -d /home/baci -m -s /bin/bash baci
-USER baci
-WORKDIR /usr/src/app
+RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
+WORKDIR /home/node/app
 COPY package*.json ./
+USER node
 RUN npm install
-COPY . .
+COPY --chown=node:node . .
+EXPOSE 8080
 CMD ["npm","start"]
