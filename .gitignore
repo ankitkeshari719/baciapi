@@ -1,3 +1,4 @@
+node_modules
 
 node_modules/.bin/acorn.ps1
 node_modules/.bin/browserslist
@@ -9335,3 +9336,4 @@ node_modules/yargs/README.md
 node_modules/yargs/yargs
 node_modules/.bin/acorn.cmd
 node_modules/.bin/acorn
+
