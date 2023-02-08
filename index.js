@@ -199,12 +199,12 @@ app.get("/getRetrosByDate", async (req, res) => {
   console.log(
     req.query,
     "  ",
-    req.query.timestamp1,
+    req.query.startDate,
     "   -",
-    req.query.timestamp2
+    req.query.endDate
   );
-  let timestamp1 = new Date(req.query.timestamp1).getTime();
-  let timestamp2 = new Date(req.query.timestamp2).getTime();
+  let timestamp1 = new Date(req.query.startDate).getTime();
+  let timestamp2 = new Date(req.query.endDate).getTime();
   const result = await collection
     .find({
       waitingTimestamp: { $gte: timestamp1, $lte: timestamp2 },
