@@ -174,6 +174,96 @@ app.post('/addFeedback', async (req,res) =>{
     return res.status(200).json({id:result.insertedId});
 
 });
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}
+function sumArray(array) {
+  const ourArray = array;
+  let sum = 0;
+
+  for (let i = 0; i < ourArray.length; i += 1) {
+    sum += ourArray[i];
+  }
+  
+  return sum;
+}
+
+app.get("/getRetrosByDate", async (req, res) => {
+  console.log(
+    req.query,
+    "  ",
+    req.query.startDate,
+    "   -",
+    req.query.endDate
+  );
+  let timestamp1 = new Date(req.query.startDate).getTime();
+  let timestamp2 = new Date(req.query.endDate).getTime();
+  const result = await collection
+    .find({
+      waitingTimestamp: { $gte: timestamp1, $lte: timestamp2 },
+      //   "waitingTimestamp": { $lte: timestamp2 },
+    })
+    .toArray();
+  console.log(result.length, timestamp1, "<>", timestamp2);
+  const totalGroups = [];
+  const totalCardGroups = [];
+  const totalUsers = [];
+  const totalUsersCount = [];
+  const usersStringArray = [];
+  var count = 0;
+
+  result.length > 0 &&
+    result.forEach((retro) => {
+      const groups = [];
+      const users = [];
+
+      retro.action
+        ? retro.action.forEach((element) => {
+          if (
+            element.actionName == "mergeCards" ||
+            element.actionName == "createGroup"
+          ) {
+            console.log(count, "count");
+            count = count + 1;
+            groups.push(element);
+          } else if (element.actionName == "deleteGroup") {
+            console.log("deleteGroup");
+            groups.length > 0 &&
+              groups.forEach(function (group, index, object) {
+                if (group.parameters.groupId == element.parameters.groupId) {
+                  object.splice(index, 1);
+                  count = count - 1;
+                }
+              });
+          } else if (element.actionName == "joinRetro") {
+            users.push(element);
+            if (element.userId != "")
+              usersStringArray.push(element.userId)
+
+          }
+        })
+        : [];
+
+      totalGroups.push(groups.length);
+      totalCardGroups.push(groups);
+      totalUsers.push(users, users.length);
+      totalUsersCount.push(users.length);
+    });
+  const uniqueUsers = usersStringArray.filter(onlyUnique);
+  return res.status(200).json({
+    totalRetros: result.length,
+    uniqueUserCount: uniqueUsers.length,
+    avgUserCountPerRetro:sumArray(totalUsersCount)/result.length,
+    countOfUsers: sumArray(totalUsersCount),
+    avgGroupCount:sumArray(totalGroups)/result.length,
+    usersStringArray: uniqueUsers,
+    groupCountPerRetro: totalGroups,
+    count: count,
+    totalUsersCountPerRetro: totalUsersCount,
+    // totalUsers: totalUsers,
+    // totalCardGroups: totalCardGroups,
+  });
+});
 const port = process.env.PORT || 8080;
 
 server.listen(port, () => {
