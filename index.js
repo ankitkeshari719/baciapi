@@ -70,7 +70,6 @@ app.use((req, res, next) => {
 });
 
 // exposed API endpoint
-
 app.get(
   "/hello",
   passport.authenticate("oauth-bearer", { session: false }),
@@ -86,6 +85,7 @@ app.get(
     });
   }
 );
+
 app.post("/createRetro", async (req, res) => {
   let retro = req.body.retro;
   let creator = req.body.creator;
@@ -99,6 +99,7 @@ app.post("/createRetro", async (req, res) => {
   });
   return res.status(200).json({ id: result.insertedId });
 });
+
 app.post("/addRetroAction", async (req, res) => {
   let retroId = req.body.retroId;
   let action = req.body.action;
@@ -132,6 +133,7 @@ app.get("/getRetro", async (req, res) => {
   console.log(result);
   return res.status(200).json({ retro: result });
 });
+
 app.get("/getRetroByHumanId", async (req, res) => {
   let id = req.query.id;
   const result = await collection.find({ humanId: id }).toArray();
