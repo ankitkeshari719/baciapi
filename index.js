@@ -291,7 +291,7 @@ app.post("/addDeploymentDate", async (req, res) => {
 app.get("/getDeploymentDate", async (req, res) => {
   const result = await db.collection("deployment").find({ isActive: 1 }).toArray();
   console.log(result);
-  return res.status(200).json({ retro: result });
+  return res.status(200).json({ result: result });
 });
 
 const port = process.env.PORT || 8080;
