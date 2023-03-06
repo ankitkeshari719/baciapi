@@ -269,14 +269,11 @@ app.get("/getRetrosByDate", async (req, res) => {
 });
 
 // Api to add the deployment and  notification Date
-app.post("/addDeploymentDate", async (req, res) => {
+app.post("/addDeploymentData", async (req, res) => {
   let deploymentDate = req.body.deploymentDate;
   let notificationDate = req.body.notificationDate;
   let isActive = 1;
   let isDeployed = 0;
-
-  console.log("deploymentDate", deploymentDate);
-  console.log("notificationDate", notificationDate);
   const result = await db.collection("deployment").insertOne({
     deploymentDate,
     notificationDate,
@@ -284,12 +281,18 @@ app.post("/addDeploymentDate", async (req, res) => {
     isDeployed,
     timestamp: Date.now(),
   });
-  return res.status(200).json({ result: result._id });
+  console.log("result:: ", result);
+  return res
+    .status(200)
+    .json({ id: result.insertedId, message: "Data inserted successfully!" });
 });
 
 // Api to get the entry of deployment and  notification Date which is active
-app.get("/getDeploymentDate", async (req, res) => {
-  const result = await db.collection("deployment").find({ isActive: 1 }).toArray();
+app.get("/getDeploymentData", async (req, res) => {
+  const result = await db
+    .collection("deployment")
+    .find({ isActive: 1 })
+    .toArray();
   console.log(result);
   return res.status(200).json({ result: result });
 });
