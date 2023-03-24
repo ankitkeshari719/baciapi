@@ -277,7 +277,7 @@ app.post("/addDeploymentData", async (req, res) => {
   let checkedNotificationDate = new Date(notificationDate);
   if (checkedNotificationDate > checkedDeploymentDate) {
     return res.status(200).json({
-      message: "Notification Date should be lesser then Deployment Date  !",
+      message: "Notification Date should be lesser then Deployment Date!",
     });
   }
 
