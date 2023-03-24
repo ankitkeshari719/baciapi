@@ -294,8 +294,8 @@ app.post("/addDeploymentData", async (req, res) => {
   await db.collection("deployment").updateMany({}, { $set: { isDeployed: 1 } });
 
   const result = await db.collection("deployment").insertOne({
-    modifiedDeploymentDate,
-    modifiedNotificationDate,
+    deploymentDate:modifiedDeploymentDate,
+    notificationDate:modifiedNotificationDate,
     isActive,
     isDeployed,
     timestamp: Date.now(),
