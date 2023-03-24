@@ -10,6 +10,7 @@ const { MongoClient, ObjectId, Logger } = require("mongodb");
 const http = require("http");
 const { io } = require("./utils/socket");
 const { Socket } = require("./utils/socket");
+const moment = require("moment");
 
 const BearerStrategy = require("passport-azure-ad").BearerStrategy;
 const url = process.env.COSMOS_CONNECTION_STRING;
@@ -272,15 +273,34 @@ app.get("/getRetrosByDate", async (req, res) => {
 app.post("/addDeploymentData", async (req, res) => {
   let deploymentDate = req.body.deploymentDate;
   let notificationDate = req.body.notificationDate;
-  let isActive = 1;
-  let isDeployed = 0;
+  let checkedDeploymentDate = new Date(deploymentDate);
+  let checkedNotificationDate = new Date(notificationDate);
+  if (checkedNotificationDate > checkedDeploymentDate) {
+    return res.status(200).json({
+      message: "Notification Date should be lesser then Deployment Date  !",
+    });
+  }
+
+  const isActive = 1;
+  const isDeployed = 0;
+  const modifiedDeploymentDate = moment(checkedDeploymentDate).format(
+    "YYYY-MM-DDT00:00:00.SSSZ"
+  );
+  const modifiedNotificationDate = moment(checkedNotificationDate).format(
+    "YYYY-MM-DDT00:00:00.SSSZ"
+  );
+
+  await db.collection("deployment").updateMany({}, { $set: { isActive: 0 } });
+  await db.collection("deployment").updateMany({}, { $set: { isDeployed: 1 } });
+
   const result = await db.collection("deployment").insertOne({
-    deploymentDate,
-    notificationDate,
+    modifiedDeploymentDate,
+    modifiedNotificationDate,
     isActive,
     isDeployed,
     timestamp: Date.now(),
   });
+
   console.log("result:: ", result);
   return res
     .status(200)
