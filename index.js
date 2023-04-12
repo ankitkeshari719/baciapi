@@ -11,6 +11,7 @@ const http = require("http");
 const { io } = require("./utils/socket");
 const { Socket } = require("./utils/socket");
 const moment = require("moment");
+const nodeCron = require("node-cron");
 
 const BearerStrategy = require("passport-azure-ad").BearerStrategy;
 const url = process.env.COSMOS_CONNECTION_STRING;
@@ -294,14 +295,12 @@ app.post("/addDeploymentData", async (req, res) => {
   await db.collection("deployment").updateMany({}, { $set: { isDeployed: 1 } });
 
   const result = await db.collection("deployment").insertOne({
-    deploymentDate:modifiedDeploymentDate,
-    notificationDate:modifiedNotificationDate,
+    deploymentDate: modifiedDeploymentDate,
+    notificationDate: modifiedNotificationDate,
     isActive,
     isDeployed,
     timestamp: Date.now(),
   });
-
-  console.log("result:: ", result);
   return res
     .status(200)
     .json({ id: result.insertedId, message: "Data inserted successfully!" });
@@ -313,8 +312,36 @@ app.get("/getDeploymentData", async (req, res) => {
     .collection("deployment")
     .find({ isActive: 1 })
     .toArray();
-  console.log(result);
   return res.status(200).json({ result: result });
+});
+
+// Function to delete the Retro
+const deleteOlderRetro = async (retro_id) => {
+  const retro = await db.collection("retros").deleteOne({ _id: retro_id });
+  console.log("Deleted retro:: ", retro);
+};
+
+// Function to get all the retro data and evaluate the old time duration
+const getRetrosData = async () => {
+  const currentDate = moment(new Date()).format("DD/MM/YYYY HH:mm:ss");
+  const retros = await db.collection("retros").find().toArray();
+  retros.forEach((e) => {
+    const retroCreatedTime = moment
+      .unix(e.timestamp / 1000)
+      .format("DD/MM/YYYY HH:mm:ss");
+    const ms = moment(currentDate, "DD/MM/YYYY HH:mm:ss").diff(
+      moment(retroCreatedTime, "DD/MM/YYYY HH:mm:ss")
+    );
+    const duration = moment.duration(ms);
+    const timeElapsed = Math.floor(duration.asDays());
+    if (timeElapsed > 200) {
+      deleteOlderRetro(e._id);
+    }
+  });
+};
+
+const job = nodeCron.schedule("* * * * * *", function jobYouNeedToExecute() {
+  getRetrosData();
 });
 
 const port = process.env.PORT || 8080;
