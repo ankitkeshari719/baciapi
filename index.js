@@ -19,6 +19,22 @@ const client = new MongoClient(url);
 const db = client.db(`bacidb`);
 const collection = db.collection("retros");
 
+
+//openAI
+const { Configuration, OpenAIApi } = require("azure-openai");
+const openai = new OpenAIApi(
+  new Configuration({
+    apiKey: this.apiKey,
+    azure: {
+      apiKey: process.env.OPENAI_API_KEY,
+      endpoint: process.env.OPENAI_API_BASE,
+      //apiVersion: "2023-03-15-preview",
+      //apiType: "azure",
+    }
+  }),
+);
+
+
 const options = {
   identityMetadata: `https://${config.metadata.b2cDomain}/${config.credentials.tenantName}/${config.policies.policyName}/${config.metadata.version}/${config.metadata.discovery}`,
   clientID: config.credentials.clientID,
@@ -317,10 +333,221 @@ app.get("/getDeploymentData", async (req, res) => {
   return res.status(200).json({ result: result });
 });
 
-const port = process.env.PORT || 8080;
+
+
+
+
+//openAi
+
+app.post('/keywordExtraction', async (req, res) => {
+  // let retroId=req.body.retroId;
+  // let action= req.body.action;
+  // const query = { _id: retroId};
+  // const update = { $push: {action:{
+  //     ...action,
+  //     timestamp: Date.now(),
+  //     sourceActionTimestamp: action.sourceActionTimestamp,
+  //     //sourceActionTimestamp: Date.now(),
+  // } }};
+  // const options = {upsert: true};
+  // const result = await collection.findOneAndUpdate(query, update);
+  // action.timestamp = Date.now();
+  // console.log(`upsertResult1: ${JSON.stringify(result.value?._id)}\n`);
+  // Socket.emit("newMessage",retroId, [{
+  //     action: action,
+  //     retroId: retroId
+  //   }]);
+
+
+  try {
+
+
+
+    const jsonString1 = JSON.stringify(whatWentWell, null, 2);
+    const combinedString1 = `Please automatically categorise the phrases in the array into a new JSON array with the categories grouped into less than 6 groups\n\n${jsonString1}, please return it in the form of array`;
+
+
+    const completion = await openai.createChatCompletion({
+      model: "prod-baci-chat",
+      messages: [{ role: "user", content: combinedString1 }],
+    });
+    //console.log(completion);
+
+    // console.log(completion.data.choices[0]);
+    return res.status(200).json({ response: JSON.parse(completion.data.choices[0].message.content) });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(200).json(error);
+
+  }
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+// const {  OpenAIApi } = require("openai");
+
+// const configuration = new Configuration({
+//   apiKey: "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",
+// });
+
+async function getAiResponse(topic) {
+  const openai = new OpenAIApi(configuration);
+   await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: topic,
+    max_tokens: 1024,
+    n: 1,
+    stop: null,
+    temperature: 0.7
+  }).then(res=>{
+    return res
+    console.log(res.data.choices[0].text,"log here");
+  })
+
+  return completion
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.post('/groupSuggestion', async (req, res) => {
+  // let retroId=req.body.retroId;
+  // let action= req.body.action;
+  // const query = { _id: retroId};
+  // const update = { $push: {action:{
+  //     ...action,
+  //     timestamp: Date.now(),
+  //     sourceActionTimestamp: action.sourceActionTimestamp,
+  //     //sourceActionTimestamp: Date.now(),
+  // } }};
+  // const options = {upsert: true};
+  // const result = await collection.findOneAndUpdate(query, update);
+  // action.timestamp = Date.now();
+  // console.log(`upsertResult1: ${JSON.stringify(result.value?._id)}\n`);
+  // Socket.emit("newMessage",retroId, [{
+  //     action: action,
+  //     retroId: retroId
+  //   }]);
+
+
+  try {
+
+
+    const data = [];
+    let inputColumn = req.body.column;
+    inputColumn.forEach(element => {
+      data.push(element.value)
+
+    });
+
+
+
+    console.log(data)
+
+    const jsonString1 = JSON.stringify(data, null, 2);
+    // const combinedString1 = `Please automatically categorise the phrases in the array into a new JSON array with the categories grouped into less than 6 groups \n\n${jsonString1}, please return it in the form of array`;
+    const combinedString1 = `Please move the sentences to the group depending on their meaning, context  and other factors also allocate the name to group, max cards per group are 10. Then convert the response to json array.
+    The responst must be like [{category:"xyz",sentences["one","other"]}]. If you could not process or error then please provide with baciError300 only don't add other data
+    . The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object`
+
+    const completion = await openai.createChatCompletion({
+      model: "prod-baci-chat",
+      messages: [{ role: "user", content: combinedString1 }],
+    });
+//     const completion = getAiResponse(`Please move the sentences to the group depending on their meaning, context also allocate the name to group. Then convert the response to json array.
+// The responst must be like [{category:"xyz",sentences["one","other"]}]. If you could not process or error then please provide with baciError300 only don't add other data
+// . The sentences are present in array \n\n${jsonString1}`);
+
+    //console.log(completion);
+
+    console.log(completion.data.choices[0].message.content, completion.data.choices[0].message.content.includes("baciError300"));
+
+    if (!completion.data.choices[0].message.content.includes("baciError300") && JSON.parse(completion.data.choices[0].message.content)) {
+
+      const responseData = JSON.parse(completion.data.choices[0].message.content);
+      const structuredData = [];
+      responseData.forEach(element => {
+        const sentences = []
+        element.sentences.forEach(sentence => {
+
+          inputColumn.forEach(inputData => {
+
+            if (inputData.value == sentence) {
+              sentences.push(inputData)
+            }
+          })
+
+        })
+
+        structuredData.push({
+          groupName: element.category,
+          cards: sentences
+        })
+
+      });
+
+
+      return res.status(200).json({ response: structuredData });
+    }
+    else
+      return res.status(200).json({ response: "ChatGPT Fails, Please try again" });
+
+
+  } catch (error) {
+    console.error(error);
+    return res.status(200).json(error);
+
+  }
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+const port = process.env.PORT || 5051;
 
 server.listen(port, () => {
   console.log("Listening on port " + port);
 });
+
+
+
+
+
+
+
+
+
+
 
 module.exports = app;

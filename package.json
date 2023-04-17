@@ -9,11 +9,14 @@
     "test": "jest --forceExit --passWithNoTests"
   },
   "dependencies": {
+    "azure-openai": "^0.9.4",
     "dotenv": "^16.0.2",
     "express": "^4.14.0",
     "moment": "^2.29.4",
     "mongodb": "^4.9.1",
     "morgan": "^1.7.0",
+    "openai": "^3.2.1",
+    "node-cron": "^3.0.2",
     "passport": "^0.6.0",
     "passport-azure-ad": "^4.3.3",
     "server-timestamp": "^1.0.0",
