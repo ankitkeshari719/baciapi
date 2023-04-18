@@ -11,6 +11,7 @@ const http = require("http");
 const { io } = require("./utils/socket");
 const { Socket } = require("./utils/socket");
 const moment = require("moment");
+const nodeCron = require("node-cron");
 
 const BearerStrategy = require("passport-azure-ad").BearerStrategy;
 const url = process.env.COSMOS_CONNECTION_STRING;
@@ -18,7 +19,6 @@ const client = new MongoClient(url);
 
 const db = client.db(`bacidb`);
 const collection = db.collection("retros");
-
 
 //openAI
 const { Configuration, OpenAIApi } = require("azure-openai");
@@ -30,10 +30,9 @@ const openai = new OpenAIApi(
       endpoint: process.env.OPENAI_API_BASE,
       //apiVersion: "2023-03-15-preview",
       //apiType: "azure",
-    }
-  }),
+    },
+  })
 );
-
 
 const options = {
   identityMetadata: `https://${config.metadata.b2cDomain}/${config.credentials.tenantName}/${config.policies.policyName}/${config.metadata.version}/${config.metadata.discovery}`,
@@ -310,14 +309,12 @@ app.post("/addDeploymentData", async (req, res) => {
   await db.collection("deployment").updateMany({}, { $set: { isDeployed: 1 } });
 
   const result = await db.collection("deployment").insertOne({
-    deploymentDate:modifiedDeploymentDate,
-    notificationDate:modifiedNotificationDate,
+    deploymentDate: modifiedDeploymentDate,
+    notificationDate: modifiedNotificationDate,
     isActive,
     isDeployed,
     timestamp: Date.now(),
   });
-
-  console.log("result:: ", result);
   return res
     .status(200)
     .json({ id: result.insertedId, message: "Data inserted successfully!" });
@@ -329,17 +326,41 @@ app.get("/getDeploymentData", async (req, res) => {
     .collection("deployment")
     .find({ isActive: 1 })
     .toArray();
-  console.log(result);
   return res.status(200).json({ result: result });
 });
 
+// Function to delete the Retro
+const deleteOlderRetro = async (retro_id) => {
+  const retro = await db.collection("retros").deleteOne({ _id: retro_id });
+  console.log("Deleted retro:: ", retro);
+};
 
+// Function to get all the retro data and evaluate the old time duration
+const getRetrosData = async () => {
+  const currentDate = moment(new Date()).format("DD/MM/YYYY HH:mm:ss");
+  const retros = await db.collection("retros").find().toArray();
+  retros.forEach((e) => {
+    const retroCreatedTime = moment
+      .unix(e.timestamp / 1000)
+      .format("DD/MM/YYYY HH:mm:ss");
+    const ms = moment(currentDate, "DD/MM/YYYY HH:mm:ss").diff(
+      moment(retroCreatedTime, "DD/MM/YYYY HH:mm:ss")
+    );
+    const duration = moment.duration(ms);
+    const timeElapsed = Math.floor(duration.asDays());
+    if (timeElapsed > 90) {
+      deleteOlderRetro(e._id);
+    }
+  });
+};
 
-
+const job = nodeCron.schedule("* * * * * *", function jobYouNeedToExecute() {
+  getRetrosData();
+});
 
 //openAi
 
-app.post('/keywordExtraction', async (req, res) => {
+app.post("/keywordExtraction", async (req, res) => {
   // let retroId=req.body.retroId;
   // let action= req.body.action;
   // const query = { _id: retroId};
@@ -357,44 +378,23 @@ app.post('/keywordExtraction', async (req, res) => {
   //     action: action,
   //     retroId: retroId
   //   }]);
-
-
   try {
-
-
-
     const jsonString1 = JSON.stringify(whatWentWell, null, 2);
     const combinedString1 = `Please automatically categorise the phrases in the array into a new JSON array with the categories grouped into less than 6 groups\n\n${jsonString1}, please return it in the form of array`;
-
-
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
       messages: [{ role: "user", content: combinedString1 }],
     });
-    //console.log(completion);
-
-    // console.log(completion.data.choices[0]);
-    return res.status(200).json({ response: JSON.parse(completion.data.choices[0].message.content) });
-
+    return res
+      .status(200)
+      .json({
+        response: JSON.parse(completion.data.choices[0].message.content),
+      });
   } catch (error) {
     console.error(error);
     return res.status(200).json(error);
-
   }
-
-
 });
-
-
-
-
-
-
-
-
-
-
-
 
 // const {  OpenAIApi } = require("openai");
 
@@ -404,34 +404,23 @@ app.post('/keywordExtraction', async (req, res) => {
 
 async function getAiResponse(topic) {
   const openai = new OpenAIApi(configuration);
-   await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: topic,
-    max_tokens: 1024,
-    n: 1,
-    stop: null,
-    temperature: 0.7
-  }).then(res=>{
-    return res
-    console.log(res.data.choices[0].text,"log here");
-  })
-
-  return completion
+  await openai
+    .createCompletion({
+      model: "text-davinci-003",
+      prompt: topic,
+      max_tokens: 1024,
+      n: 1,
+      stop: null,
+      temperature: 0.7,
+    })
+    .then((res) => {
+      return res;
+      console.log(res.data.choices[0].text, "log here");
+    });
+  return completion;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-app.post('/groupSuggestion', async (req, res) => {
+app.post("/groupSuggestion", async (req, res) => {
   // let retroId=req.body.retroId;
   // let action= req.body.action;
   // const query = { _id: retroId};
@@ -450,104 +439,75 @@ app.post('/groupSuggestion', async (req, res) => {
   //     retroId: retroId
   //   }]);
 
-
   try {
-
-
     const data = [];
     let inputColumn = req.body.column;
-    inputColumn.forEach(element => {
-      data.push(element.value)
-
+    inputColumn.forEach((element) => {
+      data.push(element.value);
     });
 
-
-
-    console.log(data)
+    console.log(data);
 
     const jsonString1 = JSON.stringify(data, null, 2);
     // const combinedString1 = `Please automatically categorise the phrases in the array into a new JSON array with the categories grouped into less than 6 groups \n\n${jsonString1}, please return it in the form of array`;
     const combinedString1 = `Please move the sentences to the group depending on their meaning, context  and other factors also allocate the name to group, max cards per group are 10. Then convert the response to json array.
     The responst must be like [{category:"xyz",sentences["one","other"]}]. If you could not process or error then please provide with baciError300 only don't add other data
-    . The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object`
+    . The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object`;
 
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
       messages: [{ role: "user", content: combinedString1 }],
     });
-//     const completion = getAiResponse(`Please move the sentences to the group depending on their meaning, context also allocate the name to group. Then convert the response to json array.
-// The responst must be like [{category:"xyz",sentences["one","other"]}]. If you could not process or error then please provide with baciError300 only don't add other data
-// . The sentences are present in array \n\n${jsonString1}`);
+    //     const completion = getAiResponse(`Please move the sentences to the group depending on their meaning, context also allocate the name to group. Then convert the response to json array.
+    // The responst must be like [{category:"xyz",sentences["one","other"]}]. If you could not process or error then please provide with baciError300 only don't add other data
+    // . The sentences are present in array \n\n${jsonString1}`);
 
     //console.log(completion);
 
-    console.log(completion.data.choices[0].message.content, completion.data.choices[0].message.content.includes("baciError300"));
+    console.log(
+      completion.data.choices[0].message.content,
+      completion.data.choices[0].message.content.includes("baciError300")
+    );
 
-    if (!completion.data.choices[0].message.content.includes("baciError300") && JSON.parse(completion.data.choices[0].message.content)) {
-
-      const responseData = JSON.parse(completion.data.choices[0].message.content);
+    if (
+      !completion.data.choices[0].message.content.includes("baciError300") &&
+      JSON.parse(completion.data.choices[0].message.content)
+    ) {
+      const responseData = JSON.parse(
+        completion.data.choices[0].message.content
+      );
       const structuredData = [];
-      responseData.forEach(element => {
-        const sentences = []
-        element.sentences.forEach(sentence => {
-
-          inputColumn.forEach(inputData => {
-
+      responseData.forEach((element) => {
+        const sentences = [];
+        element.sentences.forEach((sentence) => {
+          inputColumn.forEach((inputData) => {
             if (inputData.value == sentence) {
-              sentences.push(inputData)
+              sentences.push(inputData);
             }
-          })
-
-        })
+          });
+        });
 
         structuredData.push({
           groupName: element.category,
-          cards: sentences
-        })
-
+          cards: sentences,
+        });
       });
 
-
       return res.status(200).json({ response: structuredData });
-    }
-    else
-      return res.status(200).json({ response: "ChatGPT Fails, Please try again" });
-
-
+    } else
+      return res
+        .status(200)
+        .json({ response: "ChatGPT Fails, Please try again" });
   } catch (error) {
     console.error(error);
     return res.status(200).json(error);
-
   }
-
-
 });
 
-
-
-
-
-
-
-
-
-
-
-
-const port = process.env.PORT || 5051;
+const port = process.env.PORT || 8080;
 
 server.listen(port, () => {
   console.log("Listening on port " + port);
 });
-
-
-
-
-
-
-
-
-
-
 
 module.exports = app;
