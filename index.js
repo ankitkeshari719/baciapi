@@ -241,27 +241,27 @@ app.get("/getRetrosByDate", async (req, res) => {
 
       retro.action
         ? retro.action.forEach((element) => {
-            if (
-              element.actionName == "mergeCards" ||
-              element.actionName == "createGroup"
-            ) {
-              console.log(count, "count");
-              count = count + 1;
-              groups.push(element);
-            } else if (element.actionName == "deleteGroup") {
-              console.log("deleteGroup");
-              groups.length > 0 &&
-                groups.forEach(function (group, index, object) {
-                  if (group.parameters.groupId == element.parameters.groupId) {
-                    object.splice(index, 1);
-                    count = count - 1;
-                  }
-                });
-            } else if (element.actionName == "joinRetro") {
-              users.push(element);
-              if (element.userId != "") usersStringArray.push(element.userId);
-            }
-          })
+          if (
+            element.actionName == "mergeCards" ||
+            element.actionName == "createGroup"
+          ) {
+            console.log(count, "count");
+            count = count + 1;
+            groups.push(element);
+          } else if (element.actionName == "deleteGroup") {
+            console.log("deleteGroup");
+            groups.length > 0 &&
+              groups.forEach(function (group, index, object) {
+                if (group.parameters.groupId == element.parameters.groupId) {
+                  object.splice(index, 1);
+                  count = count - 1;
+                }
+              });
+          } else if (element.actionName == "joinRetro") {
+            users.push(element);
+            if (element.userId != "") usersStringArray.push(element.userId);
+          }
+        })
         : [];
 
       totalGroups.push(groups.length);
@@ -310,8 +310,8 @@ app.post("/addDeploymentData", async (req, res) => {
   await db.collection("deployment").updateMany({}, { $set: { isDeployed: 1 } });
 
   const result = await db.collection("deployment").insertOne({
-    deploymentDate:modifiedDeploymentDate,
-    notificationDate:modifiedNotificationDate,
+    deploymentDate: modifiedDeploymentDate,
+    notificationDate: modifiedNotificationDate,
     isActive,
     isDeployed,
     timestamp: Date.now(),
@@ -362,10 +362,8 @@ app.post('/keywordExtraction', async (req, res) => {
   try {
 
 
-
     const jsonString1 = JSON.stringify(whatWentWell, null, 2);
     const combinedString1 = `Please automatically categorise the phrases in the array into a new JSON array with the categories grouped into less than 6 groups\n\n${jsonString1}, please return it in the form of array`;
-
 
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
@@ -404,16 +402,16 @@ app.post('/keywordExtraction', async (req, res) => {
 
 async function getAiResponse(topic) {
   const openai = new OpenAIApi(configuration);
-   await openai.createCompletion({
+  await openai.createCompletion({
     model: "text-davinci-003",
     prompt: topic,
     max_tokens: 1024,
     n: 1,
     stop: null,
     temperature: 0.7
-  }).then(res=>{
+  }).then(res => {
     return res
-    console.log(res.data.choices[0].text,"log here");
+    console.log(res.data.choices[0].text, "log here");
   })
 
   return completion
@@ -468,16 +466,20 @@ app.post('/groupSuggestion', async (req, res) => {
     const jsonString1 = JSON.stringify(data, null, 2);
     // const combinedString1 = `Please automatically categorise the phrases in the array into a new JSON array with the categories grouped into less than 6 groups \n\n${jsonString1}, please return it in the form of array`;
     const combinedString1 = `Please move the sentences to the group depending on their meaning, context  and other factors also allocate the name to group, max cards per group are 10. Then convert the response to json array.
-    The responst must be like [{category:"xyz",sentences["one","other"]}]. If you could not process or error then please provide with baciError300 only don't add other data
-    . The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object`
+     If you could not process or error then please provide with baciError300 only don't add other data
+    . The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object,All groups should not contain one card each,one group can have one card.The responst must be like [{category:"xyz",sentences["one","other"]}]`
+
+    const combinedString2 = `Please help me group these sentences into categories and give each category a name. Then convert the response to json array.
+     If you could not process or error then please provide with baciError300 only don't add other data
+    . The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object,All categories should not contain one card each,one category can have one card.The responst must be like [{category:"xyz",sentences["one","other"]}]`
 
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
-      messages: [{ role: "user", content: combinedString1 }],
+      messages: [{ role: "user", content: combinedString2 }],
     });
-//     const completion = getAiResponse(`Please move the sentences to the group depending on their meaning, context also allocate the name to group. Then convert the response to json array.
-// The responst must be like [{category:"xyz",sentences["one","other"]}]. If you could not process or error then please provide with baciError300 only don't add other data
-// . The sentences are present in array \n\n${jsonString1}`);
+    //     const completion = getAiResponse(`Please move the sentences to the group depending on their meaning, context also allocate the name to group. Then convert the response to json array.
+    // The responst must be like [{category:"xyz",sentences["one","other"]}]. If you could not process or error then please provide with baciError300 only don't add other data
+    // . The sentences are present in array \n\n${jsonString1}`);
 
     //console.log(completion);
 
@@ -492,7 +494,7 @@ app.post('/groupSuggestion', async (req, res) => {
         element.sentences.forEach(sentence => {
 
           inputColumn.forEach(inputData => {
-
+            // console.log(inputData.value == sentence, "sentence",inputData.value , sentence)
             if (inputData.value == sentence) {
               sentences.push(inputData)
             }
