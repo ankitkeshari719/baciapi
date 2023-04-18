@@ -354,7 +354,8 @@ const getRetrosData = async () => {
   });
 };
 
-const job = nodeCron.schedule("* * * * * *", function jobYouNeedToExecute() {
+// This cron-job will run at 00:30:00am 
+const job = nodeCron.schedule("0 30 0 * * *", function jobYouNeedToExecute() {
   getRetrosData();
 });
 
