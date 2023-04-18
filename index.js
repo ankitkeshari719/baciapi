@@ -11,6 +11,7 @@ const http = require("http");
 const { io } = require("./utils/socket");
 const { Socket } = require("./utils/socket");
 const moment = require("moment");
+var momentTimeZone = require("moment-timezone");
 const nodeCron = require("node-cron");
 
 const BearerStrategy = require("passport-azure-ad").BearerStrategy;
@@ -284,6 +285,14 @@ app.get("/getRetrosByDate", async (req, res) => {
   });
 });
 
+function convertTZ(date, tzString) {
+  return new Date(
+    (typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {
+      timeZone: tzString,
+    })
+  );
+}
+
 // Api to add the deployment and  notification Date
 app.post("/addDeploymentData", async (req, res) => {
   let deploymentDate = req.body.deploymentDate;
@@ -296,14 +305,18 @@ app.post("/addDeploymentData", async (req, res) => {
     });
   }
 
+  var timezone = momentTimeZone.tz.guess();
+
   const isActive = 1;
   const isDeployed = 0;
-  const modifiedDeploymentDate = moment(checkedDeploymentDate).format(
-    "YYYY-MM-DDT00:00:00.SSSZ"
-  );
-  const modifiedNotificationDate = moment(checkedNotificationDate).format(
-    "YYYY-MM-DDT00:00:00.SSSZ"
-  );
+  const modifiedDeploymentDate = moment(
+    convertTZ(checkedDeploymentDate, timezone)
+  ).format("YYYY-MM-DDThh:mm:ss.SSSZ");
+  const modifiedNotificationDate = moment(
+    convertTZ(checkedNotificationDate, timezone)
+  ).format("YYYY-MM-DDT00:00:00.SSSZ");
+
+  console.log("date", modifiedDeploymentDate, modifiedNotificationDate);
 
   await db.collection("deployment").updateMany({}, { $set: { isActive: 0 } });
   await db.collection("deployment").updateMany({}, { $set: { isDeployed: 1 } });
@@ -354,7 +367,7 @@ const getRetrosData = async () => {
   });
 };
 
-// This cron-job will run at 00:30:00am 
+// This cron-job will run at 00:30:00am
 const job = nodeCron.schedule("0 30 0 * * *", function jobYouNeedToExecute() {
   getRetrosData();
 });
@@ -386,11 +399,9 @@ app.post("/keywordExtraction", async (req, res) => {
       model: "prod-baci-chat",
       messages: [{ role: "user", content: combinedString1 }],
     });
-    return res
-      .status(200)
-      .json({
-        response: JSON.parse(completion.data.choices[0].message.content),
-      });
+    return res.status(200).json({
+      response: JSON.parse(completion.data.choices[0].message.content),
+    });
   } catch (error) {
     console.error(error);
     return res.status(200).json(error);
