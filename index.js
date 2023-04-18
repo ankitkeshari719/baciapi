@@ -309,14 +309,12 @@ app.post("/addDeploymentData", async (req, res) => {
 
   const isActive = 1;
   const isDeployed = 0;
-  const modifiedDeploymentDate = moment(
-    convertTZ(checkedDeploymentDate, timezone)
-  ).format("YYYY-MM-DDThh:mm:ss.SSSZ");
-  const modifiedNotificationDate = moment(
-    convertTZ(checkedNotificationDate, timezone)
-  ).format("YYYY-MM-DDT00:00:00.SSSZ");
-
-  console.log("date", modifiedDeploymentDate, modifiedNotificationDate);
+  const modifiedDeploymentDate = moment(checkedDeploymentDate).format(
+    "YYYY-MM-DDThh:mm:ss.SSSZ"
+  );
+  const modifiedNotificationDate = moment(checkedNotificationDate).format(
+    "YYYY-MM-DDT00:00:00.SSSZ"
+  );
 
   await db.collection("deployment").updateMany({}, { $set: { isActive: 0 } });
   await db.collection("deployment").updateMany({}, { $set: { isDeployed: 1 } });
