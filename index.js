@@ -284,7 +284,7 @@ app.post("/addDeploymentData", async (req, res) => {
   const isActive = 1;
   const isDeployed = 0;
   const modifiedDeploymentDate = moment(checkedDeploymentDate).format(
-    "YYYY-MM-DDT00:00:00.SSSZ"
+    "YYYY-MM-DDThh:mm:ss.SSSZ"
   );
   const modifiedNotificationDate = moment(checkedNotificationDate).format(
     "YYYY-MM-DDT00:00:00.SSSZ"
@@ -294,14 +294,12 @@ app.post("/addDeploymentData", async (req, res) => {
   await db.collection("deployment").updateMany({}, { $set: { isDeployed: 1 } });
 
   const result = await db.collection("deployment").insertOne({
-    deploymentDate:modifiedDeploymentDate,
-    notificationDate:modifiedNotificationDate,
+    deploymentDate: modifiedDeploymentDate,
+    notificationDate: modifiedNotificationDate,
     isActive,
     isDeployed,
     timestamp: Date.now(),
   });
-
-  console.log("result:: ", result);
   return res
     .status(200)
     .json({ id: result.insertedId, message: "Data inserted successfully!" });
