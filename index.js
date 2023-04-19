@@ -462,7 +462,7 @@ app.post("/groupSuggestion", async (req, res) => {
 //      const combinedString1 = `Please dont use sentiment analysis for grouping. Please automatically categorise the phrases in the array into a new JSON array with the categories grouped into less than 6 groups \n\n${jsonString1}.
 //     The responst must be like [{category:"xyz",sentences["one","other"]}]. If you could not process or error then please provide with baciError300 only don't add other data
 //     . The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object`;
-    const combinedString1 = `Don't use sentiment analysis for grouping. Move the sentences to the group depending on their meaning, context  and other factors also allocate the name to group, max cards per group are 10. Then convert the response to json array.
+    const combinedString1 = `Please dont return grouping on sentiment. Move the sentences to the group depending on their meaning, context  and other factors also allocate the name to group, max cards per group are 10. Then convert the response to json array.
 The responst must be like [{category:"xyz",sentences["one","other"]}].Group count should be less than 6. If you could not process or error then please provide with baciError300 only don't add other data
 . The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object`;
 
