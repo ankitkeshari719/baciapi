@@ -462,7 +462,9 @@ app.post("/groupSuggestion", async (req, res) => {
 //      const combinedString1 = `Please dont return sentimental grouping. Please automatically categorise the phrases in the array into a new JSON array with the categories grouped into less than 6 groups \n\n${jsonString1}.
 //     The responst must be like [{category:"xyz",sentences["one","other"]}]. If you could not process or error then please provide with baciError300 only don't add other data
 //     . The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object`;
-    const combinedString1 = `I think we have to ask him to "Group the below cards depending on context, meaning and other factor. Don't group them on sentiments. Group count should be less then 6. More than two group should not consists only one card. Allocate the proper name to group depending on cards consists by that group. Then convert the response to json array.The response must be like [{category:"xyz",sentences["one","other"]}]. If you could not process or error then please provide with baciError300 only don't add other data. The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object"`;
+    const combinedString1 = `Please dont return sentimental grouping. Move the sentences to the less than 6 group depending on their meaning, context  and other factors also allocate the name to group, max cards per group are 10. Then convert the response to json array.
+The responst must be like [{category:"xyz",sentences["one","other"]}]. If you could not process or error then please provide with baciError300 only don't add other data
+. The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object`;
 
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
