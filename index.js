@@ -11,6 +11,8 @@ const http = require("http");
 const { io } = require("./utils/socket");
 const { Socket } = require("./utils/socket");
 const moment = require("moment");
+var momentTimeZone = require("moment-timezone");
+const nodeCron = require("node-cron");
 
 const BearerStrategy = require("passport-azure-ad").BearerStrategy;
 const url = process.env.COSMOS_CONNECTION_STRING;
@@ -18,7 +20,6 @@ const client = new MongoClient(url);
 
 const db = client.db(`bacidb`);
 const collection = db.collection("retros");
-
 
 //openAI
 const { Configuration, OpenAIApi } = require("azure-openai");
@@ -30,10 +31,9 @@ const openai = new OpenAIApi(
       endpoint: process.env.OPENAI_API_BASE,
       //apiVersion: "2023-03-15-preview",
       //apiType: "azure",
-    }
-  }),
+    },
+  })
 );
-
 
 const options = {
   identityMetadata: `https://${config.metadata.b2cDomain}/${config.credentials.tenantName}/${config.policies.policyName}/${config.metadata.version}/${config.metadata.discovery}`,
@@ -285,6 +285,14 @@ app.get("/getRetrosByDate", async (req, res) => {
   });
 });
 
+function convertTZ(date, tzString) {
+  return new Date(
+    (typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {
+      timeZone: tzString,
+    })
+  );
+}
+
 // Api to add the deployment and  notification Date
 app.post("/addDeploymentData", async (req, res) => {
   let deploymentDate = req.body.deploymentDate;
@@ -297,10 +305,12 @@ app.post("/addDeploymentData", async (req, res) => {
     });
   }
 
+  var timezone = momentTimeZone.tz.guess();
+
   const isActive = 1;
   const isDeployed = 0;
   const modifiedDeploymentDate = moment(checkedDeploymentDate).format(
-    "YYYY-MM-DDT00:00:00.SSSZ"
+    "YYYY-MM-DDThh:mm:ss.SSSZ"
   );
   const modifiedNotificationDate = moment(checkedNotificationDate).format(
     "YYYY-MM-DDT00:00:00.SSSZ"
@@ -316,8 +326,6 @@ app.post("/addDeploymentData", async (req, res) => {
     isDeployed,
     timestamp: Date.now(),
   });
-
-  console.log("result:: ", result);
   return res
     .status(200)
     .json({ id: result.insertedId, message: "Data inserted successfully!" });
@@ -329,17 +337,42 @@ app.get("/getDeploymentData", async (req, res) => {
     .collection("deployment")
     .find({ isActive: 1 })
     .toArray();
-  console.log(result);
   return res.status(200).json({ result: result });
 });
 
+// Function to delete the Retro
+const deleteOlderRetro = async (retro_id) => {
+  const retro = await db.collection("retros").deleteOne({ _id: retro_id });
+  console.log("Deleted retro:: ", retro);
+};
 
+// Function to get all the retro data and evaluate the old time duration
+const getRetrosData = async () => {
+  const currentDate = moment(new Date()).format("DD/MM/YYYY HH:mm:ss");
+  const retros = await db.collection("retros").find().toArray();
+  retros.forEach((e) => {
+    const retroCreatedTime = moment
+      .unix(e.timestamp / 1000)
+      .format("DD/MM/YYYY HH:mm:ss");
+    const ms = moment(currentDate, "DD/MM/YYYY HH:mm:ss").diff(
+      moment(retroCreatedTime, "DD/MM/YYYY HH:mm:ss")
+    );
+    const duration = moment.duration(ms);
+    const timeElapsed = Math.floor(duration.asDays());
+    if (timeElapsed > 90) {
+      deleteOlderRetro(e._id);
+    }
+  });
+};
 
-
+// This cron-job will run at 00:30:00am
+const job = nodeCron.schedule("0 30 0 * * *", function jobYouNeedToExecute() {
+  getRetrosData();
+});
 
 //openAi
 
-app.post('/keywordExtraction', async (req, res) => {
+app.post("/keywordExtraction", async (req, res) => {
   // let retroId=req.body.retroId;
   // let action= req.body.action;
   // const query = { _id: retroId};
@@ -357,8 +390,6 @@ app.post('/keywordExtraction', async (req, res) => {
   //     action: action,
   //     retroId: retroId
   //   }]);
-
-
   try {
 
 
@@ -375,10 +406,7 @@ app.post('/keywordExtraction', async (req, res) => {
   } catch (error) {
 
     return res.status(200).json(error);
-
   }
-
-
 });
 
 
@@ -426,9 +454,8 @@ app.post('/groupSuggestion', async (req, res) => {
   try {
     const data = [];
     let inputColumn = req.body.column;
-    inputColumn.forEach(element => {
-      data.push(element.value)
-
+    inputColumn.forEach((element) => {
+      data.push(element.value);
     });
 
     const jsonString = JSON.stringify(data, null, 2);
@@ -442,71 +469,47 @@ app.post('/groupSuggestion', async (req, res) => {
     });
   
 
-    if (!completion.data.choices[0].message.content.includes("baciError300") && JSON.parse(completion.data.choices[0].message.content)) {
-
-      const responseData = JSON.parse(completion.data.choices[0].message.content);
+    if (
+      !completion.data.choices[0].message.content.includes("baciError300") &&
+      JSON.parse(completion.data.choices[0].message.content)
+    ) {
+      const responseData = JSON.parse(
+        completion.data.choices[0].message.content
+      );
       const structuredData = [];
       responseData.forEach(element => {
         const sentences = []
         element.sentences.forEach(sentence => {
 
           inputColumn.forEach(inputData => {
-            // console.log(inputData.value == sentence, "sentence",inputData.value , sentence)
+           
             if (inputData.value.toLowerCase() == sentence.toLowerCase()) {
               sentences.push(inputData)
             }
-          })
-
-        })
+          });
+        });
 
         structuredData.push({
           groupName: element.category,
-          cards: sentences
-        })
-
+          cards: sentences,
+        });
       });
 
-
       return res.status(200).json({ response: structuredData });
-    }
-    else
-      return res.status(200).json({ response: "ChatGPT Fails, Please try again" });
-
-
+    } else
+      return res
+        .status(200)
+        .json({ response: "ChatGPT Fails, Please try again" });
   } catch (error) {
     // console.error(error);
     return res.status(200).json(error);
-
   }
-
-
 });
 
-
-
-
-
-
-
-
-
-
-
-
-const port = process.env.PORT || 5051;
+const port = process.env.PORT || 8080;
 
 server.listen(port, () => {
   console.log("Listening on port " + port);
 });
-
-
-
-
-
-
-
-
-
-
 
 module.exports = app;
