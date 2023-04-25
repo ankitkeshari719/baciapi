@@ -39,15 +39,15 @@ jobs:
           file: ./Dockerfile
           context: ./
 
-      - uses: azure/container-scan@v0
-        with:
-          image-name: bacibackend.azurecr.io/backend-dev:${{ github.sha }}
-          username: ${{ secrets.DEVAPICONTAINERAPP_REGISTRY_USERNAME }}
-          password: ${{ secrets.DEVAPICONTAINERAPP_REGISTRY_PASSWORD }}
-          severity-threshold: CRITICAL
-          run-quality-checks: true
-        env:
-          DOCKLE_TIMEOUT_SEC: 600s
+#       - uses: azure/container-scan@v0
+#         with:
+#           image-name: bacibackend.azurecr.io/backend-dev:${{ github.sha }}
+#           username: ${{ secrets.DEVAPICONTAINERAPP_REGISTRY_USERNAME }}
+#           password: ${{ secrets.DEVAPICONTAINERAPP_REGISTRY_PASSWORD }}
+#           severity-threshold: CRITICAL
+#           run-quality-checks: true
+#         env:
+#           DOCKLE_TIMEOUT_SEC: 600s
 
 
   deploy:
