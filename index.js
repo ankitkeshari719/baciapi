@@ -241,27 +241,27 @@ app.get("/getRetrosByDate", async (req, res) => {
 
       retro.action
         ? retro.action.forEach((element) => {
-            if (
-              element.actionName == "mergeCards" ||
-              element.actionName == "createGroup"
-            ) {
-              console.log(count, "count");
-              count = count + 1;
-              groups.push(element);
-            } else if (element.actionName == "deleteGroup") {
-              console.log("deleteGroup");
-              groups.length > 0 &&
-                groups.forEach(function (group, index, object) {
-                  if (group.parameters.groupId == element.parameters.groupId) {
-                    object.splice(index, 1);
-                    count = count - 1;
-                  }
-                });
-            } else if (element.actionName == "joinRetro") {
-              users.push(element);
-              if (element.userId != "") usersStringArray.push(element.userId);
-            }
-          })
+          if (
+            element.actionName == "mergeCards" ||
+            element.actionName == "createGroup"
+          ) {
+            console.log(count, "count");
+            count = count + 1;
+            groups.push(element);
+          } else if (element.actionName == "deleteGroup") {
+            console.log("deleteGroup");
+            groups.length > 0 &&
+              groups.forEach(function (group, index, object) {
+                if (group.parameters.groupId == element.parameters.groupId) {
+                  object.splice(index, 1);
+                  count = count - 1;
+                }
+              });
+          } else if (element.actionName == "joinRetro") {
+            users.push(element);
+            if (element.userId != "") usersStringArray.push(element.userId);
+          }
+        })
         : [];
 
       totalGroups.push(groups.length);
@@ -391,64 +391,66 @@ app.post("/keywordExtraction", async (req, res) => {
   //     retroId: retroId
   //   }]);
   try {
+
+
     const jsonString1 = JSON.stringify(whatWentWell, null, 2);
     const combinedString1 = `Please automatically categorise the phrases in the array into a new JSON array with the categories grouped into less than 6 groups\n\n${jsonString1}, please return it in the form of array`;
+
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
       messages: [{ role: "user", content: combinedString1 }],
     });
-    return res.status(200).json({
-      response: JSON.parse(completion.data.choices[0].message.content),
-    });
+
+    return res.status(200).json({ response: JSON.parse(completion.data.choices[0].message.content) });
+
   } catch (error) {
-    console.error(error);
+
     return res.status(200).json(error);
   }
 });
 
-// const {  OpenAIApi } = require("openai");
 
-// const configuration = new Configuration({
-//   apiKey: "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",
-// });
+
+
+
+
+
+
+
+
+
+
 
 async function getAiResponse(topic) {
   const openai = new OpenAIApi(configuration);
-  await openai
-    .createCompletion({
-      model: "text-davinci-003",
-      prompt: topic,
-      max_tokens: 1024,
-      n: 1,
-      stop: null,
-      temperature: 0.7,
-    })
-    .then((res) => {
-      return res;
-      console.log(res.data.choices[0].text, "log here");
-    });
-  return completion;
+  await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: topic,
+    max_tokens: 1024,
+    n: 1,
+    stop: null,
+    temperature: 0.7
+  }).then(res => {
+    return res
+    console.log(res.data.choices[0].text, "log here");
+  })
+
+  return completion
 }
 
-app.post("/groupSuggestion", async (req, res) => {
-  // let retroId=req.body.retroId;
-  // let action= req.body.action;
-  // const query = { _id: retroId};
-  // const update = { $push: {action:{
-  //     ...action,
-  //     timestamp: Date.now(),
-  //     sourceActionTimestamp: action.sourceActionTimestamp,
-  //     //sourceActionTimestamp: Date.now(),
-  // } }};
-  // const options = {upsert: true};
-  // const result = await collection.findOneAndUpdate(query, update);
-  // action.timestamp = Date.now();
-  // console.log(`upsertResult1: ${JSON.stringify(result.value?._id)}\n`);
-  // Socket.emit("newMessage",retroId, [{
-  //     action: action,
-  //     retroId: retroId
-  //   }]);
 
+
+
+
+
+
+
+
+
+
+
+
+app.post('/groupSuggestion', async (req, res) => {
   try {
     const data = [];
     let inputColumn = req.body.column;
@@ -456,29 +458,19 @@ app.post("/groupSuggestion", async (req, res) => {
       data.push(element.value);
     });
 
-    console.log(data);
-
-    const jsonString1 = JSON.stringify(data, null, 2);
+const jsonString1 = JSON.stringify(data, null, 2);
 //      const combinedString1 = `Please dont use sentiment analysis for grouping. Please automatically categorise the phrases in the array into a new JSON array with the categories grouped into less than 6 groups \n\n${jsonString1}.
 //     The responst must be like [{category:"xyz",sentences["one","other"]}]. If you could not process or error then please provide with baciError300 only don't add other data
 //     . The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object`;
     const combinedString1 = `Please help me group these sentences into categories and give each category a name, dont use sentiment analysis for grouping.The group count should be less then 6, maximum 2 group should contain only one card. Then convert the response to json array.
      If you could not process or error then please provide with baciError300 only don't add other data. The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object,All categories should not contain one card each,one category can have one card.The responst must be like [{category:"xyz",sentences["one","other"]}]`;
 
+
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
-      messages: [{ role: "user", content: combinedString1 }],
+      messages: [{ role: "user", content: combinedString }],
     });
-    //     const completion = getAiResponse(`Please move the sentences to the group depending on their meaning, context also allocate the name to group. Then convert the response to json array.
-    // The responst must be like [{category:"xyz",sentences["one","other"]}]. If you could not process or error then please provide with baciError300 only don't add other data
-    // . The sentences are present in array \n\n${jsonString1}`);
-
-    //console.log(completion);
-
-    console.log(
-      completion.data.choices[0].message.content,
-      completion.data.choices[0].message.content.includes("baciError300")
-    );
+  
 
     if (
       !completion.data.choices[0].message.content.includes("baciError300") &&
@@ -488,12 +480,14 @@ app.post("/groupSuggestion", async (req, res) => {
         completion.data.choices[0].message.content
       );
       const structuredData = [];
-      responseData.forEach((element) => {
-        const sentences = [];
-        element.sentences.forEach((sentence) => {
-          inputColumn.forEach((inputData) => {
-            if (inputData.value == sentence) {
-              sentences.push(inputData);
+      responseData.forEach(element => {
+        const sentences = []
+        element.sentences.forEach(sentence => {
+
+          inputColumn.forEach(inputData => {
+           
+            if (inputData.value.toLowerCase() == sentence.toLowerCase()) {
+              sentences.push(inputData)
             }
           });
         });
@@ -510,7 +504,7 @@ app.post("/groupSuggestion", async (req, res) => {
         .status(200)
         .json({ response: "ChatGPT Fails, Please try again" });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return res.status(200).json(error);
   }
 });
