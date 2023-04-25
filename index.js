@@ -458,10 +458,13 @@ app.post('/groupSuggestion', async (req, res) => {
       data.push(element.value);
     });
 
-    const jsonString = JSON.stringify(data, null, 2);
-   
-    const combinedString = `Please help me group these sentences into categories and give each category a name, dont use sentiment analysis for grouping.The group count should be less then 6, maximum 2 group should contain only one card. Then convert the response to json array.
-    If you could not process or error then please provide with baciError300 only don't add other data. The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object,All categories should not contain one card each,one category can have one card.The responst must be like [{category:"xyz",sentences["one","other"]}]`
+const jsonString1 = JSON.stringify(data, null, 2);
+//      const combinedString1 = `Please dont use sentiment analysis for grouping. Please automatically categorise the phrases in the array into a new JSON array with the categories grouped into less than 6 groups \n\n${jsonString1}.
+//     The responst must be like [{category:"xyz",sentences["one","other"]}]. If you could not process or error then please provide with baciError300 only don't add other data
+//     . The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object`;
+    const combinedString1 = `Please help me group these sentences into categories and give each category a name, dont use sentiment analysis for grouping.The group count should be less then 6, maximum 2 group should contain only one card. Then convert the response to json array.
+     If you could not process or error then please provide with baciError300 only don't add other data. The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object,All categories should not contain one card each,one category can have one card.The responst must be like [{category:"xyz",sentences["one","other"]}]`;
+
 
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
