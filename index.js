@@ -382,55 +382,55 @@ app.post("/keywordExtraction", async (req, res) => {
       data.push(element.value);
     });
 
-    data = [
-      "Time management was good",
-      "We went through each individual in a very structured way",
-      "Really well managed",
-      "Communications and executed well by P&C - well done!",
-      "Nicely organised",
-      "On time more or less",
-      "We were given plenty of time to prepare and time for out CDAs to collect feedback",
-      "Great time management",
-      "Most individuals given the time to respectfully discuss their mentees",
-      "Communications process about promotions",
-      "Constant reminders and adherence to principles of respect to our people",
-      "Great meeting management by Cait",
-      "Communications from P&C clear with timings and expectations and all the info we needed",
-      "Very concise and informative view displayed on screen about the advisee being discussed",
-      "I like the matrix placement conversation. It helps make it fair",
-      "Respectful challenging conversations",
-      "Lene holding people accountable re. scoring v. placements",
-      "Love the robustness of discussions",
-      "Constructive debate for most people",
-      "Like how everyone is trying their best to focus on objectives of the TDM",
-      "Great job from the founding partners in reminding everyone on the purpose of discussions periodically during the session",
-      "Overall good calibration. We seem not to have the grade inflation problem.",
-      "One CDA challenged comparisons between advisees - they only knew their advisee. I liked that this was raised as a concern during the meeting to action",
-      "The cohort that I presented with were super well prepared and had taken time to make sure they had enough points to represent their CDA",
-      "Good preparation showing alignment between CDAs and project leaders",
-      "Most CDAs were well prepared",
-      "Everyone came prepared with well-supported evidence and impact examples",
-      "I like the focus on capability development and tough conversations around improvement",
-      "Evidence / example-based approach is good",
-      "Glad we get detailed on areas of development"
-    ]
+    // data = [
+    //   "Time management was good",
+    //   "We went through each individual in a very structured way",
+    //   "Really well managed",
+    //   "Communications and executed well by P&C - well done!",
+    //   "Nicely organised",
+    //   "On time more or less",
+    //   "We were given plenty of time to prepare and time for out CDAs to collect feedback",
+    //   "Great time management",
+    //   "Most individuals given the time to respectfully discuss their mentees",
+    //   "Communications process about promotions",
+    //   "Constant reminders and adherence to principles of respect to our people",
+    //   "Great meeting management by Cait",
+    //   "Communications from P&C clear with timings and expectations and all the info we needed",
+    //   "Very concise and informative view displayed on screen about the advisee being discussed",
+    //   "I like the matrix placement conversation. It helps make it fair",
+    //   "Respectful challenging conversations",
+    //   "Lene holding people accountable re. scoring v. placements",
+    //   "Love the robustness of discussions",
+    //   "Constructive debate for most people",
+    //   "Like how everyone is trying their best to focus on objectives of the TDM",
+    //   "Great job from the founding partners in reminding everyone on the purpose of discussions periodically during the session",
+    //   "Overall good calibration. We seem not to have the grade inflation problem.",
+    //   "One CDA challenged comparisons between advisees - they only knew their advisee. I liked that this was raised as a concern during the meeting to action",
+    //   "The cohort that I presented with were super well prepared and had taken time to make sure they had enough points to represent their CDA",
+    //   "Good preparation showing alignment between CDAs and project leaders",
+    //   "Most CDAs were well prepared",
+    //   "Everyone came prepared with well-supported evidence and impact examples",
+    //   "I like the focus on capability development and tough conversations around improvement",
+    //   "Evidence / example-based approach is good",
+    //   "Glad we get detailed on areas of development"
+    // ]
 
     const jsonString1 = JSON.stringify(data, null, 2);
 
     // const jsonString1 = JSON.stringify(whatWentWell, null, 2);
     const combinedString1 = `Please extract the main keywords from the sentences \n\n${jsonString1}. Maximum keywords per sentences are 3. Return it in the form of array
-    The responce must be like [{sentence:'',keywords:[]},{sentence:'',keywords:[]}]
+    The responce must be like [{sentence:'',keywords:[]},{sentence:'',keywords:[]}].Convert the response into json
     `;
 
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
       messages: [{ role: "user", content: combinedString1 }],
     });
-
+console.log(completion.data.choices[0].message.content,"res")
     return res.status(200).json({ response: JSON.parse(completion.data.choices[0].message.content) });
 
   } catch (error) {
-
+console.log(error,"error")
     return res.status(200).json(error);
   }
 });
@@ -483,22 +483,11 @@ app.post('/groupSuggestion', async (req, res) => {
     inputColumn.forEach((element) => {
       data.push(element.value);
     });
-<<<<<<< HEAD
     console.log(data, "data")
     const jsonString = JSON.stringify(data, null, 2);
 
     const combinedString = `Please help me group these sentences into categories and give each category a name, dont use sentiment analysis for grouping.The group count should be less then 6, maximum 2 group should contain only one card. Then convert the response to json array.
     If you could not process or error then please provide with baciError300 only don't add other data. The sentences are present in array \n\n${jsonString}. Please don't consider if the sentences array is empty while returning drop that object,All categories should not contain one card each,one category can have one card.The responst must be like [{category:"xyz",sentences["one","other"]}]`
-=======
-
-const jsonString1 = JSON.stringify(data, null, 2);
-//      const combinedString1 = `Please dont use sentiment analysis for grouping. Please automatically categorise the phrases in the array into a new JSON array with the categories grouped into less than 6 groups \n\n${jsonString1}.
-//     The responst must be like [{category:"xyz",sentences["one","other"]}]. If you could not process or error then please provide with baciError300 only don't add other data
-//     . The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object`;
-    const combinedString1 = `Please help me group these sentences into categories and give each category a name, dont use sentiment analysis for grouping.The group count should be less then 6, maximum 2 group should contain only one card. Then convert the response to json array.
-     If you could not process or error then please provide with baciError300 only don't add other data. The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object,All categories should not contain one card each,one category can have one card.The responst must be like [{category:"xyz",sentences["one","other"]}]`;
-
->>>>>>> bc39bde9a8ae70edfc41dd42cb01b1e8e8b67656
 
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
