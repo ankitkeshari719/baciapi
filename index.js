@@ -23,6 +23,7 @@ const collection = db.collection("retros");
 
 //openAI
 const { Configuration, OpenAIApi } = require("azure-openai");
+// const { inputLayer } = require("@tensorflow/tfjs-layers/dist/exports_layers");
 const openai = new OpenAIApi(
   new Configuration({
     apiKey: this.apiKey,
@@ -377,43 +378,11 @@ app.post("/keywordExtraction", async (req, res) => {
   try {
 
     const data = [];
-    let inputColumn = req.body.column;
+    var inputColumn = req.body.column;
     inputColumn.forEach((element) => {
       data.push(element.value);
     });
 
-    // data = [
-    //   "Time management was good",
-    //   "We went through each individual in a very structured way",
-    //   "Really well managed",
-    //   "Communications and executed well by P&C - well done!",
-    //   "Nicely organised",
-    //   "On time more or less",
-    //   "We were given plenty of time to prepare and time for out CDAs to collect feedback",
-    //   "Great time management",
-    //   "Most individuals given the time to respectfully discuss their mentees",
-    //   "Communications process about promotions",
-    //   "Constant reminders and adherence to principles of respect to our people",
-    //   "Great meeting management by Cait",
-    //   "Communications from P&C clear with timings and expectations and all the info we needed",
-    //   "Very concise and informative view displayed on screen about the advisee being discussed",
-    //   "I like the matrix placement conversation. It helps make it fair",
-    //   "Respectful challenging conversations",
-    //   "Lene holding people accountable re. scoring v. placements",
-    //   "Love the robustness of discussions",
-    //   "Constructive debate for most people",
-    //   "Like how everyone is trying their best to focus on objectives of the TDM",
-    //   "Great job from the founding partners in reminding everyone on the purpose of discussions periodically during the session",
-    //   "Overall good calibration. We seem not to have the grade inflation problem.",
-    //   "One CDA challenged comparisons between advisees - they only knew their advisee. I liked that this was raised as a concern during the meeting to action",
-    //   "The cohort that I presented with were super well prepared and had taken time to make sure they had enough points to represent their CDA",
-    //   "Good preparation showing alignment between CDAs and project leaders",
-    //   "Most CDAs were well prepared",
-    //   "Everyone came prepared with well-supported evidence and impact examples",
-    //   "I like the focus on capability development and tough conversations around improvement",
-    //   "Evidence / example-based approach is good",
-    //   "Glad we get detailed on areas of development"
-    // ]
 
     const jsonString1 = JSON.stringify(data, null, 2);
 
@@ -426,11 +395,27 @@ app.post("/keywordExtraction", async (req, res) => {
       model: "prod-baci-chat",
       messages: [{ role: "user", content: combinedString1 }],
     });
-console.log(completion.data.choices[0].message.content,"res")
-    return res.status(200).json({ response: JSON.parse(completion.data.choices[0].message.content) });
+
+    const resArray = JSON.parse(completion.data.choices[0].message.content);
+    let keywordResponse = [];
+    if (resArray && resArray.length > 0) {
+
+      inputColumn.forEach((input ) => {
+        resArray.forEach((element) => {
+          if (element.sentence.toLowerCase() == input.value.toLowerCase()) {
+            // var card = input;
+            input.keywords = element.keywords;
+        
+            
+          }
+        })
+      })
+    }
+    console.log(completion.data.choices[0].message.content, "res",inputColumn)
+    return res.status(200).json({ response: inputColumn });
 
   } catch (error) {
-console.log(error,"error")
+    console.log(error, "error")
     return res.status(200).json(error);
   }
 });
@@ -494,7 +479,7 @@ app.post('/groupSuggestion', async (req, res) => {
       messages: [{ role: "user", content: groupSuggestionString }],
     });
 
-    console.log(completion.data.choices[0],"suggestion");
+    console.log(completion.data.choices[0], "suggestion");
     if (
       !completion.data.choices[0].message.content.includes("baciError300") &&
       JSON.parse(completion.data.choices[0].message.content)
@@ -527,7 +512,7 @@ app.post('/groupSuggestion', async (req, res) => {
         .status(200)
         .json({ response: "ChatGPT Fails, Please try again" });
   } catch (error) {
-    console.error(error);
+    console.error("chatGPTError",error);
     return res.status(200).json(error);
   }
 });
