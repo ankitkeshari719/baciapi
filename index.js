@@ -23,6 +23,7 @@ const collection = db.collection("retros");
 
 //openAI
 const { Configuration, OpenAIApi } = require("azure-openai");
+// const { inputLayer } = require("@tensorflow/tfjs-layers/dist/exports_layers");
 const openai = new OpenAIApi(
   new Configuration({
     apiKey: this.apiKey,
@@ -373,38 +374,48 @@ const job = nodeCron.schedule("0 30 0 * * *", function jobYouNeedToExecute() {
 //openAi
 
 app.post("/keywordExtraction", async (req, res) => {
-  // let retroId=req.body.retroId;
-  // let action= req.body.action;
-  // const query = { _id: retroId};
-  // const update = { $push: {action:{
-  //     ...action,
-  //     timestamp: Date.now(),
-  //     sourceActionTimestamp: action.sourceActionTimestamp,
-  //     //sourceActionTimestamp: Date.now(),
-  // } }};
-  // const options = {upsert: true};
-  // const result = await collection.findOneAndUpdate(query, update);
-  // action.timestamp = Date.now();
-  // console.log(`upsertResult1: ${JSON.stringify(result.value?._id)}\n`);
-  // Socket.emit("newMessage",retroId, [{
-  //     action: action,
-  //     retroId: retroId
-  //   }]);
+
   try {
 
+    const data = [];
+    var inputColumn = req.body.column;
+    inputColumn.forEach((element) => {
+      data.push(element.value);
+    });
 
-    const jsonString1 = JSON.stringify(whatWentWell, null, 2);
-    const combinedString1 = `Please automatically categorise the phrases in the array into a new JSON array with the categories grouped into less than 6 groups\n\n${jsonString1}, please return it in the form of array`;
+
+    const jsonString1 = JSON.stringify(data, null, 2);
+
+    // const jsonString1 = JSON.stringify(whatWentWell, null, 2);
+    const combinedString1 = `Please extract the main keywords from the sentences \n\n${jsonString1}. Maximum keywords per sentences are 3. Return it in the form of array
+    The responce must be like [{sentence:'',keywords:[]},{sentence:'',keywords:[]}].Convert the response into json
+    `;
 
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
       messages: [{ role: "user", content: combinedString1 }],
     });
 
-    return res.status(200).json({ response: JSON.parse(completion.data.choices[0].message.content) });
+    const resArray = JSON.parse(completion.data.choices[0].message.content);
+    let keywordResponse = [];
+    if (resArray && resArray.length > 0) {
+
+      inputColumn.forEach((input ) => {
+        resArray.forEach((element) => {
+          if (element.sentence.toLowerCase() == input.value.toLowerCase()) {
+            // var card = input;
+            input.keywords = element.keywords;
+        
+            
+          }
+        })
+      })
+    }
+    console.log(completion.data.choices[0].message.content, "res",inputColumn)
+    return res.status(200).json({ response: inputColumn });
 
   } catch (error) {
-
+    console.log(error, "error")
     return res.status(200).json(error);
   }
 });
@@ -457,21 +468,18 @@ app.post('/groupSuggestion', async (req, res) => {
     inputColumn.forEach((element) => {
       data.push(element.value);
     });
+    console.log(data, "data")
+    const jsonString = JSON.stringify(data, null, 2);
 
-const jsonString1 = JSON.stringify(data, null, 2);
-//      const combinedString1 = `Please dont use sentiment analysis for grouping. Please automatically categorise the phrases in the array into a new JSON array with the categories grouped into less than 6 groups \n\n${jsonString1}.
-//     The responst must be like [{category:"xyz",sentences["one","other"]}]. If you could not process or error then please provide with baciError300 only don't add other data
-//     . The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object`;
-    const combinedString1 = `Please help me group these sentences into categories and give each category a name, dont use sentiment analysis for grouping.The group count should be less then 6, maximum 2 group should contain only one card. Then convert the response to json array.
-     If you could not process or error then please provide with baciError300 only don't add other data. The sentences are present in array \n\n${jsonString1}. Please don't consider if the sentences array is empty while returning drop that object,All categories should not contain one card each,one category can have one card.The responst must be like [{category:"xyz",sentences["one","other"]}]`;
-
+    const groupSuggestionString = `Please help me group these sentences into categories and give each category a name, dont use sentiment analysis for grouping.The group count should be less then 6, maximum 2 group should contain only one card. Then convert the response to json array.
+    If you could not process or error then please provide with baciError300 only don't add other data. The sentences are present in array \n\n${jsonString}. Please don't consider if the sentences array is empty while returning drop that object,All categories should not contain one card each,one category can have one card.The responst must be like [{category:"xyz",sentences["one","other"]}]`
 
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
-      messages: [{ role: "user", content: combinedString }],
+      messages: [{ role: "user", content: groupSuggestionString }],
     });
-  
 
+    console.log(completion.data.choices[0], "suggestion");
     if (
       !completion.data.choices[0].message.content.includes("baciError300") &&
       JSON.parse(completion.data.choices[0].message.content)
@@ -485,7 +493,7 @@ const jsonString1 = JSON.stringify(data, null, 2);
         element.sentences.forEach(sentence => {
 
           inputColumn.forEach(inputData => {
-           
+
             if (inputData.value.toLowerCase() == sentence.toLowerCase()) {
               sentences.push(inputData)
             }
@@ -504,12 +512,12 @@ const jsonString1 = JSON.stringify(data, null, 2);
         .status(200)
         .json({ response: "ChatGPT Fails, Please try again" });
   } catch (error) {
-    // console.error(error);
+    console.error("chatGPTError",error);
     return res.status(200).json(error);
   }
 });
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 5051;
 
 server.listen(port, () => {
   console.log("Listening on port " + port);
