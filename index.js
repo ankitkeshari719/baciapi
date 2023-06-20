@@ -17,7 +17,8 @@ const nodeCron = require("node-cron");
 const BearerStrategy = require("passport-azure-ad").BearerStrategy;
 const url = process.env.COSMOS_CONNECTION_STRING;
 const client = new MongoClient(url);
-
+const axios = require('axios')
+const urlApi = require('url');
 const db = client.db(`bacidb`);
 const collection = db.collection("retros");
 
@@ -516,6 +517,165 @@ app.post('/groupSuggestion', async (req, res) => {
   }
 });
 
+// Jira integration Changes
+app.get("/connectJira", async (req, res) => {
+  let retroId= req.query.retroId;
+  console.log("in connect jira");
+  let url = process.env.JIRA_URL + `&state=${retroId}`;
+  console.log(url);
+  return res.status(200).json({response: url});
+});
+
+app.get("/getJiraToken", async (req, res) => {
+  let jiraCode= req.query.jiraCode;
+  console.log("in connect jira");
+  let access_token = "";
+  const api = axios.create({
+    baseURL: `https://auth.atlassian.com/oauth/token`
+  })
+  await api.post("",
+  new urlApi.URLSearchParams({
+      grant_type:'authorization_code', //gave the values directly for testing
+      client_id:process.env.JIRA_CLIENT_ID,
+      client_secret:process.env.JIRA_CLIENT_SECRET,
+      code: jiraCode,
+      redirect_uri : process.env.JIRA_CALLBACK_URl,
+   }))
+  .then( async ( response ) => {
+      console.log(response.data.access_token)
+      access_token = response.data.access_token;
+     return res.status(200).json({response: access_token});
+  })
+  .catch((error) => {
+    console.log("Error", error);
+  });
+});
+app.get("/listJiraProjects", async (req, res) => {
+
+  let access_token= req.query.jiraCode;
+  let cloudId = "";
+  let listOfProjects = [];
+      let config = {
+        headers: {
+          'Authorization': 'Bearer ' + access_token,
+          'Accept': 'application/json',
+        }
+      }
+      await axios.get("https://api.atlassian.com/oauth/token/accessible-resources",config)
+      .then(  async ( response ) => {
+          
+        console.log("cloud id", response.data[0].id);
+        cloudId = response.data[0].id;
+        await axios.get("https://api.atlassian.com/ex/jira/"+ cloudId + "/rest/api/2/project",config)
+        .then(  ( response ) => {
+            console.log("list of projects", response.data);
+            let projects = response.data;
+            projects.forEach((project)=>{
+              listOfProjects.push({id:project.id, name: project.name});
+            })
+            return res.status(200).json({response: listOfProjects});
+        });
+      })
+      .catch(err => {
+        console.log("This is the error",err)
+        
+      }) 
+  
+});
+app.get("/listJiraMeta", async (req, res) => {
+
+  let access_token= req.query.jiraCode;
+  let projectId =req.query.projectId;
+  let cloudId = "";
+  let listOfProjects = [];
+      let config = {
+        headers: {
+          'Authorization': 'Bearer ' + access_token,
+          'Accept': 'application/json',
+        }
+      }
+      await axios.get("https://api.atlassian.com/oauth/token/accessible-resources",config)
+      .then(  async ( response ) => {
+          
+        console.log("cloud id", response.data[0].id);
+        cloudId = response.data[0].id;
+        await axios.get("https://api.atlassian.com/ex/jira/"+ cloudId + `/rest/api/2/issue/createmeta?projectIds=${projectId}`,config)
+        .then(  ( response ) => {
+            console.log("list of metadata", response.data);
+            let projects = response.data.projects[0].issuetypes;
+            projects.forEach((project)=>{
+              listOfProjects.push({id:project.id, name: project.name});
+            })
+            return res.status(200).json({response: listOfProjects});
+        });
+      })
+      .catch(err => {
+        console.log("This is the error",err)
+        
+      }) 
+  
+});
+app.post("/createJiraIssue", async (req, res) => {
+
+  let projectId =req.body.projectId;
+  let issueType = req.body.issueType;
+  let access_token= req.body.access_token;
+  let description= req.body.description;
+  let cloudId = "";
+  let assignee= "";
+  let config = {
+    headers: {
+      'Authorization': 'Bearer ' + access_token,
+      'Accept': 'application/json',
+    }
+  }
+  
+  await axios.get("https://api.atlassian.com/me",config)
+  .then(  async ( response ) => {
+    
+    console.log(response);
+    assignee= response.data.account_id;
+  })
+  .catch(err => {
+    console.log("This is the error",JSON.stringify(err.response.data))
+  });
+  
+  const payload = {"fields": {
+    "assignee": {
+      "id": assignee
+    },
+    "project": {
+      "id": projectId
+    },
+    "issuetype": {
+      "id": issueType
+    },
+    "summary": "BACI - TEST",
+    "description": description
+    },
+    "update": {}
+  };
+  await axios.get("https://api.atlassian.com/oauth/token/accessible-resources",config)
+  .then(  async ( response ) => {
+    
+    console.log("cloud id", response.data[0]);
+    cloudId = response.data[0].id;
+    await axios.post("https://api.atlassian.com/ex/jira/"+ cloudId + `/rest/api/2/issue`,payload,config)
+    .then(  ( response ) => {
+        console.log(response.data.errors);
+        if (response.status === 201){
+          return res.status(200).json({response: "Success"});
+        }
+        else
+          return res.status(400).json({response: "Error"});
+    });
+  })
+  .catch(err => {
+    console.log("This is the error",JSON.stringify(err.response.data.errors))
+    
+  }) 
+  
+});
 const port = process.env.PORT || 5051;
 
 server.listen(port, () => {
