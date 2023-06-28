@@ -941,7 +941,7 @@ app.get("/getEnterpriseLevelSentimentsMoods", async (req, res) => {
   return res.status(200).json({ result: result });
 });
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 5051;
 
 server.listen(port, () => {
   console.log("Listening on port " + port);
