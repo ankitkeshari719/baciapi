@@ -24,6 +24,7 @@ const collection = db.collection("retros");
 
 //openAI
 const { Configuration, OpenAIApi } = require("azure-openai");
+// const { inputLayer } = require("@tensorflow/tfjs-layers/dist/exports_layers");
 const openai = new OpenAIApi(
   new Configuration({
     apiKey: this.apiKey,
@@ -375,7 +376,9 @@ const job = nodeCron.schedule("0 30 0 * * *", function jobYouNeedToExecute() {
 app.post("/keywordExtraction", async (req, res) => {
   try {
     const data = [];
+
     var inputColumn = req.body.column;
+
     inputColumn.forEach((element) => {
       data.push(element.value);
     });
@@ -383,31 +386,41 @@ app.post("/keywordExtraction", async (req, res) => {
     const jsonString1 = JSON.stringify(data, null, 2);
 
     // const jsonString1 = JSON.stringify(whatWentWell, null, 2);
+
     const combinedString1 = `Please extract the main keywords from the sentences \n\n${jsonString1}. Maximum keywords per sentences are 3. Return it in the form of array
+
     The responce must be like [{sentence:'',keywords:[]},{sentence:'',keywords:[]}].Convert the response into json
+
     `;
 
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
+
       messages: [{ role: "user", content: combinedString1 }],
     });
 
     const resArray = JSON.parse(completion.data.choices[0].message.content);
+
     let keywordResponse = [];
+
     if (resArray && resArray.length > 0) {
       inputColumn.forEach((input) => {
         resArray.forEach((element) => {
           if (element.sentence.toLowerCase() == input.value.toLowerCase()) {
             // var card = input;
+
             input.keywords = element.keywords;
           }
         });
       });
     }
+
     console.log(completion.data.choices[0].message.content, "res", inputColumn);
+
     return res.status(200).json({ response: inputColumn });
   } catch (error) {
     console.log(error, "error");
+
     return res.status(200).json(error);
   }
 });
@@ -441,12 +454,12 @@ app.post("/groupSuggestion", async (req, res) => {
     console.log(data, "data");
     const jsonString = JSON.stringify(data, null, 2);
 
-    const combinedString = `Please help me group these sentences into categories and give each category a name, dont use sentiment analysis for grouping.The group count should be less then 6, maximum 2 group should contain only one card. Then convert the response to json array.
+    const groupSuggestionString = `Please help me group these sentences into categories and give each category a name, dont use sentiment analysis for grouping.The group count should be less then 6, maximum 2 group should contain only one card. Then convert the response to json array.
     If you could not process or error then please provide with baciError300 only don't add other data. The sentences are present in array \n\n${jsonString}. Please don't consider if the sentences array is empty while returning drop that object,All categories should not contain one card each,one category can have one card.The responst must be like [{category:"xyz",sentences["one","other"]}]`;
 
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
-      messages: [{ role: "user", content: combinedString }],
+      messages: [{ role: "user", content: groupSuggestionString }],
     });
 
     console.log(completion.data.choices[0], "suggestion");
@@ -480,7 +493,7 @@ app.post("/groupSuggestion", async (req, res) => {
         .status(200)
         .json({ response: "ChatGPT Fails, Please try again" });
   } catch (error) {
-    console.error(error);
+    console.error("chatGPTError", error);
     return res.status(200).json(error);
   }
 });
