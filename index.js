@@ -17,7 +17,8 @@ const nodeCron = require("node-cron");
 const BearerStrategy = require("passport-azure-ad").BearerStrategy;
 const url = process.env.COSMOS_CONNECTION_STRING;
 const client = new MongoClient(url);
-
+const axios = require("axios");
+const urlApi = require("url");
 const db = client.db(`bacidb`);
 const collection = db.collection("retros");
 
@@ -242,27 +243,27 @@ app.get("/getRetrosByDate", async (req, res) => {
 
       retro.action
         ? retro.action.forEach((element) => {
-          if (
-            element.actionName == "mergeCards" ||
-            element.actionName == "createGroup"
-          ) {
-            console.log(count, "count");
-            count = count + 1;
-            groups.push(element);
-          } else if (element.actionName == "deleteGroup") {
-            console.log("deleteGroup");
-            groups.length > 0 &&
-              groups.forEach(function (group, index, object) {
-                if (group.parameters.groupId == element.parameters.groupId) {
-                  object.splice(index, 1);
-                  count = count - 1;
-                }
-              });
-          } else if (element.actionName == "joinRetro") {
-            users.push(element);
-            if (element.userId != "") usersStringArray.push(element.userId);
-          }
-        })
+            if (
+              element.actionName == "mergeCards" ||
+              element.actionName == "createGroup"
+            ) {
+              console.log(count, "count");
+              count = count + 1;
+              groups.push(element);
+            } else if (element.actionName == "deleteGroup") {
+              console.log("deleteGroup");
+              groups.length > 0 &&
+                groups.forEach(function (group, index, object) {
+                  if (group.parameters.groupId == element.parameters.groupId) {
+                    object.splice(index, 1);
+                    count = count - 1;
+                  }
+                });
+            } else if (element.actionName == "joinRetro") {
+              users.push(element);
+              if (element.userId != "") usersStringArray.push(element.userId);
+            }
+          })
         : [];
 
       totalGroups.push(groups.length);
@@ -372,107 +373,89 @@ const job = nodeCron.schedule("0 30 0 * * *", function jobYouNeedToExecute() {
 });
 
 //openAi
-
 app.post("/keywordExtraction", async (req, res) => {
-
   try {
-
     const data = [];
+
     var inputColumn = req.body.column;
+
     inputColumn.forEach((element) => {
       data.push(element.value);
     });
 
-
     const jsonString1 = JSON.stringify(data, null, 2);
 
     // const jsonString1 = JSON.stringify(whatWentWell, null, 2);
+
     const combinedString1 = `Please extract the main keywords from the sentences \n\n${jsonString1}. Maximum keywords per sentences are 3. Return it in the form of array
+
     The responce must be like [{sentence:'',keywords:[]},{sentence:'',keywords:[]}].Convert the response into json
+
     `;
 
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
+
       messages: [{ role: "user", content: combinedString1 }],
     });
 
     const resArray = JSON.parse(completion.data.choices[0].message.content);
-    let keywordResponse = [];
-    if (resArray && resArray.length > 0) {
 
-      inputColumn.forEach((input ) => {
+    let keywordResponse = [];
+
+    if (resArray && resArray.length > 0) {
+      inputColumn.forEach((input) => {
         resArray.forEach((element) => {
           if (element.sentence.toLowerCase() == input.value.toLowerCase()) {
             // var card = input;
-            input.keywords = element.keywords;
-        
-            
-          }
-        })
-      })
-    }
-    console.log(completion.data.choices[0].message.content, "res",inputColumn)
-    return res.status(200).json({ response: inputColumn });
 
+            input.keywords = element.keywords;
+          }
+        });
+      });
+    }
+
+    console.log(completion.data.choices[0].message.content, "res", inputColumn);
+
+    return res.status(200).json({ response: inputColumn });
   } catch (error) {
-    console.log(error, "error")
+    console.log(error, "error");
+
     return res.status(200).json(error);
   }
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
 async function getAiResponse(topic) {
   const openai = new OpenAIApi(configuration);
-  await openai.createCompletion({
-    model: "text-davinci-003",
-    prompt: topic,
-    max_tokens: 1024,
-    n: 1,
-    stop: null,
-    temperature: 0.7
-  }).then(res => {
-    return res
-    console.log(res.data.choices[0].text, "log here");
-  })
+  await openai
+    .createCompletion({
+      model: "text-davinci-003",
+      prompt: topic,
+      max_tokens: 1024,
+      n: 1,
+      stop: null,
+      temperature: 0.7,
+    })
+    .then((res) => {
+      return res;
+      console.log(res.data.choices[0].text, "log here");
+    });
 
-  return completion
+  return completion;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-app.post('/groupSuggestion', async (req, res) => {
+app.post("/groupSuggestion", async (req, res) => {
   try {
     const data = [];
     let inputColumn = req.body.column;
     inputColumn.forEach((element) => {
       data.push(element.value);
     });
-    console.log(data, "data")
+    console.log(data, "data");
     const jsonString = JSON.stringify(data, null, 2);
 
     const groupSuggestionString = `Please help me group these sentences into categories and give each category a name, dont use sentiment analysis for grouping.The group count should be less then 6, maximum 2 group should contain only one card. Then convert the response to json array.
-    If you could not process or error then please provide with baciError300 only don't add other data. The sentences are present in array \n\n${jsonString}. Please don't consider if the sentences array is empty while returning drop that object,All categories should not contain one card each,one category can have one card.The responst must be like [{category:"xyz",sentences["one","other"]}]`
+    If you could not process or error then please provide with baciError300 only don't add other data. The sentences are present in array \n\n${jsonString}. Please don't consider if the sentences array is empty while returning drop that object,All categories should not contain one card each,one category can have one card.The responst must be like [{category:"xyz",sentences["one","other"]}]`;
 
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
@@ -488,14 +471,12 @@ app.post('/groupSuggestion', async (req, res) => {
         completion.data.choices[0].message.content
       );
       const structuredData = [];
-      responseData.forEach(element => {
-        const sentences = []
-        element.sentences.forEach(sentence => {
-
-          inputColumn.forEach(inputData => {
-
+      responseData.forEach((element) => {
+        const sentences = [];
+        element.sentences.forEach((sentence) => {
+          inputColumn.forEach((inputData) => {
             if (inputData.value.toLowerCase() == sentence.toLowerCase()) {
-              sentences.push(inputData)
+              sentences.push(inputData);
             }
           });
         });
@@ -512,12 +493,468 @@ app.post('/groupSuggestion', async (req, res) => {
         .status(200)
         .json({ response: "ChatGPT Fails, Please try again" });
   } catch (error) {
-    console.error("chatGPTError",error);
+    console.error("chatGPTError", error);
     return res.status(200).json(error);
   }
 });
 
-const port = process.env.PORT || 5051;
+// Jira integration Changes
+app.get("/connectJira", async (req, res) => {
+  let retroId = req.query.retroId;
+  console.log("in connect jira");
+  let url = process.env.JIRA_URL + `&state=${retroId}`;
+  console.log(url);
+  return res.status(200).json({ response: url });
+});
+
+app.get("/getJiraToken", async (req, res) => {
+  let jiraCode = req.query.jiraCode;
+  console.log("in connect jira");
+  let access_token = "";
+  const api = axios.create({
+    baseURL: `https://auth.atlassian.com/oauth/token`,
+  });
+  await api
+    .post(
+      "",
+      new urlApi.URLSearchParams({
+        grant_type: "authorization_code", //gave the values directly for testing
+        client_id: process.env.JIRA_CLIENT_ID,
+        client_secret: process.env.JIRA_CLIENT_SECRET,
+        code: jiraCode,
+        redirect_uri: process.env.JIRA_CALLBACK_URl,
+      })
+    )
+    .then(async (response) => {
+      console.log(response.data.access_token);
+      access_token = response.data.access_token;
+      return res.status(200).json({ response: access_token });
+    })
+    .catch((error) => {
+      console.log("Error", error);
+    });
+});
+
+app.get("/listJiraProjects", async (req, res) => {
+  let access_token = req.query.jiraCode;
+  let cloudId = "";
+  let listOfProjects = [];
+  let config = {
+    headers: {
+      Authorization: "Bearer " + access_token,
+      Accept: "application/json",
+    },
+  };
+  await axios
+    .get("https://api.atlassian.com/oauth/token/accessible-resources", config)
+    .then(async (response) => {
+      console.log("cloud id", response.data[0].id);
+      cloudId = response.data[0].id;
+      await axios
+        .get(
+          "https://api.atlassian.com/ex/jira/" +
+            cloudId +
+            "/rest/api/2/project",
+          config
+        )
+        .then((response) => {
+          console.log("list of projects", response.data);
+          let projects = response.data;
+          projects.forEach((project) => {
+            listOfProjects.push({ id: project.id, name: project.name });
+          });
+          return res.status(200).json({ response: listOfProjects });
+        });
+    })
+    .catch((err) => {
+      console.log("This is the error", err);
+    });
+});
+
+app.get("/listJiraMeta", async (req, res) => {
+  let access_token = req.query.jiraCode;
+  let projectId = req.query.projectId;
+  let cloudId = "";
+  let listOfProjects = [];
+  let config = {
+    headers: {
+      Authorization: "Bearer " + access_token,
+      Accept: "application/json",
+    },
+  };
+  await axios
+    .get("https://api.atlassian.com/oauth/token/accessible-resources", config)
+    .then(async (response) => {
+      console.log("cloud id", response.data[0].id);
+      cloudId = response.data[0].id;
+      await axios
+        .get(
+          "https://api.atlassian.com/ex/jira/" +
+            cloudId +
+            `/rest/api/2/issue/createmeta?projectIds=${projectId}`,
+          config
+        )
+        .then((response) => {
+          console.log("list of metadata", response.data);
+          let projects = response.data.projects[0].issuetypes;
+          projects.forEach((project) => {
+            listOfProjects.push({ id: project.id, name: project.name });
+          });
+          return res.status(200).json({ response: listOfProjects });
+        });
+    })
+    .catch((err) => {
+      console.log("This is the error", err);
+    });
+});
+
+app.post("/createJiraIssue", async (req, res) => {
+  let projectId = req.body.projectId;
+  let issueType = req.body.issueType;
+  let access_token = req.body.access_token;
+  let description = req.body.description;
+  let cloudId = "";
+  let assignee = "";
+  let config = {
+    headers: {
+      Authorization: "Bearer " + access_token,
+      Accept: "application/json",
+    },
+  };
+
+  await axios
+    .get("https://api.atlassian.com/me", config)
+    .then(async (response) => {
+      console.log(response);
+      assignee = response.data.account_id;
+    })
+    .catch((err) => {
+      console.log("This is the error", JSON.stringify(err.response.data));
+    });
+
+  const payload = {
+    fields: {
+      assignee: {
+        id: assignee,
+      },
+      project: {
+        id: projectId,
+      },
+      issuetype: {
+        id: issueType,
+      },
+      summary: "BACI - TEST",
+      description: description,
+    },
+    update: {},
+  };
+  await axios
+    .get("https://api.atlassian.com/oauth/token/accessible-resources", config)
+    .then(async (response) => {
+      console.log("cloud id", response.data[0]);
+      cloudId = response.data[0].id;
+      await axios
+        .post(
+          "https://api.atlassian.com/ex/jira/" + cloudId + `/rest/api/2/issue`,
+          payload,
+          config
+        )
+        .then((response) => {
+          console.log(response.data.errors);
+          if (response.status === 201) {
+            return res.status(200).json({ response: "Success" });
+          } else return res.status(400).json({ response: "Error" });
+        });
+    })
+    .catch((err) => {
+      console.log(
+        "This is the error",
+        JSON.stringify(err.response.data.errors)
+      );
+    });
+});
+
+// Api to get dummy chart data
+app.get("/getDummyChartData", async (req, res) => {
+  const result = [
+    {
+      id: 1,
+      date: "03/01/2022",
+      average_temp: 15,
+    },
+    {
+      id: 2,
+      date: "03/02/2022",
+      average_temp: 27,
+    },
+    {
+      id: 3,
+      date: "03/03/2022",
+      average_temp: 18,
+    },
+    {
+      id: 4,
+      date: "03/04/2022",
+      average_temp: 20,
+    },
+    {
+      id: 5,
+      date: "03/05/2022",
+      average_temp: 23,
+    },
+    {
+      id: 6,
+      date: "03/06/2022",
+      average_temp: 17,
+    },
+    {
+      id: 7,
+      date: "03/07/2022",
+      average_temp: 15,
+    },
+  ];
+  return res.status(200).json({ result: result });
+});
+
+// Api to get count of all participant over time
+app.get("/getParticipantsCount", async (req, res) => {
+  const result = [
+    {
+      id: 1,
+      month: "Dec 22",
+      averageParticipants: 15,
+    },
+    {
+      id: 2,
+      month: "Jan 23",
+      averageParticipants: 27,
+    },
+    {
+      id: 3,
+      month: "Feb 23",
+      averageParticipants: 18,
+    },
+    {
+      id: 4,
+      month: "Mar 23",
+      averageParticipants: 20,
+    },
+    {
+      id: 5,
+      month: "Apr 23",
+      averageParticipants: 23,
+    },
+    {
+      id: 6,
+      month: "May 23",
+      averageParticipants: 17,
+    },
+    {
+      id: 7,
+      month: "June 23",
+      averageParticipants: 15,
+    },
+  ];
+  return res.status(200).json({ result: result });
+});
+
+// Api to get count of all retros over time
+app.get("/getRetrosCount", async (req, res) => {
+  const result = [
+    {
+      id: 1,
+      month: "Dec 22",
+      averageRetros: 15,
+    },
+    {
+      id: 2,
+      month: "Jan 23",
+      averageRetros: 27,
+    },
+    {
+      id: 3,
+      month: "Feb 23",
+      averageRetros: 18,
+    },
+    {
+      id: 4,
+      month: "Mar 23",
+      averageRetros: 20,
+    },
+    {
+      id: 5,
+      month: "Apr 23",
+      averageRetros: 23,
+    },
+    {
+      id: 6,
+      month: "May 23",
+      averageRetros: 17,
+    },
+    {
+      id: 7,
+      month: "Jun 22",
+      averageRetros: 15,
+    },
+  ];
+  return res.status(200).json({ result: result });
+});
+
+// Api to get Team Level Actions Count
+app.get("/getTeamLevelActionsCount", async (req, res) => {
+  const result = [
+    {
+      id: 1,
+      month: "Dec 22",
+      assigned: 32,
+      completed: 12,
+    },
+    {
+      id: 2,
+      month: "Jan 23",
+      assigned: 33,
+      completed: 2,
+    },
+    {
+      id: 3,
+      month: "Feb 23",
+      assigned: 46,
+      completed: 9,
+    },
+    {
+      id: 4,
+      month: "Mar 23",
+      assigned: 15,
+      completed: 18,
+    },
+    {
+      id: 5,
+      month: "Apr 23",
+      assigned: 30,
+      completed: 33,
+    },
+    {
+      id: 6,
+      month: "May 23",
+      assigned: 18,
+      completed: 3,
+    },
+    {
+      id: 7,
+      month: "Jun 22",
+      assigned: 18,
+      completed: 32,
+    },
+  ];
+  return res.status(200).json({ result: result });
+});
+
+// Api to get Enterprise Level ActionsCount
+app.get("/getEnterpriseLevelActionsCount", async (req, res) => {
+  const result = [
+    {
+      id: 1,
+      month: "Dec 22",
+      assigned: 32,
+      completed: 12,
+    },
+    {
+      id: 2,
+      month: "Jan 23",
+      assigned: 33,
+      completed: 2,
+    },
+    {
+      id: 3,
+      month: "Feb 23",
+      assigned: 46,
+      completed: 9,
+    },
+    {
+      id: 4,
+      month: "Mar 23",
+      assigned: 15,
+      completed: 18,
+    },
+    {
+      id: 5,
+      month: "Apr 23",
+      assigned: 30,
+      completed: 33,
+    },
+    {
+      id: 6,
+      month: "May 23",
+      assigned: 18,
+      completed: 3,
+    },
+    {
+      id: 7,
+      month: "Jun 22",
+      assigned: 18,
+      completed: 32,
+    },
+  ];
+  return res.status(200).json({ result: result });
+});
+
+// Api to get Enterprise Level Sentiments Moods
+app.get("/getEnterpriseLevelSentimentsMoods", async (req, res) => {
+  const result = [
+    {
+      id: 1,
+      month: "Dec 22",
+      sad: 32,
+      neutral: 12,
+      happy: 56,
+    },
+    {
+      id: 2,
+      month: "Jan 23",
+      sad: 44,
+      neutral: 2,
+      happy: 54,
+    },
+    {
+      id: 3,
+      month: "Feb 23",
+      sad: 46,
+      neutral: 9,
+      happy: 45,
+    },
+    {
+      id: 4,
+      month: "Mar 23",
+      sad: 15,
+      neutral: 18,
+      happy: 67,
+    },
+    {
+      id: 5,
+      month: "Apr 23",
+      sad: 30,
+      neutral: 20,
+      happy: 50,
+    },
+    {
+      id: 6,
+      month: "May 23",
+      sad: 18,
+      neutral: 3,
+      happy: 79,
+    },
+    {
+      id: 7,
+      month: "Jun 22",
+      sad: 18,
+      neutral: 32,
+      happy: 50,
+    },
+  ];
+  return res.status(200).json({ result: result });
+});
+
+const port = process.env.PORT || 8080;
 
 server.listen(port, () => {
   console.log("Listening on port " + port);
