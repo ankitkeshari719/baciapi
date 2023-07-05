@@ -451,7 +451,6 @@ app.post("/groupSuggestion", async (req, res) => {
     inputColumn.forEach((element) => {
       data.push(element.value);
     });
-    console.log(data, "data");
     const jsonString = JSON.stringify(data, null, 2);
 
     const groupSuggestionString = `Please help me group these sentences into categories and give each category a name, dont use sentiment analysis for grouping.The group count should be less then 6, maximum 2 group should contain only one card. Then convert the response to json array.
@@ -462,7 +461,6 @@ app.post("/groupSuggestion", async (req, res) => {
       messages: [{ role: "user", content: groupSuggestionString }],
     });
 
-    console.log(completion.data.choices[0], "suggestion");
     if (
       !completion.data.choices[0].message.content.includes("baciError300") &&
       JSON.parse(completion.data.choices[0].message.content)
@@ -716,242 +714,519 @@ app.get("/getDummyChartData", async (req, res) => {
   return res.status(200).json({ result: result });
 });
 
-// Api to get count of all participant over time
-app.get("/getParticipantsCount", async (req, res) => {
-  const result = [
-    {
-      id: 1,
-      month: "Dec 22",
-      averageParticipants: 15,
-    },
-    {
-      id: 2,
-      month: "Jan 23",
-      averageParticipants: 27,
-    },
-    {
-      id: 3,
-      month: "Feb 23",
-      averageParticipants: 18,
-    },
-    {
-      id: 4,
-      month: "Mar 23",
-      averageParticipants: 20,
-    },
-    {
-      id: 5,
-      month: "Apr 23",
-      averageParticipants: 23,
-    },
-    {
-      id: 6,
-      month: "May 23",
-      averageParticipants: 17,
-    },
-    {
-      id: 7,
-      month: "June 23",
-      averageParticipants: 15,
-    },
-  ];
-  return res.status(200).json({ result: result });
-});
-
-// Api to get count of all retros over time
-app.get("/getRetrosCount", async (req, res) => {
-  const result = [
-    {
-      id: 1,
-      month: "Dec 22",
-      averageRetros: 15,
-    },
-    {
-      id: 2,
-      month: "Jan 23",
-      averageRetros: 27,
-    },
-    {
-      id: 3,
-      month: "Feb 23",
-      averageRetros: 18,
-    },
-    {
-      id: 4,
-      month: "Mar 23",
-      averageRetros: 20,
-    },
-    {
-      id: 5,
-      month: "Apr 23",
-      averageRetros: 23,
-    },
-    {
-      id: 6,
-      month: "May 23",
-      averageRetros: 17,
-    },
-    {
-      id: 7,
-      month: "Jun 22",
-      averageRetros: 15,
-    },
-  ];
-  return res.status(200).json({ result: result });
-});
-
 // Api to get Team Level Actions Count
 app.get("/getTeamLevelActionsCount", async (req, res) => {
+  let finalResult = [];
+  let fromDate = req.query.fromDate;
+  let toDate = req.query.toDate;
   const result = [
     {
       id: 1,
-      month: "Dec 22",
-      assigned: 32,
-      completed: 12,
+      month: "Apr 22",
+      assigned: 13,
+      completed: 28,
     },
     {
       id: 2,
-      month: "Jan 23",
-      assigned: 33,
-      completed: 2,
+      month: "May 22",
+      assigned: 34,
+      completed: 47,
     },
     {
       id: 3,
-      month: "Feb 23",
-      assigned: 46,
-      completed: 9,
-    },
-    {
-      id: 4,
-      month: "Mar 23",
-      assigned: 15,
+      month: "June 22",
+      assigned: 7,
       completed: 18,
     },
     {
+      id: 4,
+      month: "July 22",
+      assigned: 15,
+      completed: 8,
+    },
+    {
       id: 5,
-      month: "Apr 23",
-      assigned: 30,
-      completed: 33,
+      month: "Aug 22",
+      assigned: 19,
+      completed: 27,
     },
     {
       id: 6,
+      month: "Sep 22",
+      assigned: 21,
+      completed: 30,
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      assigned: 13,
+      completed: 53,
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      assigned: 14,
+      completed: 65,
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      assigned: 15,
+      completed: 33,
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      assigned: 2,
+      completed: 32,
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      assigned: 9,
+      completed: 40,
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      assigned: 25,
+      completed: 15,
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      assigned: 3,
+      completed: 30,
+    },
+    {
+      id: 14,
       month: "May 23",
       assigned: 18,
       completed: 3,
     },
     {
-      id: 7,
-      month: "Jun 22",
-      assigned: 18,
-      completed: 32,
+      id: 15,
+      month: "June 23",
+      assigned: 3,
+      completed: 48,
     },
   ];
-  return res.status(200).json({ result: result });
+  for (let i = 0; i < result.length; i++) {
+    if (result[i].id >= fromDate && result[i].id <= toDate) {
+      console.log();
+      finalResult.push(result[i]);
+    }
+  }
+  return res.status(200).json({ result: finalResult });
 });
 
 // Api to get Enterprise Level ActionsCount
 app.get("/getEnterpriseLevelActionsCount", async (req, res) => {
+  let finalResult = [];
+  let fromDate = req.query.fromDate;
+  let toDate = req.query.toDate;
   const result = [
     {
       id: 1,
-      month: "Dec 22",
-      assigned: 32,
-      completed: 12,
+      month: "Apr 22",
+      assigned: 13,
+      completed: 28,
     },
     {
       id: 2,
-      month: "Jan 23",
-      assigned: 33,
-      completed: 2,
+      month: "May 22",
+      assigned: 34,
+      completed: 47,
     },
     {
       id: 3,
-      month: "Feb 23",
-      assigned: 46,
-      completed: 9,
-    },
-    {
-      id: 4,
-      month: "Mar 23",
-      assigned: 15,
+      month: "June 22",
+      assigned: 7,
       completed: 18,
     },
     {
+      id: 4,
+      month: "July 22",
+      assigned: 15,
+      completed: 8,
+    },
+    {
       id: 5,
-      month: "Apr 23",
-      assigned: 30,
-      completed: 33,
+      month: "Aug 22",
+      assigned: 19,
+      completed: 27,
     },
     {
       id: 6,
+      month: "Sep 22",
+      assigned: 21,
+      completed: 30,
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      assigned: 13,
+      completed: 53,
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      assigned: 14,
+      completed: 65,
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      assigned: 15,
+      completed: 33,
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      assigned: 2,
+      completed: 32,
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      assigned: 9,
+      completed: 40,
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      assigned: 25,
+      completed: 15,
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      assigned: 3,
+      completed: 30,
+    },
+    {
+      id: 14,
       month: "May 23",
       assigned: 18,
       completed: 3,
     },
     {
-      id: 7,
-      month: "Jun 22",
-      assigned: 18,
-      completed: 32,
+      id: 15,
+      month: "June 23",
+      assigned: 3,
+      completed: 48,
     },
   ];
-  return res.status(200).json({ result: result });
+  for (let i = 0; i < result.length; i++) {
+    if (result[i].id >= fromDate && result[i].id <= toDate) {
+      console.log();
+      finalResult.push(result[i]);
+    }
+  }
+  return res.status(200).json({ result: finalResult });
+});
+
+// Api to get count of all participant over time
+app.get("/getParticipantsCount", async (req, res) => {
+  let finalResult = [];
+  let fromDate = req.query.fromDate;
+  let toDate = req.query.toDate;
+  const result = [
+    {
+      id: 1,
+      month: "Apr 22",
+      averageParticipants: 132,
+    },
+    {
+      id: 2,
+      month: "May 22",
+      averageParticipants: 113,
+    },
+    {
+      id: 3,
+      month: "June 22",
+      averageParticipants: 171,
+    },
+    {
+      id: 4,
+      month: "July 22",
+      averageParticipants: 183,
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      averageParticipants: 132,
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      averageParticipants: 144,
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      averageParticipants: 152,
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      averageParticipants: 119,
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      averageParticipants: 117,
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      averageParticipants: 126,
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      averageParticipants: 152,
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      averageParticipants: 216,
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      averageParticipants: 135,
+    },
+    {
+      id: 14,
+      month: "May 23",
+      averageParticipants: 117,
+    },
+    {
+      id: 15,
+      month: "June 23",
+      averageParticipants: 115,
+    },
+  ];
+  for (let i = 0; i < result.length; i++) {
+    if (result[i].id >= fromDate && result[i].id <= toDate) {
+      console.log();
+      finalResult.push(result[i]);
+    }
+  }
+  return res.status(200).json({ result: finalResult });
+});
+
+// Api to get count of all retros over time
+app.get("/getRetrosCount", async (req, res) => {
+  let finalResult = [];
+  let fromDate = req.query.fromDate;
+  let toDate = req.query.toDate;
+  const result = [
+    {
+      id: 1,
+      month: "Apr 22",
+      averageRetros: 132,
+    },
+    {
+      id: 2,
+      month: "May 22",
+      averageRetros: 113,
+    },
+    {
+      id: 3,
+      month: "June 22",
+      averageRetros: 171,
+    },
+    {
+      id: 4,
+      month: "July 22",
+      averageRetros: 183,
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      averageRetros: 132,
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      averageRetros: 144,
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      averageRetros: 152,
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      averageRetros: 119,
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      averageRetros: 117,
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      averageRetros: 126,
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      averageRetros: 152,
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      averageRetros: 216,
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      averageRetros: 135,
+    },
+    {
+      id: 14,
+      month: "May 23",
+      averageRetros: 117,
+    },
+    {
+      id: 15,
+      month: "June 23",
+      averageRetros: 115,
+    },
+  ];
+  for (let i = 0; i < result.length; i++) {
+    if (result[i].id >= fromDate && result[i].id <= toDate) {
+      console.log();
+      finalResult.push(result[i]);
+    }
+  }
+
+  return res.status(200).json({ result: finalResult });
 });
 
 // Api to get Enterprise Level Sentiments Moods
 app.get("/getEnterpriseLevelSentimentsMoods", async (req, res) => {
+  let finalResult = [];
+  let fromDate = req.query.fromDate;
+  let toDate = req.query.toDate;
   const result = [
     {
       id: 1,
-      month: "Dec 22",
+      month: "Apr 22",
+      sad: 14,
+      neutral: 28,
+      happy: 58,
+    },
+    {
+      id: 2,
+      month: "May 22",
+      sad: 13,
+      neutral: 83,
+      happy: 4,
+    },
+    {
+      id: 3,
+      month: "June 22",
+      sad: 7,
+      neutral: 61,
+      happy: 32,
+    },
+    {
+      id: 4,
+      month: "July 22",
+      sad: 54,
+      neutral: 12,
+      happy: 34,
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      sad: 12,
+      neutral: 26,
+      happy: 62,
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      sad: 63,
+      neutral: 12,
+      happy: 25,
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      sad: 18,
+      neutral: 33,
+      happy: 49,
+    },
+    {
+      id: 8,
+      month: "Nov 22",
       sad: 32,
       neutral: 12,
       happy: 56,
     },
     {
-      id: 2,
+      id: 9,
+      month: "Dec 22",
+      sad: 88,
+      neutral: 2,
+      happy: 10,
+    },
+    {
+      id: 10,
       month: "Jan 23",
       sad: 44,
       neutral: 2,
       happy: 54,
     },
     {
-      id: 3,
+      id: 11,
       month: "Feb 23",
       sad: 46,
       neutral: 9,
       happy: 45,
     },
     {
-      id: 4,
+      id: 12,
       month: "Mar 23",
       sad: 15,
       neutral: 18,
       happy: 67,
     },
     {
-      id: 5,
+      id: 13,
       month: "Apr 23",
       sad: 30,
       neutral: 20,
       happy: 50,
     },
     {
-      id: 6,
+      id: 14,
       month: "May 23",
       sad: 18,
       neutral: 3,
       happy: 79,
     },
     {
-      id: 7,
+      id: 15,
       month: "Jun 22",
       sad: 18,
       neutral: 32,
       happy: 50,
     },
   ];
-  return res.status(200).json({ result: result });
+  for (let i = 0; i < result.length; i++) {
+    if (result[i].id >= fromDate && result[i].id <= toDate) {
+      finalResult.push(result[i]);
+    }
+  }
+  return res.status(200).json({ result: finalResult });
 });
 
 const port = process.env.PORT || 8080;
