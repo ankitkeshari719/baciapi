@@ -926,6 +926,187 @@ app.get("/getEnterpriseLevelActionsCount", async (req, res) => {
   return res.status(200).json({ result: finalResult });
 });
 
+app.get("/getTeamLevelActionsCounts", async (req, res) => {
+  let finalResult = [];
+  let fromDate = req.query.fromDate;
+  let toDate = req.query.toDate;
+  const result = [
+    {
+      id: 1,
+      month: "Apr 22",
+      teams: [{ name: "Team A", assigned: 13, completed: 28 }],
+    },
+    {
+      id: 2,
+      month: "May 22",
+      teams: [{ name: "Team B", assigned: 34, completed: 47 }],
+    },
+    {
+      id: 3,
+      month: "June 22",
+      teams: [{ name: "Team C", assigned: 7, completed: 18 }],
+    },
+    {
+      id: 4,
+      month: "July 22",
+      teams: [{ name: "Team D", assigned: 15, completed: 8 }],
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      teams: [{ name: "Team E", assigned: 19, completed: 27 }],
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      teams: [{ name: "Team F", assigned: 21, completed: 30 }],
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      teams: [{ name: "Team G", assigned: 13, completed: 53 }],
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      teams: [{ name: "Team H", assigned: 14, completed: 65 }],
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      teams: [{ name: "Team I", assigned: 15, completed: 33 }],
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      teams: [{ name: "Team J", assigned: 2, completed: 32 }],
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      teams: [{ name: "Team K", assigned: 9, completed: 40 }],
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      teams: [{ name: "Team L", assigned: 25, completed: 15 }],
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      teams: [{ name: "Team M", assigned: 3, completed: 30 }],
+    },
+    {
+      id: 14,
+      month: "May 23",
+      teams: [{ name: "Team N", assigned: 18, completed: 3 }],
+    },
+    {
+      id: 15,
+      month: "June 23",
+      teams: [{ name: "Team O", assigned: 3, completed: 48 }],
+    },
+  ];
+  for (let i = 0; i < result.length; i++) {
+    if (result[i].id >= fromDate && result[i].id <= toDate) {
+      console.log();
+      finalResult.push(result[i]);
+    }
+  }
+  return res.status(200).json({ result: finalResult });
+});
+
+// Api to get Enterprise Level ActionsCount
+app.get("/getEnterpriseLevelActionsCounts", async (req, res) => {
+  let finalResult = [];
+  let fromDate = req.query.fromDate;
+  let toDate = req.query.toDate;
+  const result = [
+    {
+      id: 1,
+      month: "Apr 22",
+      teams: [{ name: "Team A", assigned: 13, completed: 28 }],
+    },
+    {
+      id: 2,
+      month: "May 22",
+      teams: [{ name: "Team B", assigned: 34, completed: 47 }],
+    },
+    {
+      id: 3,
+      month: "June 22",
+      teams: [{ name: "Team C", assigned: 7, completed: 18 }],
+    },
+    {
+      id: 4,
+      month: "July 22",
+      teams: [{ name: "Team D", assigned: 15, completed: 8 }],
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      teams: [{ name: "Team E", assigned: 19, completed: 27 }],
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      teams: [{ name: "Team F", assigned: 21, completed: 30 }],
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      teams: [{ name: "Team G", assigned: 13, completed: 53 }],
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      teams: [{ name: "Team H", assigned: 14, completed: 65 }],
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      teams: [{ name: "Team I", assigned: 15, completed: 33 }],
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      teams: [{ name: "Team J", assigned: 2, completed: 32 }],
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      teams: [{ name: "Team K", assigned: 9, completed: 40 }],
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      teams: [{ name: "Team L", assigned: 25, completed: 15 }],
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      teams: [{ name: "Team M", assigned: 3, completed: 30 }],
+    },
+    {
+      id: 14,
+      month: "May 23",
+      teams: [{ name: "Team N", assigned: 18, completed: 3 }],
+    },
+    {
+      id: 15,
+      month: "June 23",
+      teams: [{ name: "Team O", assigned: 3, completed: 48 }],
+    },
+  ];
+  for (let i = 0; i < result.length; i++) {
+    if (result[i].id >= fromDate && result[i].id <= toDate) {
+      console.log();
+      finalResult.push(result[i]);
+    }
+  }
+  return res.status(200).json({ result: finalResult });
+});
+
 // Api to get count of all participant over time
 app.get("/getParticipantsCount", async (req, res) => {
   let finalResult = [];
