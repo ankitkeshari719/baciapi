@@ -715,7 +715,7 @@ app.get("/getDummyChartData", async (req, res) => {
 });
 
 // Api to get Team Level Actions Count
-app.get("/getTeamLevelActionsCount", async (req, res) => {
+app.get("/getTeamLevelActionsCounts", async (req, res) => {
   let finalResult = [];
   let fromDate = req.query.fromDate;
   let toDate = req.query.toDate;
@@ -723,92 +723,82 @@ app.get("/getTeamLevelActionsCount", async (req, res) => {
     {
       id: 1,
       month: "Apr 22",
-      assigned: 13,
-      completed: 28,
+      teams: [{ name: "Team A", assigned: 13, completed: 28 }],
     },
     {
       id: 2,
       month: "May 22",
-      assigned: 34,
-      completed: 47,
+      teams: [{ name: "Team B", assigned: 34, completed: 47 }],
     },
     {
       id: 3,
-      month: "June 22",
-      assigned: 7,
-      completed: 18,
+      month: "Jun 22",
+      teams: [{ name: "Team C", assigned: 7, completed: 18 }],
     },
     {
       id: 4,
-      month: "July 22",
-      assigned: 15,
-      completed: 8,
+      month: "Jul 22",
+      teams: [{ name: "Team D", assigned: 15, completed: 8 }],
     },
     {
       id: 5,
       month: "Aug 22",
-      assigned: 19,
-      completed: 27,
+      teams: [{ name: "Team E", assigned: 19, completed: 27 }],
     },
     {
       id: 6,
       month: "Sep 22",
-      assigned: 21,
-      completed: 30,
+      teams: [{ name: "Team F", assigned: 21, completed: 30 }],
     },
     {
       id: 7,
       month: "Oct 22",
-      assigned: 13,
-      completed: 53,
+      teams: [{ name: "Team G", assigned: 13, completed: 53 }],
     },
     {
       id: 8,
       month: "Nov 22",
-      assigned: 14,
-      completed: 65,
+      teams: [{ name: "Team H", assigned: 14, completed: 65 }],
     },
     {
       id: 9,
       month: "Dec 22",
-      assigned: 15,
-      completed: 33,
+      teams: [{ name: "Team I", assigned: 15, completed: 33 }],
     },
     {
       id: 10,
       month: "Jan 23",
-      assigned: 2,
-      completed: 32,
+      teams: [{ name: "Team J", assigned: 2, completed: 32 }],
     },
     {
       id: 11,
       month: "Feb 23",
-      assigned: 9,
-      completed: 40,
+      teams: [{ name: "Team K", assigned: 9, completed: 40 }],
     },
     {
       id: 12,
       month: "Mar 23",
-      assigned: 25,
-      completed: 15,
+      teams: [{ name: "Team L", assigned: 25, completed: 15 }],
     },
     {
       id: 13,
       month: "Apr 23",
-      assigned: 3,
-      completed: 30,
+      teams: [{ name: "Team M", assigned: 3, completed: 30 }],
     },
     {
       id: 14,
       month: "May 23",
-      assigned: 18,
-      completed: 3,
+      teams: [{ name: "Team N", assigned: 18, completed: 3 }],
     },
     {
       id: 15,
-      month: "June 23",
-      assigned: 3,
-      completed: 48,
+      month: "Jun 23",
+      teams: [{ name: "Team O", assigned: 3, completed: 48 }],
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      teams: [{ name: "Team O", assigned: 3, completed: 48 }],
     },
   ];
   for (let i = 0; i < result.length; i++) {
@@ -821,7 +811,7 @@ app.get("/getTeamLevelActionsCount", async (req, res) => {
 });
 
 // Api to get Enterprise Level ActionsCount
-app.get("/getEnterpriseLevelActionsCount", async (req, res) => {
+app.get("/getEnterpriseLevelActionsCounts", async (req, res) => {
   let finalResult = [];
   let fromDate = req.query.fromDate;
   let toDate = req.query.toDate;
@@ -840,13 +830,13 @@ app.get("/getEnterpriseLevelActionsCount", async (req, res) => {
     },
     {
       id: 3,
-      month: "June 22",
+      month: "Jun 22",
       assigned: 35,
       completed: 35,
     },
     {
       id: 4,
-      month: "July 22",
+      month: "Jul 22",
       assigned: 30,
       completed: 21,
     },
@@ -912,196 +902,15 @@ app.get("/getEnterpriseLevelActionsCount", async (req, res) => {
     },
     {
       id: 15,
-      month: "June 23",
+      month: "Jun 23",
       assigned:88,
       completed: 34,
     },
     {
       id: 16,
-      month: "July 23",
+      month: "Jul 23",
       assigned:91,
       completed: 23,
-    },
-  ];
-  for (let i = 0; i < result.length; i++) {
-    if (result[i].id >= fromDate && result[i].id <= toDate) {
-      console.log();
-      finalResult.push(result[i]);
-    }
-  }
-  return res.status(200).json({ result: finalResult });
-});
-
-app.get("/getTeamLevelActionsCounts", async (req, res) => {
-  let finalResult = [];
-  let fromDate = req.query.fromDate;
-  let toDate = req.query.toDate;
-  const result = [
-    {
-      id: 1,
-      month: "Apr 22",
-      teams: [{ name: "Team A", assigned: 13, completed: 28 }],
-    },
-    {
-      id: 2,
-      month: "May 22",
-      teams: [{ name: "Team B", assigned: 34, completed: 47 }],
-    },
-    {
-      id: 3,
-      month: "June 22",
-      teams: [{ name: "Team C", assigned: 7, completed: 18 }],
-    },
-    {
-      id: 4,
-      month: "July 22",
-      teams: [{ name: "Team D", assigned: 15, completed: 8 }],
-    },
-    {
-      id: 5,
-      month: "Aug 22",
-      teams: [{ name: "Team E", assigned: 19, completed: 27 }],
-    },
-    {
-      id: 6,
-      month: "Sep 22",
-      teams: [{ name: "Team F", assigned: 21, completed: 30 }],
-    },
-    {
-      id: 7,
-      month: "Oct 22",
-      teams: [{ name: "Team G", assigned: 13, completed: 53 }],
-    },
-    {
-      id: 8,
-      month: "Nov 22",
-      teams: [{ name: "Team H", assigned: 14, completed: 65 }],
-    },
-    {
-      id: 9,
-      month: "Dec 22",
-      teams: [{ name: "Team I", assigned: 15, completed: 33 }],
-    },
-    {
-      id: 10,
-      month: "Jan 23",
-      teams: [{ name: "Team J", assigned: 2, completed: 32 }],
-    },
-    {
-      id: 11,
-      month: "Feb 23",
-      teams: [{ name: "Team K", assigned: 9, completed: 40 }],
-    },
-    {
-      id: 12,
-      month: "Mar 23",
-      teams: [{ name: "Team L", assigned: 25, completed: 15 }],
-    },
-    {
-      id: 13,
-      month: "Apr 23",
-      teams: [{ name: "Team M", assigned: 3, completed: 30 }],
-    },
-    {
-      id: 14,
-      month: "May 23",
-      teams: [{ name: "Team N", assigned: 18, completed: 3 }],
-    },
-    {
-      id: 15,
-      month: "June 23",
-      teams: [{ name: "Team O", assigned: 3, completed: 48 }],
-    },
-  ];
-  for (let i = 0; i < result.length; i++) {
-    if (result[i].id >= fromDate && result[i].id <= toDate) {
-      console.log();
-      finalResult.push(result[i]);
-    }
-  }
-  return res.status(200).json({ result: finalResult });
-});
-
-// Api to get Enterprise Level ActionsCount
-app.get("/getEnterpriseLevelActionsCounts", async (req, res) => {
-  let finalResult = [];
-  let fromDate = req.query.fromDate;
-  let toDate = req.query.toDate;
-  const result = [
-    {
-      id: 1,
-      month: "Apr 22",
-      teams: [{ name: "Team A", assigned: 13, completed: 28 }],
-    },
-    {
-      id: 2,
-      month: "May 22",
-      teams: [{ name: "Team B", assigned: 34, completed: 47 }],
-    },
-    {
-      id: 3,
-      month: "June 22",
-      teams: [{ name: "Team C", assigned: 7, completed: 18 }],
-    },
-    {
-      id: 4,
-      month: "July 22",
-      teams: [{ name: "Team D", assigned: 15, completed: 8 }],
-    },
-    {
-      id: 5,
-      month: "Aug 22",
-      teams: [{ name: "Team E", assigned: 19, completed: 27 }],
-    },
-    {
-      id: 6,
-      month: "Sep 22",
-      teams: [{ name: "Team F", assigned: 21, completed: 30 }],
-    },
-    {
-      id: 7,
-      month: "Oct 22",
-      teams: [{ name: "Team G", assigned: 13, completed: 53 }],
-    },
-    {
-      id: 8,
-      month: "Nov 22",
-      teams: [{ name: "Team H", assigned: 14, completed: 65 }],
-    },
-    {
-      id: 9,
-      month: "Dec 22",
-      teams: [{ name: "Team I", assigned: 15, completed: 33 }],
-    },
-    {
-      id: 10,
-      month: "Jan 23",
-      teams: [{ name: "Team J", assigned: 2, completed: 32 }],
-    },
-    {
-      id: 11,
-      month: "Feb 23",
-      teams: [{ name: "Team K", assigned: 9, completed: 40 }],
-    },
-    {
-      id: 12,
-      month: "Mar 23",
-      teams: [{ name: "Team L", assigned: 25, completed: 15 }],
-    },
-    {
-      id: 13,
-      month: "Apr 23",
-      teams: [{ name: "Team M", assigned: 3, completed: 30 }],
-    },
-    {
-      id: 14,
-      month: "May 23",
-      teams: [{ name: "Team N", assigned: 18, completed: 3 }],
-    },
-    {
-      id: 15,
-      month: "June 23",
-      teams: [{ name: "Team O", assigned: 3, completed: 48 }],
     },
   ];
   for (let i = 0; i < result.length; i++) {
@@ -1131,12 +940,12 @@ app.get("/getParticipantsCount", async (req, res) => {
     },
     {
       id: 3,
-      month: "June 22",
+      month: "Jun 22",
       averageParticipants: 101,
     },
     {
       id: 4,
-      month: "July 22",
+      month: "Jul 22",
       averageParticipants: 95,
     },
     {
@@ -1191,12 +1000,12 @@ app.get("/getParticipantsCount", async (req, res) => {
     },
     {
       id: 15,
-      month: "June 23",
+      month: "Jun 23",
       averageParticipants: 1200,
     },
     {
       id: 16,
-      month: "July 23",
+      month: "Jul 23",
       averageParticipants: 1321,
     },
   ];
@@ -1227,12 +1036,12 @@ app.get("/getRetrosCount", async (req, res) => {
     },
     {
       id: 3,
-      month: "June 22",
+      month: "Jun 22",
       averageRetros: 40,
     },
     {
       id: 4,
-      month: "July 22",
+      month: "Jul 22",
       averageRetros: 38,
     },
     {
@@ -1287,12 +1096,12 @@ app.get("/getRetrosCount", async (req, res) => {
     },
     {
       id: 15,
-      month: "June 23",
+      month: "Jun 23",
       averageRetros: 480,
     },
     {
       id: 16,
-      month: "July 23",
+      month: "Jul 23",
       averageRetros: 528,
     },
   ];
@@ -1315,107 +1124,114 @@ app.get("/getEnterpriseLevelSentimentsMoods", async (req, res) => {
     {
       id: 1,
       month: "Apr 22",
-      sad: 14,
-      neutral: 28,
-      happy: 58,
+      sad: 5,
+      neutral: 40,
+      happy: 10,
     },
     {
       id: 2,
       month: "May 22",
-      sad: 13,
-      neutral: 83,
-      happy: 4,
+      sad: 18,
+      neutral: 20,
+      happy: 40,
     },
     {
       id: 3,
-      month: "June 22",
-      sad: 7,
-      neutral: 61,
-      happy: 32,
+      month: "Jun 22",
+      sad: 20,
+      neutral: 26,
+      happy: 55,
     },
     {
       id: 4,
-      month: "July 22",
-      sad: 54,
-      neutral: 12,
-      happy: 34,
+      month: "Jul 22",
+      sad: 10,
+      neutral: 31,
+      happy: 54,
     },
     {
       id: 5,
       month: "Aug 22",
       sad: 12,
-      neutral: 26,
-      happy: 62,
+      neutral: 16,
+      happy: 54,
     },
     {
       id: 6,
       month: "Sep 22",
-      sad: 63,
-      neutral: 12,
-      happy: 25,
+      sad: 12,
+      neutral: 42,
+      happy: 47,
     },
     {
       id: 7,
       month: "Oct 22",
-      sad: 18,
-      neutral: 33,
-      happy: 49,
+      sad: 45,
+      neutral: 74,
+      happy: 201,
     },
     {
       id: 8,
       month: "Nov 22",
-      sad: 32,
-      neutral: 12,
-      happy: 56,
+      sad: 50,
+      neutral: 28,
+      happy: 433,
     },
     {
       id: 9,
       month: "Dec 22",
-      sad: 88,
-      neutral: 2,
-      happy: 10,
+      sad: 43,
+      neutral: 71,
+      happy: 456,
     },
     {
       id: 10,
       month: "Jan 23",
-      sad: 44,
-      neutral: 2,
-      happy: 54,
+      sad: 55,
+      neutral: 114,
+      happy: 508,
     },
     {
       id: 11,
       month: "Feb 23",
-      sad: 46,
-      neutral: 9,
-      happy: 45,
+      sad: 60,
+      neutral: 38,
+      happy: 832,
     },
     {
       id: 12,
       month: "Mar 23",
-      sad: 15,
-      neutral: 18,
-      happy: 67,
+      sad: 67,
+      neutral: 133,
+      happy: 1011,
     },
     {
       id: 13,
       month: "Apr 23",
-      sad: 30,
-      neutral: 20,
-      happy: 50,
+      sad: 66,
+      neutral: 239,
+      happy: 1045,
     },
     {
       id: 14,
       month: "May 23",
-      sad: 18,
-      neutral: 3,
-      happy: 79,
+      sad: 54,
+      neutral: 211,
+      happy: 1000,
     },
     {
       id: 15,
       month: "Jun 22",
-      sad: 18,
-      neutral: 32,
-      happy: 50,
+      sad: 76,
+      neutral: 24,
+      happy: 1100,
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      sad: 78,
+      neutral: 115,
+      happy: 1155,
     },
   ];
   for (let i = 0; i < result.length; i++) {
