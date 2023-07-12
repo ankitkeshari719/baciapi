@@ -2098,6 +2098,2341 @@ app.get("/getRetrosCount", async (req, res) => {
   return res.status(200).json({ result: finalResult });
 });
 
+// Chart 5: Api to get Enterprise Level ActionsCount
+app.get("/getEnterpriseLevelSentimentSummary", async (req, res) => {
+  let finalResult = [];
+  let selectedFormat = req.query.selectedFormat;
+  console.log("selectedFormat", selectedFormat);
+  let team = req.query.team;
+  const allTeamsResult = [
+    {
+      id: 1,
+      month: "Last Month",
+      summary: [
+        "The team thrives under exceptional leadership, guided by visionary individuals who inspire and empower their members. Their leaders demonstrate a clear sense of direction and purpose, setting high standards and encouraging the team to reach their full potential. Through effective communication and active listening, they foster a culture of trust and collaboration. The leaders value the unique strengths and contributions of each team member, skillfully leveraging their skills for optimal performance. They provide guidance and support, enabling individuals to grow both personally and professionally. With their inspiring leadership, the team feels motivated and driven to achieve extraordinary results. The leaders' unwavering dedication to the team's success creates a positive and uplifting work environment. Overall, the team's exceptional performance is a testament to the transformative impact of their leaders, who inspire greatness and guide the team towards continuous success.",
+      ],
+      keywords: [
+        "Thriving",
+        "Exceptional",
+        "Visionary",
+        "Inspire",
+        "Empower",
+        "Direction",
+        "Purpose",
+        "High standards",
+        "Trust",
+        "Collaboration",
+        "Value",
+        "Guidance",
+        "Support",
+        "Motivated",
+        "Success",
+      ],
+    },
+    {
+      id: 2,
+      month: "Last 3 Months",
+      summary: [
+        "The team demonstrates a satisfactory level of performance, striving for improvement and displaying moderate collaboration. There is potential for stronger coordination and a more cohesive environment. They exhibit reasonable attention to detail and are adaptable in learning from past experiences. The team consistently exceeds expectations, showcasing exceptional collaboration and effective communication. Their meticulous attention to detail and proactive approach contribute to top-notch quality and the ability to anticipate challenges. Their adaptability and resilience enable them to navigate complex situations. Under exceptional leadership, the team is motivated, guided, and empowered to reach their full potential. The leaders foster a culture of trust and collaboration, valuing each team member's unique strengths. The team's exceptional performance is a testament to their transformative leaders, inspiring continuous success. Overall, the team's dedication, positive mindset, and exceptional leadership position them as a powerhouse in their field.",
+      ],
+      keywords: [
+        "Satisfactory",
+        "Improvement",
+        "Moderate collaboration",
+        "Coordination",
+        "Cohesive",
+        "Attention to detail",
+        "Adaptable",
+        "Exceeding expectations",
+        "Exceptional collaboration",
+        "Effective communication",
+        "Anticipation",
+        "Adaptability",
+        "Resilience",
+        "Leadership",
+        "Empowerment",
+      ],
+    },
+    {
+      id: 3,
+      month: "Last 6 Months",
+      summary: [
+        "The team demonstrates a satisfactory level of performance, with potential for improvement. They exhibit a moderate level of collaboration, working together to overcome challenges. Communication gaps and coordination issues hinder their progress. Attention to detail and commitment to results require strengthening, leading to subpar deliverables. Their reactive approach creates delays and setbacks. However, their adaptability and resilience enable them to navigate complex situations. The team's proactive mindset, efficiency, and dedication to continuous learning foster a positive and motivating environment. They consistently strive for excellence and exceed expectations. Exceptional leadership sets high standards, fosters trust, and empowers team members. Overall, the team's remarkable performance, adaptability, collaboration, and leadership contribute to their position as a formidable force in their field. With stronger coordination, enhanced communication, and a proactive mindset, they can bridge performance gaps and achieve desired success.",
+      ],
+      keywords: [
+        "Satisfactory",
+        "Improvement",
+        "Moderate",
+        "Coordination",
+        "Cohesion",
+        "Detail",
+        "Adaptable",
+        "Expectations",
+        "Collaboration",
+        "Communication",
+        "Proactive",
+        "Quality",
+        "Anticipate",
+        "Resilience",
+        "Leadership",
+      ],
+    },
+    {
+      id: 4,
+      month: "Last 12 Months",
+      summary: [
+        "The team exhibits a moderate level of engagement in their work culture, with opportunities for improvement. They demonstrate collaboration potential, yet stronger coordination and a cohesive environment are needed. There is reasonable attention to detail and adaptability to learn from past experiences. Exceptional performance defines the team, as they exceed expectations and display remarkable collaboration. Effective communication and mutual support foster a harmonious environment. Meticulous attention to detail ensures high-quality work, while a proactive approach anticipates and addresses challenges. The team's adaptability and resilience allow them to navigate complex situations. Under exceptional leadership, team members feel motivated and empowered, resulting in exceptional performance. Overall, the team shows potential for growth, with dedication and a positive outlook. Exceptional leadership drives success and creates a positive work environment.",
+      ],
+      keywords: [
+        "Outstanding performance",
+        "Collaboration",
+        "Adaptability",
+        "Resilience",
+        "Continuous improvement",
+        "Agility",
+        "Excellence",
+        "Proactive",
+        "Innovation",
+        "Trust",
+        "Supportive environment",
+        "Learning and growth",
+        "Enthusiasm",
+        "Positive energy",
+        "Exceptional leadership",
+      ],
+    },
+  ];
+
+  const mobileTeamResult = [
+    {
+      id: 1,
+      month: "Last Month",
+      summary: [
+        "The team thrives under exceptional leadership, guided by visionary individuals who inspire and empower their members. Their leaders demonstrate a clear sense of direction and purpose, setting high standards and encouraging the team to reach their full potential. Through effective communication and active listening, they foster a culture of trust and collaboration. The leaders value the unique strengths and contributions of each team member, skillfully leveraging their skills for optimal performance. They provide guidance and support, enabling individuals to grow both personally and professionally. With their inspiring leadership, the team feels motivated and driven to achieve extraordinary results. The leaders' unwavering dedication to the team's success creates a positive and uplifting work environment. Overall, the team's exceptional performance is a testament to the transformative impact of their leaders, who inspire greatness and guide the team towards continuous success.",
+      ],
+      keywords: [
+        "Thriving",
+        "Exceptional",
+        "Visionary",
+        "Inspire",
+        "Empower",
+        "Direction",
+        "Purpose",
+        "High standards",
+        "Trust",
+        "Collaboration",
+        "Value",
+        "Guidance",
+        "Support",
+        "Motivated",
+        "Success",
+      ],
+    },
+    {
+      id: 2,
+      month: "Last 3 Months",
+      summary: [
+        "The team demonstrates a satisfactory level of performance, striving for improvement and displaying moderate collaboration. There is potential for stronger coordination and a more cohesive environment. They exhibit reasonable attention to detail and are adaptable in learning from past experiences. The team consistently exceeds expectations, showcasing exceptional collaboration and effective communication. Their meticulous attention to detail and proactive approach contribute to top-notch quality and the ability to anticipate challenges. Their adaptability and resilience enable them to navigate complex situations. Under exceptional leadership, the team is motivated, guided, and empowered to reach their full potential. The leaders foster a culture of trust and collaboration, valuing each team member's unique strengths. The team's exceptional performance is a testament to their transformative leaders, inspiring continuous success. Overall, the team's dedication, positive mindset, and exceptional leadership position them as a powerhouse in their field.",
+      ],
+      keywords: [
+        "Satisfactory",
+        "Improvement",
+        "Moderate collaboration",
+        "Coordination",
+        "Cohesive",
+        "Attention to detail",
+        "Adaptable",
+        "Exceeding expectations",
+        "Exceptional collaboration",
+        "Effective communication",
+        "Anticipation",
+        "Adaptability",
+        "Resilience",
+        "Leadership",
+        "Empowerment",
+      ],
+    },
+    {
+      id: 3,
+      month: "Last 6 Months",
+      summary: [
+        "The team demonstrates a satisfactory level of performance, with potential for improvement. They exhibit a moderate level of collaboration, working together to overcome challenges. Communication gaps and coordination issues hinder their progress. Attention to detail and commitment to results require strengthening, leading to subpar deliverables. Their reactive approach creates delays and setbacks. However, their adaptability and resilience enable them to navigate complex situations. The team's proactive mindset, efficiency, and dedication to continuous learning foster a positive and motivating environment. They consistently strive for excellence and exceed expectations. Exceptional leadership sets high standards, fosters trust, and empowers team members. Overall, the team's remarkable performance, adaptability, collaboration, and leadership contribute to their position as a formidable force in their field. With stronger coordination, enhanced communication, and a proactive mindset, they can bridge performance gaps and achieve desired success.",
+      ],
+      keywords: [
+        "Satisfactory",
+        "Improvement",
+        "Moderate",
+        "Coordination",
+        "Cohesion",
+        "Detail",
+        "Adaptable",
+        "Expectations",
+        "Collaboration",
+        "Communication",
+        "Proactive",
+        "Quality",
+        "Anticipate",
+        "Resilience",
+        "Leadership",
+      ],
+    },
+    {
+      id: 4,
+      month: "Last 12 Months",
+      summary: [
+        "The team exhibits a moderate level of engagement in their work culture, with opportunities for improvement. They demonstrate collaboration potential, yet stronger coordination and a cohesive environment are needed. There is reasonable attention to detail and adaptability to learn from past experiences. Exceptional performance defines the team, as they exceed expectations and display remarkable collaboration. Effective communication and mutual support foster a harmonious environment. Meticulous attention to detail ensures high-quality work, while a proactive approach anticipates and addresses challenges. The team's adaptability and resilience allow them to navigate complex situations. Under exceptional leadership, team members feel motivated and empowered, resulting in exceptional performance. Overall, the team shows potential for growth, with dedication and a positive outlook. Exceptional leadership drives success and creates a positive work environment.",
+      ],
+      keywords: [
+        "Outstanding performance",
+        "Collaboration",
+        "Adaptability",
+        "Resilience",
+        "Continuous improvement",
+        "Agility",
+        "Excellence",
+        "Proactive",
+        "Innovation",
+        "Trust",
+        "Supportive environment",
+        "Learning and growth",
+        "Enthusiasm",
+        "Positive energy",
+        "Exceptional leadership",
+      ],
+    },
+  ];
+
+  const superannuationTeamResult = [
+    {
+      id: 1,
+      month: "Last Month",
+      summary: [
+        "The team thrives under exceptional leadership, guided by visionary individuals who inspire and empower their members. Their leaders demonstrate a clear sense of direction and purpose, setting high standards and encouraging the team to reach their full potential. Through effective communication and active listening, they foster a culture of trust and collaboration. The leaders value the unique strengths and contributions of each team member, skillfully leveraging their skills for optimal performance. They provide guidance and support, enabling individuals to grow both personally and professionally. With their inspiring leadership, the team feels motivated and driven to achieve extraordinary results. The leaders' unwavering dedication to the team's success creates a positive and uplifting work environment. Overall, the team's exceptional performance is a testament to the transformative impact of their leaders, who inspire greatness and guide the team towards continuous success.",
+      ],
+      keywords: [
+        "Thriving",
+        "Exceptional",
+        "Visionary",
+        "Inspire",
+        "Empower",
+        "Direction",
+        "Purpose",
+        "High standards",
+        "Trust",
+        "Collaboration",
+        "Value",
+        "Guidance",
+        "Support",
+        "Motivated",
+        "Success",
+      ],
+    },
+    {
+      id: 2,
+      month: "Last 3 Months",
+      summary: [
+        "The team demonstrates a satisfactory level of performance, striving for improvement and displaying moderate collaboration. There is potential for stronger coordination and a more cohesive environment. They exhibit reasonable attention to detail and are adaptable in learning from past experiences. The team consistently exceeds expectations, showcasing exceptional collaboration and effective communication. Their meticulous attention to detail and proactive approach contribute to top-notch quality and the ability to anticipate challenges. Their adaptability and resilience enable them to navigate complex situations. Under exceptional leadership, the team is motivated, guided, and empowered to reach their full potential. The leaders foster a culture of trust and collaboration, valuing each team member's unique strengths. The team's exceptional performance is a testament to their transformative leaders, inspiring continuous success. Overall, the team's dedication, positive mindset, and exceptional leadership position them as a powerhouse in their field.",
+      ],
+      keywords: [
+        "Satisfactory",
+        "Improvement",
+        "Moderate collaboration",
+        "Coordination",
+        "Cohesive",
+        "Attention to detail",
+        "Adaptable",
+        "Exceeding expectations",
+        "Exceptional collaboration",
+        "Effective communication",
+        "Anticipation",
+        "Adaptability",
+        "Resilience",
+        "Leadership",
+        "Empowerment",
+      ],
+    },
+    {
+      id: 3,
+      month: "Last 6 Months",
+      summary: [
+        "The team demonstrates a satisfactory level of performance, with potential for improvement. They exhibit a moderate level of collaboration, working together to overcome challenges. Communication gaps and coordination issues hinder their progress. Attention to detail and commitment to results require strengthening, leading to subpar deliverables. Their reactive approach creates delays and setbacks. However, their adaptability and resilience enable them to navigate complex situations. The team's proactive mindset, efficiency, and dedication to continuous learning foster a positive and motivating environment. They consistently strive for excellence and exceed expectations. Exceptional leadership sets high standards, fosters trust, and empowers team members. Overall, the team's remarkable performance, adaptability, collaboration, and leadership contribute to their position as a formidable force in their field. With stronger coordination, enhanced communication, and a proactive mindset, they can bridge performance gaps and achieve desired success.",
+      ],
+      keywords: [
+        "Satisfactory",
+        "Improvement",
+        "Moderate",
+        "Coordination",
+        "Cohesion",
+        "Detail",
+        "Adaptable",
+        "Expectations",
+        "Collaboration",
+        "Communication",
+        "Proactive",
+        "Quality",
+        "Anticipate",
+        "Resilience",
+        "Leadership",
+      ],
+    },
+    {
+      id: 4,
+      month: "Last 12 Months",
+      summary: [
+        "The team exhibits a moderate level of engagement in their work culture, with opportunities for improvement. They demonstrate collaboration potential, yet stronger coordination and a cohesive environment are needed. There is reasonable attention to detail and adaptability to learn from past experiences. Exceptional performance defines the team, as they exceed expectations and display remarkable collaboration. Effective communication and mutual support foster a harmonious environment. Meticulous attention to detail ensures high-quality work, while a proactive approach anticipates and addresses challenges. The team's adaptability and resilience allow them to navigate complex situations. Under exceptional leadership, team members feel motivated and empowered, resulting in exceptional performance. Overall, the team shows potential for growth, with dedication and a positive outlook. Exceptional leadership drives success and creates a positive work environment.",
+      ],
+      keywords: [
+        "Outstanding performance",
+        "Collaboration",
+        "Adaptability",
+        "Resilience",
+        "Continuous improvement",
+        "Agility",
+        "Excellence",
+        "Proactive",
+        "Innovation",
+        "Trust",
+        "Supportive environment",
+        "Learning and growth",
+        "Enthusiasm",
+        "Positive energy",
+        "Exceptional leadership",
+      ],
+    },
+  ];
+
+  const insuranceTeamResult = [
+    {
+      id: 1,
+      month: "Last Month",
+      summary: [
+        "The team thrives under exceptional leadership, guided by visionary individuals who inspire and empower their members. Their leaders demonstrate a clear sense of direction and purpose, setting high standards and encouraging the team to reach their full potential. Through effective communication and active listening, they foster a culture of trust and collaboration. The leaders value the unique strengths and contributions of each team member, skillfully leveraging their skills for optimal performance. They provide guidance and support, enabling individuals to grow both personally and professionally. With their inspiring leadership, the team feels motivated and driven to achieve extraordinary results. The leaders' unwavering dedication to the team's success creates a positive and uplifting work environment. Overall, the team's exceptional performance is a testament to the transformative impact of their leaders, who inspire greatness and guide the team towards continuous success.",
+      ],
+      keywords: [
+        "Thriving",
+        "Exceptional",
+        "Visionary",
+        "Inspire",
+        "Empower",
+        "Direction",
+        "Purpose",
+        "High standards",
+        "Trust",
+        "Collaboration",
+        "Value",
+        "Guidance",
+        "Support",
+        "Motivated",
+        "Success",
+      ],
+    },
+    {
+      id: 2,
+      month: "Last 3 Months",
+      summary: [
+        "The team demonstrates a satisfactory level of performance, striving for improvement and displaying moderate collaboration. There is potential for stronger coordination and a more cohesive environment. They exhibit reasonable attention to detail and are adaptable in learning from past experiences. The team consistently exceeds expectations, showcasing exceptional collaboration and effective communication. Their meticulous attention to detail and proactive approach contribute to top-notch quality and the ability to anticipate challenges. Their adaptability and resilience enable them to navigate complex situations. Under exceptional leadership, the team is motivated, guided, and empowered to reach their full potential. The leaders foster a culture of trust and collaboration, valuing each team member's unique strengths. The team's exceptional performance is a testament to their transformative leaders, inspiring continuous success. Overall, the team's dedication, positive mindset, and exceptional leadership position them as a powerhouse in their field.",
+      ],
+      keywords: [
+        "Satisfactory",
+        "Improvement",
+        "Moderate collaboration",
+        "Coordination",
+        "Cohesive",
+        "Attention to detail",
+        "Adaptable",
+        "Exceeding expectations",
+        "Exceptional collaboration",
+        "Effective communication",
+        "Anticipation",
+        "Adaptability",
+        "Resilience",
+        "Leadership",
+        "Empowerment",
+      ],
+    },
+    {
+      id: 3,
+      month: "Last 6 Months",
+      summary: [
+        "The team demonstrates a satisfactory level of performance, with potential for improvement. They exhibit a moderate level of collaboration, working together to overcome challenges. Communication gaps and coordination issues hinder their progress. Attention to detail and commitment to results require strengthening, leading to subpar deliverables. Their reactive approach creates delays and setbacks. However, their adaptability and resilience enable them to navigate complex situations. The team's proactive mindset, efficiency, and dedication to continuous learning foster a positive and motivating environment. They consistently strive for excellence and exceed expectations. Exceptional leadership sets high standards, fosters trust, and empowers team members. Overall, the team's remarkable performance, adaptability, collaboration, and leadership contribute to their position as a formidable force in their field. With stronger coordination, enhanced communication, and a proactive mindset, they can bridge performance gaps and achieve desired success.",
+      ],
+      keywords: [
+        "Satisfactory",
+        "Improvement",
+        "Moderate",
+        "Coordination",
+        "Cohesion",
+        "Detail",
+        "Adaptable",
+        "Expectations",
+        "Collaboration",
+        "Communication",
+        "Proactive",
+        "Quality",
+        "Anticipate",
+        "Resilience",
+        "Leadership",
+      ],
+    },
+    {
+      id: 4,
+      month: "Last 12 Months",
+      summary: [
+        "The team exhibits a moderate level of engagement in their work culture, with opportunities for improvement. They demonstrate collaboration potential, yet stronger coordination and a cohesive environment are needed. There is reasonable attention to detail and adaptability to learn from past experiences. Exceptional performance defines the team, as they exceed expectations and display remarkable collaboration. Effective communication and mutual support foster a harmonious environment. Meticulous attention to detail ensures high-quality work, while a proactive approach anticipates and addresses challenges. The team's adaptability and resilience allow them to navigate complex situations. Under exceptional leadership, team members feel motivated and empowered, resulting in exceptional performance. Overall, the team shows potential for growth, with dedication and a positive outlook. Exceptional leadership drives success and creates a positive work environment.",
+      ],
+      keywords: [
+        "Outstanding performance",
+        "Collaboration",
+        "Adaptability",
+        "Resilience",
+        "Continuous improvement",
+        "Agility",
+        "Excellence",
+        "Proactive",
+        "Innovation",
+        "Trust",
+        "Supportive environment",
+        "Learning and growth",
+        "Enthusiasm",
+        "Positive energy",
+        "Exceptional leadership",
+      ],
+    },
+  ];
+
+  switch (team) {
+    case "0":
+      for (let i = 0; i < allTeamsResult.length; i++) {
+        if (allTeamsResult[i].id == selectedFormat) {
+          finalResult.push(allTeamsResult[i]);
+        }
+      }
+      break;
+    case "1":
+      for (let i = 0; i < mobileTeamResult.length; i++) {
+        if (mobileTeamResult[i].id == selectedFormat) {
+          finalResult.push(mobileTeamResult[i]);
+        }
+      }
+      break;
+    case "2":
+      for (let i = 0; i < superannuationTeamResult.length; i++) {
+        if (superannuationTeamResult[i].id == selectedFormat) {
+          finalResult.push(superannuationTeamResult[i]);
+        }
+      }
+      break;
+    case "3":
+      for (let i = 0; i < insuranceTeamResult.length; i++) {
+        if (insuranceTeamResult[i].id == selectedFormat) {
+          finalResult.push(insuranceTeamResult[i]);
+        }
+      }
+      break;
+
+    default:
+      break;
+  }
+
+  return res.status(200).json({ result: finalResult });
+});
+
+// Chart 6: Api to get Enterprise Level Sentiments Moods : 
+// In Progress
+app.get("/getEnterpriseLevelSentimentsTheme", async (req, res) => {
+  let sadResult = [];
+  let neutralResult = [];
+  let happyResult = [];
+  const keywords = [
+    "External Environment & Conditions",
+    "Work Technology & Tools",
+    "Individual & Team",
+    "People & Resources",
+    "Structure & Capabilities",
+    "Decision Making",
+    "Openness to Feedback",
+    "Work Prioritisation",
+  ];
+  let fromDate = req.query.fromDate;
+  let toDate = req.query.toDate;
+  let team = req.query.team;
+
+  const allTeamsResult = {
+    xAxis: ["Sad", "Neutral", "Happy"],
+    yAxis: [
+      "External Environment & Conditions",
+      "Work Technology & Tools",
+      "Individual & Team",
+      "People & Resources",
+      "Structure & Capabilities",
+      "Decision Making",
+      "Openness to Feedback",
+      "Work Prioritisation",
+    ],
+    sadData: [
+      {
+        id: 1,
+        month: "Apr 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 10,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 15,
+          },
+          {
+            key: "Individual & Team",
+            value: 15,
+          },
+          {
+            key: "People & Resources",
+            value: 10,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 20,
+          },
+          {
+            key: "Decision Making",
+            value: 30,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 35,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 2,
+        month: "May 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 10,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 15,
+          },
+          {
+            key: "Individual & Team",
+            value: 15,
+          },
+          {
+            key: "People & Resources",
+            value: 10,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 20,
+          },
+          {
+            key: "Decision Making",
+            value: 30,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 35,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 3,
+        month: "Jun 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 10,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 15,
+          },
+          {
+            key: "Individual & Team",
+            value: 15,
+          },
+          {
+            key: "People & Resources",
+            value: 10,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 20,
+          },
+          {
+            key: "Decision Making",
+            value: 30,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 35,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 4,
+        month: "Jul 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 20,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 25,
+          },
+          {
+            key: "Individual & Team",
+            value: 25,
+          },
+          {
+            key: "People & Resources",
+            value: 30,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 15,
+          },
+          {
+            key: "Decision Making",
+            value: 35,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 10,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 35,
+          },
+        ],
+      },
+      {
+        id: 5,
+        month: "Aug 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 30,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 25,
+          },
+          {
+            key: "Individual & Team",
+            value: 30,
+          },
+          {
+            key: "People & Resources",
+            value: 20,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 25,
+          },
+          {
+            key: "Decision Making",
+            value: 20,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 30,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 35,
+          },
+        ],
+      },
+      {
+        id: 6,
+        month: "Sep 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 15,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 20,
+          },
+          {
+            key: "Individual & Team",
+            value: 40,
+          },
+          {
+            key: "People & Resources",
+            value: 30,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 10,
+          },
+          {
+            key: "Decision Making",
+            value: 35,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 15,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 7,
+        month: "Oct 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 40,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 30,
+          },
+          {
+            key: "Individual & Team",
+            value: 20,
+          },
+          {
+            key: "People & Resources",
+            value: 25,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 25,
+          },
+          {
+            key: "Decision Making",
+            value: 20,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 15,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 30,
+          },
+        ],
+      },
+      {
+        id: 8,
+        month: "Nov 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 15,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 35,
+          },
+          {
+            key: "Individual & Team",
+            value: 10,
+          },
+          {
+            key: "People & Resources",
+            value: 30,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 30,
+          },
+          {
+            key: "Decision Making",
+            value: 20,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 30,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 20,
+          },
+        ],
+      },
+      {
+        id: 9,
+        month: "Dec 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 35,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 15,
+          },
+          {
+            key: "Individual & Team",
+            value: 20,
+          },
+          {
+            key: "People & Resources",
+            value: 20,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 15,
+          },
+          {
+            key: "Decision Making",
+            value: 25,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 15,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 20,
+          },
+        ],
+      },
+      {
+        id: 10,
+        month: "Jan 232",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 20,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 30,
+          },
+          {
+            key: "Individual & Team",
+            value: 20,
+          },
+          {
+            key: "People & Resources",
+            value: 15,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 30,
+          },
+          {
+            key: "Decision Making",
+            value: 25,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 25,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 11,
+        month: "Feb 23",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 35,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 20,
+          },
+          {
+            key: "Individual & Team",
+            value: 20,
+          },
+          {
+            key: "People & Resources",
+            value: 30,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 20,
+          },
+          {
+            key: "Decision Making",
+            value: 20,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 25,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 12,
+        month: "Mar 23",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 25,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 30,
+          },
+          {
+            key: "Individual & Team",
+            value: 10,
+          },
+          {
+            key: "People & Resources",
+            value: 35,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 15,
+          },
+          {
+            key: "Decision Making",
+            value: 25,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 30,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 13,
+        month: "Apr 23",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 20,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 20,
+          },
+          {
+            key: "Individual & Team",
+            value: 30,
+          },
+          {
+            key: "People & Resources",
+            value: 35,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 10,
+          },
+          {
+            key: "Decision Making",
+            value: 30,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 20,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 25,
+          },
+        ],
+      },
+      {
+        id: 14,
+        month: "May 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 20,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 30,
+          },
+          {
+            key: "Individual & Team",
+            value: 25,
+          },
+          {
+            key: "People & Resources",
+            value: 25,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 30,
+          },
+          {
+            key: "Decision Making",
+            value: 35,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 15,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 20,
+          },
+        ],
+      },
+      {
+        id: 15,
+        month: "Jun 23",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 40,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 15,
+          },
+          {
+            key: "Individual & Team",
+            value: 35,
+          },
+          {
+            key: "People & Resources",
+            value: 10,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 30,
+          },
+          {
+            key: "Decision Making",
+            value: 25,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 25,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 30,
+          },
+        ],
+      },
+      {
+        id: 16,
+        month: "Jul 23",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 15,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 35,
+          },
+          {
+            key: "Individual & Team",
+            value: 10,
+          },
+          {
+            key: "People & Resources",
+            value: 35,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 30,
+          },
+          {
+            key: "Decision Making",
+            value: 25,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 30,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 20,
+          },
+        ],
+      },
+    ],
+    neutralData: [
+      {
+        id: 1,
+        month: "Apr 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 10,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 15,
+          },
+          {
+            key: "Individual & Team",
+            value: 15,
+          },
+          {
+            key: "People & Resources",
+            value: 10,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 20,
+          },
+          {
+            key: "Decision Making",
+            value: 30,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 35,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 2,
+        month: "May 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 10,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 15,
+          },
+          {
+            key: "Individual & Team",
+            value: 15,
+          },
+          {
+            key: "People & Resources",
+            value: 10,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 20,
+          },
+          {
+            key: "Decision Making",
+            value: 30,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 35,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 3,
+        month: "Jun 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 10,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 15,
+          },
+          {
+            key: "Individual & Team",
+            value: 15,
+          },
+          {
+            key: "People & Resources",
+            value: 10,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 20,
+          },
+          {
+            key: "Decision Making",
+            value: 30,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 35,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 4,
+        month: "Jul 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 20,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 25,
+          },
+          {
+            key: "Individual & Team",
+            value: 25,
+          },
+          {
+            key: "People & Resources",
+            value: 30,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 15,
+          },
+          {
+            key: "Decision Making",
+            value: 35,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 10,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 35,
+          },
+        ],
+      },
+      {
+        id: 5,
+        month: "Aug 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 30,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 25,
+          },
+          {
+            key: "Individual & Team",
+            value: 30,
+          },
+          {
+            key: "People & Resources",
+            value: 20,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 25,
+          },
+          {
+            key: "Decision Making",
+            value: 20,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 30,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 35,
+          },
+        ],
+      },
+      {
+        id: 6,
+        month: "Sep 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 15,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 20,
+          },
+          {
+            key: "Individual & Team",
+            value: 40,
+          },
+          {
+            key: "People & Resources",
+            value: 30,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 10,
+          },
+          {
+            key: "Decision Making",
+            value: 35,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 15,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 7,
+        month: "Oct 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 40,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 30,
+          },
+          {
+            key: "Individual & Team",
+            value: 20,
+          },
+          {
+            key: "People & Resources",
+            value: 25,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 25,
+          },
+          {
+            key: "Decision Making",
+            value: 20,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 15,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 30,
+          },
+        ],
+      },
+      {
+        id: 8,
+        month: "Nov 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 15,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 35,
+          },
+          {
+            key: "Individual & Team",
+            value: 10,
+          },
+          {
+            key: "People & Resources",
+            value: 30,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 30,
+          },
+          {
+            key: "Decision Making",
+            value: 20,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 30,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 20,
+          },
+        ],
+      },
+      {
+        id: 9,
+        month: "Dec 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 35,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 15,
+          },
+          {
+            key: "Individual & Team",
+            value: 20,
+          },
+          {
+            key: "People & Resources",
+            value: 20,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 15,
+          },
+          {
+            key: "Decision Making",
+            value: 25,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 15,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 20,
+          },
+        ],
+      },
+      {
+        id: 10,
+        month: "Jan 232",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 20,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 30,
+          },
+          {
+            key: "Individual & Team",
+            value: 20,
+          },
+          {
+            key: "People & Resources",
+            value: 15,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 30,
+          },
+          {
+            key: "Decision Making",
+            value: 25,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 25,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 11,
+        month: "Feb 23",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 35,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 20,
+          },
+          {
+            key: "Individual & Team",
+            value: 20,
+          },
+          {
+            key: "People & Resources",
+            value: 30,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 20,
+          },
+          {
+            key: "Decision Making",
+            value: 20,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 25,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 12,
+        month: "Mar 23",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 25,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 30,
+          },
+          {
+            key: "Individual & Team",
+            value: 10,
+          },
+          {
+            key: "People & Resources",
+            value: 35,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 15,
+          },
+          {
+            key: "Decision Making",
+            value: 25,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 30,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 13,
+        month: "Apr 23",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 20,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 20,
+          },
+          {
+            key: "Individual & Team",
+            value: 30,
+          },
+          {
+            key: "People & Resources",
+            value: 35,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 10,
+          },
+          {
+            key: "Decision Making",
+            value: 30,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 20,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 25,
+          },
+        ],
+      },
+      {
+        id: 14,
+        month: "May 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 20,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 30,
+          },
+          {
+            key: "Individual & Team",
+            value: 25,
+          },
+          {
+            key: "People & Resources",
+            value: 25,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 30,
+          },
+          {
+            key: "Decision Making",
+            value: 35,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 15,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 20,
+          },
+        ],
+      },
+      {
+        id: 15,
+        month: "Jun 23",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 40,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 15,
+          },
+          {
+            key: "Individual & Team",
+            value: 35,
+          },
+          {
+            key: "People & Resources",
+            value: 10,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 30,
+          },
+          {
+            key: "Decision Making",
+            value: 25,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 25,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 30,
+          },
+        ],
+      },
+      {
+        id: 16,
+        month: "Jul 23",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 15,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 35,
+          },
+          {
+            key: "Individual & Team",
+            value: 10,
+          },
+          {
+            key: "People & Resources",
+            value: 35,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 30,
+          },
+          {
+            key: "Decision Making",
+            value: 25,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 30,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 20,
+          },
+        ],
+      },
+    ],
+    happyData: [
+      {
+        id: 1,
+        month: "Apr 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 10,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 15,
+          },
+          {
+            key: "Individual & Team",
+            value: 15,
+          },
+          {
+            key: "People & Resources",
+            value: 10,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 20,
+          },
+          {
+            key: "Decision Making",
+            value: 30,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 35,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 2,
+        month: "May 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 10,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 15,
+          },
+          {
+            key: "Individual & Team",
+            value: 15,
+          },
+          {
+            key: "People & Resources",
+            value: 10,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 20,
+          },
+          {
+            key: "Decision Making",
+            value: 30,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 35,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 3,
+        month: "Jun 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 10,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 15,
+          },
+          {
+            key: "Individual & Team",
+            value: 15,
+          },
+          {
+            key: "People & Resources",
+            value: 10,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 20,
+          },
+          {
+            key: "Decision Making",
+            value: 30,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 35,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 4,
+        month: "Jul 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 20,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 25,
+          },
+          {
+            key: "Individual & Team",
+            value: 25,
+          },
+          {
+            key: "People & Resources",
+            value: 30,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 15,
+          },
+          {
+            key: "Decision Making",
+            value: 35,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 10,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 35,
+          },
+        ],
+      },
+      {
+        id: 5,
+        month: "Aug 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 30,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 25,
+          },
+          {
+            key: "Individual & Team",
+            value: 30,
+          },
+          {
+            key: "People & Resources",
+            value: 20,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 25,
+          },
+          {
+            key: "Decision Making",
+            value: 20,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 30,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 35,
+          },
+        ],
+      },
+      {
+        id: 6,
+        month: "Sep 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 15,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 20,
+          },
+          {
+            key: "Individual & Team",
+            value: 40,
+          },
+          {
+            key: "People & Resources",
+            value: 30,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 10,
+          },
+          {
+            key: "Decision Making",
+            value: 35,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 15,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 7,
+        month: "Oct 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 40,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 30,
+          },
+          {
+            key: "Individual & Team",
+            value: 20,
+          },
+          {
+            key: "People & Resources",
+            value: 25,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 25,
+          },
+          {
+            key: "Decision Making",
+            value: 20,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 15,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 30,
+          },
+        ],
+      },
+      {
+        id: 8,
+        month: "Nov 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 15,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 35,
+          },
+          {
+            key: "Individual & Team",
+            value: 10,
+          },
+          {
+            key: "People & Resources",
+            value: 30,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 30,
+          },
+          {
+            key: "Decision Making",
+            value: 20,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 30,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 20,
+          },
+        ],
+      },
+      {
+        id: 9,
+        month: "Dec 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 35,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 15,
+          },
+          {
+            key: "Individual & Team",
+            value: 20,
+          },
+          {
+            key: "People & Resources",
+            value: 20,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 15,
+          },
+          {
+            key: "Decision Making",
+            value: 25,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 15,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 20,
+          },
+        ],
+      },
+      {
+        id: 10,
+        month: "Jan 232",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 20,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 30,
+          },
+          {
+            key: "Individual & Team",
+            value: 20,
+          },
+          {
+            key: "People & Resources",
+            value: 15,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 30,
+          },
+          {
+            key: "Decision Making",
+            value: 25,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 25,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 11,
+        month: "Feb 23",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 35,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 20,
+          },
+          {
+            key: "Individual & Team",
+            value: 20,
+          },
+          {
+            key: "People & Resources",
+            value: 30,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 20,
+          },
+          {
+            key: "Decision Making",
+            value: 20,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 25,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 12,
+        month: "Mar 23",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 25,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 30,
+          },
+          {
+            key: "Individual & Team",
+            value: 10,
+          },
+          {
+            key: "People & Resources",
+            value: 35,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 15,
+          },
+          {
+            key: "Decision Making",
+            value: 25,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 30,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 15,
+          },
+        ],
+      },
+      {
+        id: 13,
+        month: "Apr 23",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 20,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 20,
+          },
+          {
+            key: "Individual & Team",
+            value: 30,
+          },
+          {
+            key: "People & Resources",
+            value: 35,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 10,
+          },
+          {
+            key: "Decision Making",
+            value: 30,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 20,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 25,
+          },
+        ],
+      },
+      {
+        id: 14,
+        month: "May 22",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 20,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 30,
+          },
+          {
+            key: "Individual & Team",
+            value: 25,
+          },
+          {
+            key: "People & Resources",
+            value: 25,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 30,
+          },
+          {
+            key: "Decision Making",
+            value: 35,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 15,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 20,
+          },
+        ],
+      },
+      {
+        id: 15,
+        month: "Jun 23",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 40,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 15,
+          },
+          {
+            key: "Individual & Team",
+            value: 35,
+          },
+          {
+            key: "People & Resources",
+            value: 10,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 30,
+          },
+          {
+            key: "Decision Making",
+            value: 25,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 25,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 30,
+          },
+        ],
+      },
+      {
+        id: 16,
+        month: "Jul 23",
+        data: [
+          {
+            key: "External Environment & Conditions",
+            value: 15,
+          },
+          {
+            key: "Work Technology & Tools",
+            value: 35,
+          },
+          {
+            key: "Individual & Team",
+            value: 10,
+          },
+          {
+            key: "People & Resources",
+            value: 35,
+          },
+          {
+            key: "Structure & Capabilities",
+            value: 30,
+          },
+          {
+            key: "Decision Making",
+            value: 25,
+          },
+          {
+            key: "Openness to Feedback",
+            value: 30,
+          },
+          {
+            key: "Work Prioritisation",
+            value: 20,
+          },
+        ],
+      },
+    ],
+  };
+
+  for (let i = 0; i < allTeamsResult.sadData.length; i++) {
+    if (
+      allTeamsResult.sadData[i].id >= fromDate &&
+      allTeamsResult.sadData[i].id <= toDate
+    ) {
+      sadResult.push(allTeamsResult.sadData[i]);
+    }
+  }
+
+  for (let i = 0; i < allTeamsResult.neutralData.length; i++) {
+    if (
+      allTeamsResult.neutralData[i].id >= fromDate &&
+      allTeamsResult.neutralData[i].id <= toDate
+    ) {
+      neutralResult.push(allTeamsResult.neutralData[i]);
+    }
+  }
+
+  for (let i = 0; i < allTeamsResult.happyData.length; i++) {
+    if (
+      allTeamsResult.happyData[i].id >= fromDate &&
+      allTeamsResult.happyData[i].id <= toDate
+    ) {
+      happyResult.push(allTeamsResult.happyData[i]);
+    }
+  }
+
+  console.log("a::", a);
+
+  return res.status(200).json({ result: finalResult });
+});
+
 // Chart 7: Api to get Enterprise Level Sentiments Moods
 app.get("/getEnterpriseLevelSentimentsMoods", async (req, res) => {
   let finalResult = [];
