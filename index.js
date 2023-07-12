@@ -2102,7 +2102,6 @@ app.get("/getRetrosCount", async (req, res) => {
 app.get("/getEnterpriseLevelSentimentSummary", async (req, res) => {
   let finalResult = [];
   let selectedFormat = req.query.selectedFormat;
-  console.log("selectedFormat", selectedFormat);
   let team = req.query.team;
   const allTeamsResult = [
     {
