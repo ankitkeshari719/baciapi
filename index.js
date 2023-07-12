@@ -879,7 +879,8 @@ app.get("/getEnterpriseLevelActionsCounts", async (req, res) => {
   let finalResult = [];
   let fromDate = req.query.fromDate;
   let toDate = req.query.toDate;
-  const result = [
+  let team = req.query.team;
+  const allTeamsResult = [
     {
       id: 1,
       month: "Apr 22",
@@ -977,12 +978,350 @@ app.get("/getEnterpriseLevelActionsCounts", async (req, res) => {
       completed: 23,
     },
   ];
-  for (let i = 0; i < result.length; i++) {
-    if (result[i].id >= fromDate && result[i].id <= toDate) {
-      console.log();
-      finalResult.push(result[i]);
-    }
+
+  const mobileTeamResult = [
+    {
+      id: 1,
+      month: "Apr 22",
+      assigned: 25,
+      completed: 20,
+    },
+    {
+      id: 2,
+      month: "May 22",
+      assigned: 41,
+      completed: 36,
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      assigned: 35,
+      completed: 35,
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      assigned: 30,
+      completed: 21,
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      assigned: 22,
+      completed: 26,
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      assigned: 57,
+      completed: 52,
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      assigned: 89,
+      completed: 99,
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      assigned: 67,
+      completed: 67,
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      assigned: 78,
+      completed: 78,
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      assigned: 77,
+      completed: 45,
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      assigned: 73,
+      completed: 70,
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      assigned: 89,
+      completed: 80,
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      assigned: 95,
+      completed: 99,
+    },
+    {
+      id: 14,
+      month: "May 23",
+      assigned: 82,
+      completed: 65,
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      assigned: 88,
+      completed: 34,
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      assigned: 91,
+      completed: 23,
+    },
+  ];
+
+  const superannuationTeamResult = [
+    {
+      id: 1,
+      month: "Apr 22",
+      assigned: 25,
+      completed: 20,
+    },
+    {
+      id: 2,
+      month: "May 22",
+      assigned: 41,
+      completed: 36,
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      assigned: 35,
+      completed: 35,
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      assigned: 30,
+      completed: 21,
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      assigned: 22,
+      completed: 26,
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      assigned: 57,
+      completed: 52,
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      assigned: 89,
+      completed: 99,
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      assigned: 67,
+      completed: 67,
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      assigned: 78,
+      completed: 78,
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      assigned: 77,
+      completed: 45,
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      assigned: 73,
+      completed: 70,
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      assigned: 89,
+      completed: 80,
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      assigned: 95,
+      completed: 99,
+    },
+    {
+      id: 14,
+      month: "May 23",
+      assigned: 82,
+      completed: 65,
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      assigned: 88,
+      completed: 34,
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      assigned: 91,
+      completed: 23,
+    },
+  ];
+
+  const insuranceTeamResult = [
+    {
+      id: 1,
+      month: "Apr 22",
+      assigned: 25,
+      completed: 20,
+    },
+    {
+      id: 2,
+      month: "May 22",
+      assigned: 41,
+      completed: 36,
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      assigned: 35,
+      completed: 35,
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      assigned: 30,
+      completed: 21,
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      assigned: 22,
+      completed: 26,
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      assigned: 57,
+      completed: 52,
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      assigned: 89,
+      completed: 99,
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      assigned: 67,
+      completed: 67,
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      assigned: 78,
+      completed: 78,
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      assigned: 77,
+      completed: 45,
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      assigned: 73,
+      completed: 70,
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      assigned: 89,
+      completed: 80,
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      assigned: 95,
+      completed: 99,
+    },
+    {
+      id: 14,
+      month: "May 23",
+      assigned: 82,
+      completed: 65,
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      assigned: 88,
+      completed: 34,
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      assigned: 91,
+      completed: 23,
+    },
+  ];
+
+  switch (team) {
+    case "0":
+      for (let i = 0; i < allTeamsResult.length; i++) {
+        if (
+          allTeamsResult[i].id >= fromDate &&
+          allTeamsResult[i].id <= toDate
+        ) {
+          finalResult.push(allTeamsResult[i]);
+        }
+      }
+      break;
+    case "1":
+      for (let i = 0; i < mobileTeamResult.length; i++) {
+        if (
+          mobileTeamResult[i].id >= fromDate &&
+          mobileTeamResult[i].id <= toDate
+        ) {
+          finalResult.push(mobileTeamResult[i]);
+        }
+      }
+      break;
+    case "2":
+      for (let i = 0; i < superannuationTeamResult.length; i++) {
+        if (
+          superannuationTeamResult[i].id >= fromDate &&
+          superannuationTeamResult[i].id <= toDate
+        ) {
+          finalResult.push(superannuationTeamResult[i]);
+        }
+      }
+      break;
+    case "3":
+      for (let i = 0; i < insuranceTeamResult.length; i++) {
+        if (
+          insuranceTeamResult[i].id >= fromDate &&
+          insuranceTeamResult[i].id <= toDate
+        ) {
+          finalResult.push(insuranceTeamResult[i]);
+        }
+      }
+      break;
+
+    default:
+      break;
   }
+
   return res.status(200).json({ result: finalResult });
 });
 
@@ -991,7 +1330,9 @@ app.get("/getParticipantsCount", async (req, res) => {
   let finalResult = [];
   let fromDate = req.query.fromDate;
   let toDate = req.query.toDate;
-  const result = [
+  let team = req.query.team;
+
+  const allTeamsResult = [
     {
       id: 1,
       month: "Apr 22",
@@ -1073,11 +1414,299 @@ app.get("/getParticipantsCount", async (req, res) => {
       averageParticipants: 1321,
     },
   ];
-  for (let i = 0; i < result.length; i++) {
-    if (result[i].id >= fromDate && result[i].id <= toDate) {
-      console.log();
-      finalResult.push(result[i]);
-    }
+
+  const mobileTeamResult = [
+    {
+      id: 1,
+      month: "Apr 22",
+      averageParticipants: 55,
+    },
+    {
+      id: 2,
+      month: "May 22",
+      averageParticipants: 78,
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      averageParticipants: 101,
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      averageParticipants: 95,
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      averageParticipants: 82,
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      averageParticipants: 121,
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      averageParticipants: 320,
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      averageParticipants: 511,
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      averageParticipants: 570,
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      averageParticipants: 677,
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      averageParticipants: 930,
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      averageParticipants: 1211,
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      averageParticipants: 1350,
+    },
+    {
+      id: 14,
+      month: "May 23",
+      averageParticipants: 1265,
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      averageParticipants: 1200,
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      averageParticipants: 1321,
+    },
+  ];
+
+  const superannuationTeamResult = [
+    {
+      id: 1,
+      month: "Apr 22",
+      averageParticipants: 55,
+    },
+    {
+      id: 2,
+      month: "May 22",
+      averageParticipants: 78,
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      averageParticipants: 101,
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      averageParticipants: 95,
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      averageParticipants: 82,
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      averageParticipants: 121,
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      averageParticipants: 320,
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      averageParticipants: 511,
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      averageParticipants: 570,
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      averageParticipants: 677,
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      averageParticipants: 930,
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      averageParticipants: 1211,
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      averageParticipants: 1350,
+    },
+    {
+      id: 14,
+      month: "May 23",
+      averageParticipants: 1265,
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      averageParticipants: 1200,
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      averageParticipants: 1321,
+    },
+  ];
+
+  const insuranceTeamResult = [
+    {
+      id: 1,
+      month: "Apr 22",
+      averageParticipants: 55,
+    },
+    {
+      id: 2,
+      month: "May 22",
+      averageParticipants: 78,
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      averageParticipants: 101,
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      averageParticipants: 95,
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      averageParticipants: 82,
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      averageParticipants: 121,
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      averageParticipants: 320,
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      averageParticipants: 511,
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      averageParticipants: 570,
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      averageParticipants: 677,
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      averageParticipants: 930,
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      averageParticipants: 1211,
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      averageParticipants: 1350,
+    },
+    {
+      id: 14,
+      month: "May 23",
+      averageParticipants: 1265,
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      averageParticipants: 1200,
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      averageParticipants: 1321,
+    },
+  ];
+
+  switch (team) {
+    case "0":
+      for (let i = 0; i < allTeamsResult.length; i++) {
+        if (
+          allTeamsResult[i].id >= fromDate &&
+          allTeamsResult[i].id <= toDate
+        ) {
+          finalResult.push(allTeamsResult[i]);
+        }
+      }
+      break;
+    case "1":
+      for (let i = 0; i < mobileTeamResult.length; i++) {
+        if (
+          mobileTeamResult[i].id >= fromDate &&
+          mobileTeamResult[i].id <= toDate
+        ) {
+          finalResult.push(mobileTeamResult[i]);
+        }
+      }
+      break;
+    case "2":
+      for (let i = 0; i < superannuationTeamResult.length; i++) {
+        if (
+          superannuationTeamResult[i].id >= fromDate &&
+          superannuationTeamResult[i].id <= toDate
+        ) {
+          finalResult.push(superannuationTeamResult[i]);
+        }
+      }
+      break;
+    case "3":
+      for (let i = 0; i < insuranceTeamResult.length; i++) {
+        if (
+          insuranceTeamResult[i].id >= fromDate &&
+          insuranceTeamResult[i].id <= toDate
+        ) {
+          finalResult.push(insuranceTeamResult[i]);
+        }
+      }
+      break;
+    default:
+      break;
   }
   return res.status(200).json({ result: finalResult });
 });
@@ -1087,7 +1716,9 @@ app.get("/getRetrosCount", async (req, res) => {
   let finalResult = [];
   let fromDate = req.query.fromDate;
   let toDate = req.query.toDate;
-  const result = [
+  let team = req.query.team;
+
+  const allTeamsResult = [
     {
       id: 1,
       month: "Apr 22",
@@ -1169,11 +1800,299 @@ app.get("/getRetrosCount", async (req, res) => {
       averageRetros: 528,
     },
   ];
-  for (let i = 0; i < result.length; i++) {
-    if (result[i].id >= fromDate && result[i].id <= toDate) {
-      console.log();
-      finalResult.push(result[i]);
-    }
+
+  const mobileTeamResult = [
+    {
+      id: 1,
+      month: "Apr 22",
+      averageRetros: 22,
+    },
+    {
+      id: 2,
+      month: "May 22",
+      averageRetros: 31,
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      averageRetros: 40,
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      averageRetros: 38,
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      averageRetros: 32,
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      averageRetros: 48,
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      averageRetros: 128,
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      averageRetros: 204,
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      averageRetros: 228,
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      averageRetros: 270,
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      averageRetros: 372,
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      averageRetros: 485,
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      averageRetros: 540,
+    },
+    {
+      id: 14,
+      month: "May 23",
+      averageRetros: 506,
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      averageRetros: 480,
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      averageRetros: 528,
+    },
+  ];
+
+  const superannuationTeamResult = [
+    {
+      id: 1,
+      month: "Apr 22",
+      averageRetros: 22,
+    },
+    {
+      id: 2,
+      month: "May 22",
+      averageRetros: 31,
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      averageRetros: 40,
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      averageRetros: 38,
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      averageRetros: 32,
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      averageRetros: 48,
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      averageRetros: 128,
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      averageRetros: 204,
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      averageRetros: 228,
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      averageRetros: 270,
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      averageRetros: 372,
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      averageRetros: 485,
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      averageRetros: 540,
+    },
+    {
+      id: 14,
+      month: "May 23",
+      averageRetros: 506,
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      averageRetros: 480,
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      averageRetros: 528,
+    },
+  ];
+
+  const insuranceTeamResult = [
+    {
+      id: 1,
+      month: "Apr 22",
+      averageRetros: 22,
+    },
+    {
+      id: 2,
+      month: "May 22",
+      averageRetros: 31,
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      averageRetros: 40,
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      averageRetros: 38,
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      averageRetros: 32,
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      averageRetros: 48,
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      averageRetros: 128,
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      averageRetros: 204,
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      averageRetros: 228,
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      averageRetros: 270,
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      averageRetros: 372,
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      averageRetros: 485,
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      averageRetros: 540,
+    },
+    {
+      id: 14,
+      month: "May 23",
+      averageRetros: 506,
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      averageRetros: 480,
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      averageRetros: 528,
+    },
+  ];
+
+  switch (team) {
+    case "0":
+      for (let i = 0; i < allTeamsResult.length; i++) {
+        if (
+          allTeamsResult[i].id >= fromDate &&
+          allTeamsResult[i].id <= toDate
+        ) {
+          finalResult.push(allTeamsResult[i]);
+        }
+      }
+      break;
+    case "1":
+      for (let i = 0; i < mobileTeamResult.length; i++) {
+        if (
+          mobileTeamResult[i].id >= fromDate &&
+          mobileTeamResult[i].id <= toDate
+        ) {
+          finalResult.push(mobileTeamResult[i]);
+        }
+      }
+      break;
+    case "2":
+      for (let i = 0; i < superannuationTeamResult.length; i++) {
+        if (
+          superannuationTeamResult[i].id >= fromDate &&
+          superannuationTeamResult[i].id <= toDate
+        ) {
+          finalResult.push(superannuationTeamResult[i]);
+        }
+      }
+      break;
+    case "3":
+      for (let i = 0; i < insuranceTeamResult.length; i++) {
+        if (
+          insuranceTeamResult[i].id >= fromDate &&
+          insuranceTeamResult[i].id <= toDate
+        ) {
+          finalResult.push(insuranceTeamResult[i]);
+        }
+      }
+      break;
+    default:
+      break;
   }
 
   return res.status(200).json({ result: finalResult });
@@ -1184,7 +2103,9 @@ app.get("/getEnterpriseLevelSentimentsMoods", async (req, res) => {
   let finalResult = [];
   let fromDate = req.query.fromDate;
   let toDate = req.query.toDate;
-  const result = [
+  let team = req.query.team;
+
+  const allTeamsResult = [
     {
       id: 1,
       month: "Apr 22",
@@ -1298,10 +2219,395 @@ app.get("/getEnterpriseLevelSentimentsMoods", async (req, res) => {
       happy: 1155,
     },
   ];
-  for (let i = 0; i < result.length; i++) {
-    if (result[i].id >= fromDate && result[i].id <= toDate) {
-      finalResult.push(result[i]);
-    }
+
+  const mobileTeamResult = [
+    {
+      id: 1,
+      month: "Apr 22",
+      sad: 5,
+      neutral: 40,
+      happy: 10,
+    },
+    {
+      id: 2,
+      month: "May 22",
+      sad: 18,
+      neutral: 20,
+      happy: 40,
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      sad: 20,
+      neutral: 26,
+      happy: 55,
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      sad: 10,
+      neutral: 31,
+      happy: 54,
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      sad: 12,
+      neutral: 16,
+      happy: 54,
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      sad: 12,
+      neutral: 42,
+      happy: 47,
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      sad: 45,
+      neutral: 74,
+      happy: 201,
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      sad: 50,
+      neutral: 28,
+      happy: 433,
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      sad: 43,
+      neutral: 71,
+      happy: 456,
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      sad: 55,
+      neutral: 114,
+      happy: 508,
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      sad: 60,
+      neutral: 38,
+      happy: 832,
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      sad: 67,
+      neutral: 133,
+      happy: 1011,
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      sad: 66,
+      neutral: 239,
+      happy: 1045,
+    },
+    {
+      id: 14,
+      month: "May 23",
+      sad: 54,
+      neutral: 211,
+      happy: 1000,
+    },
+    {
+      id: 15,
+      month: "Jun 22",
+      sad: 76,
+      neutral: 24,
+      happy: 1100,
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      sad: 78,
+      neutral: 115,
+      happy: 1155,
+    },
+  ];
+
+  const superannuationTeamResult = [
+    {
+      id: 1,
+      month: "Apr 22",
+      sad: 5,
+      neutral: 40,
+      happy: 10,
+    },
+    {
+      id: 2,
+      month: "May 22",
+      sad: 18,
+      neutral: 20,
+      happy: 40,
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      sad: 20,
+      neutral: 26,
+      happy: 55,
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      sad: 10,
+      neutral: 31,
+      happy: 54,
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      sad: 12,
+      neutral: 16,
+      happy: 54,
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      sad: 12,
+      neutral: 42,
+      happy: 47,
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      sad: 45,
+      neutral: 74,
+      happy: 201,
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      sad: 50,
+      neutral: 28,
+      happy: 433,
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      sad: 43,
+      neutral: 71,
+      happy: 456,
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      sad: 55,
+      neutral: 114,
+      happy: 508,
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      sad: 60,
+      neutral: 38,
+      happy: 832,
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      sad: 67,
+      neutral: 133,
+      happy: 1011,
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      sad: 66,
+      neutral: 239,
+      happy: 1045,
+    },
+    {
+      id: 14,
+      month: "May 23",
+      sad: 54,
+      neutral: 211,
+      happy: 1000,
+    },
+    {
+      id: 15,
+      month: "Jun 22",
+      sad: 76,
+      neutral: 24,
+      happy: 1100,
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      sad: 78,
+      neutral: 115,
+      happy: 1155,
+    },
+  ];
+
+  const insuranceTeamResult = [
+    {
+      id: 1,
+      month: "Apr 22",
+      sad: 5,
+      neutral: 40,
+      happy: 10,
+    },
+    {
+      id: 2,
+      month: "May 22",
+      sad: 18,
+      neutral: 20,
+      happy: 40,
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      sad: 20,
+      neutral: 26,
+      happy: 55,
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      sad: 10,
+      neutral: 31,
+      happy: 54,
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      sad: 12,
+      neutral: 16,
+      happy: 54,
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      sad: 12,
+      neutral: 42,
+      happy: 47,
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      sad: 45,
+      neutral: 74,
+      happy: 201,
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      sad: 50,
+      neutral: 28,
+      happy: 433,
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      sad: 43,
+      neutral: 71,
+      happy: 456,
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      sad: 55,
+      neutral: 114,
+      happy: 508,
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      sad: 60,
+      neutral: 38,
+      happy: 832,
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      sad: 67,
+      neutral: 133,
+      happy: 1011,
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      sad: 66,
+      neutral: 239,
+      happy: 1045,
+    },
+    {
+      id: 14,
+      month: "May 23",
+      sad: 54,
+      neutral: 211,
+      happy: 1000,
+    },
+    {
+      id: 15,
+      month: "Jun 22",
+      sad: 76,
+      neutral: 24,
+      happy: 1100,
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      sad: 78,
+      neutral: 115,
+      happy: 1155,
+    },
+  ];
+
+  switch (team) {
+    case "0":
+      for (let i = 0; i < allTeamsResult.length; i++) {
+        if (
+          allTeamsResult[i].id >= fromDate &&
+          allTeamsResult[i].id <= toDate
+        ) {
+          finalResult.push(allTeamsResult[i]);
+        }
+      }
+      break;
+    case "1":
+      for (let i = 0; i < mobileTeamResult.length; i++) {
+        if (
+          mobileTeamResult[i].id >= fromDate &&
+          mobileTeamResult[i].id <= toDate
+        ) {
+          finalResult.push(mobileTeamResult[i]);
+        }
+      }
+      break;
+    case "2":
+      for (let i = 0; i < superannuationTeamResult.length; i++) {
+        if (
+          superannuationTeamResult[i].id >= fromDate &&
+          superannuationTeamResult[i].id <= toDate
+        ) {
+          finalResult.push(superannuationTeamResult[i]);
+        }
+      }
+      break;
+    case "3":
+      for (let i = 0; i < insuranceTeamResult.length; i++) {
+        if (
+          insuranceTeamResult[i].id >= fromDate &&
+          insuranceTeamResult[i].id <= toDate
+        ) {
+          finalResult.push(insuranceTeamResult[i]);
+        }
+      }
+      break;
+    default:
+      break;
   }
   return res.status(200).json({ result: finalResult });
 });
