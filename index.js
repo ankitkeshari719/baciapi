@@ -905,6 +905,7 @@ app.get("/getEnterpriseLevelSentimentSummary", async (req, res) => {
   let finalResult = [];
   let selectedFormat = req.query.selectedFormat;
   let team = req.query.team;
+  console.log("selectedFormat::", selectedFormat);
 
   switch (team) {
     case "0":
@@ -2257,7 +2258,7 @@ const insuranceTeamSessionResult = [
 
 // ------------------------------- Chart 5: EnterpriseLevelSentimentSummary ------------------------------//
 
-const allTeamsSummaryResult =  [
+const allTeamsSummaryResult = [
   {
     id: 1,
     month: "Apr 22",
@@ -2697,7 +2698,7 @@ const allTeamsSummaryResult =  [
   },
 ];
 
-const mobileTeamSummaryResult =  [
+const mobileTeamSummaryResult = [
   {
     id: 1,
     month: "Apr 22",
@@ -3577,7 +3578,7 @@ const superannuationTeamSummaryResult = [
   },
 ];
 
-const insuranceTeamSummaryResult =  [
+const insuranceTeamSummaryResult = [
   {
     id: 1,
     month: "Apr 22",
@@ -5875,7 +5876,6 @@ const allTeamsThemeResult = {
 };
 
 // ------------------------------- Chart 7: EnterpriseLevelSentimentsMoods ------------------------------//
-
 
 const port = process.env.PORT || 8080;
 
