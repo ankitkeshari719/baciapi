@@ -638,15 +638,15 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 65,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 30,
         },
         {
           key: "Individual & Team",
-          value: 15,
+          value: 10,
         },
         {
           key: "People & Resources",
@@ -654,11 +654,11 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 30,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 50,
         },
         {
           key: "Openness to Feedback",
@@ -666,7 +666,7 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 20,
         },
       ],
     },
@@ -676,27 +676,27 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 65,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
-        },
-        {
-          key: "Individual & Team",
-          value: 15,
-        },
-        {
-          key: "People & Resources",
           value: 10,
         },
         {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 50,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 35,
         },
         {
           key: "Openness to Feedback",
@@ -704,7 +704,7 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 20,
         },
       ],
     },
@@ -714,27 +714,27 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 65,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 30,
         },
         {
           key: "Individual & Team",
-          value: 15,
-        },
-        {
-          key: "People & Resources",
           value: 10,
         },
         {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 50,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 35,
         },
         {
           key: "Openness to Feedback",
@@ -742,7 +742,7 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 20,
         },
       ],
     },
@@ -752,35 +752,35 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 45,
         },
         {
           key: "Work Technology & Tools",
-          value: 25,
-        },
-        {
-          key: "Individual & Team",
-          value: 25,
-        },
-        {
-          key: "People & Resources",
-          value: 30,
-        },
-        {
-          key: "Structure & Capabilities",
           value: 15,
         },
         {
+          key: "Individual & Team",
+          value: 60,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 65,
+        },
+        {
           key: "Decision Making",
-          value: 35,
+          value: 30,
         },
         {
           key: "Openness to Feedback",
-          value: 10,
+          value: 45,
         },
         {
           key: "Work Prioritisation",
-          value: 35,
+          value: 40,
         },
       ],
     },
@@ -790,7 +790,7 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 30,
+          value: 60,
         },
         {
           key: "Work Technology & Tools",
@@ -798,27 +798,27 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Individual & Team",
-          value: 30,
+          value: 35,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 40,
         },
         {
           key: "Structure & Capabilities",
-          value: 25,
-        },
-        {
-          key: "Decision Making",
-          value: 20,
-        },
-        {
-          key: "Openness to Feedback",
           value: 30,
         },
         {
-          key: "Work Prioritisation",
+          key: "Decision Making",
           value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 20,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
         },
       ],
     },
@@ -828,7 +828,7 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 55,
         },
         {
           key: "Work Technology & Tools",
@@ -836,15 +836,15 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Individual & Team",
-          value: 40,
+          value: 35,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 25,
         },
         {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 45,
         },
         {
           key: "Decision Making",
@@ -852,11 +852,11 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 10,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 65,
         },
       ],
     },
@@ -866,35 +866,35 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 40,
+          value: 25,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 35,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 35,
         },
         {
           key: "People & Resources",
-          value: 25,
-        },
-        {
-          key: "Structure & Capabilities",
-          value: 25,
-        },
-        {
-          key: "Decision Making",
           value: 20,
         },
         {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 45,
+        },
+        {
           key: "Openness to Feedback",
-          value: 15,
+          value: 50,
         },
         {
           key: "Work Prioritisation",
-          value: 30,
+          value: 40,
         },
       ],
     },
@@ -904,19 +904,19 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 70,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 30,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 55,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 40,
         },
         {
           key: "Structure & Capabilities",
@@ -924,15 +924,15 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 40,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 35,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 60,
         },
       ],
     },
@@ -942,73 +942,73 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 30,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 65,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 50,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 60,
         },
         {
           key: "Structure & Capabilities",
-          value: 15,
+          value: 10,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 35,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 10,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 25,
         },
       ],
     },
     {
       id: 10,
-      month: "Jan 232",
+      month: "Jan 23",
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 60,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 40,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 45,
         },
         {
           key: "People & Resources",
-          value: 15,
+          value: 65,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 40,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 15,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 20,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 70,
         },
       ],
     },
@@ -1018,35 +1018,35 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
-        },
-        {
-          key: "Work Technology & Tools",
-          value: 20,
-        },
-        {
-          key: "Individual & Team",
-          value: 20,
-        },
-        {
-          key: "People & Resources",
           value: 30,
         },
         {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 40,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
           key: "Structure & Capabilities",
-          value: 20,
-        },
-        {
-          key: "Decision Making",
-          value: 20,
-        },
-        {
-          key: "Openness to Feedback",
           value: 25,
         },
         {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
           key: "Work Prioritisation",
-          value: 15,
+          value: 59,
         },
       ],
     },
@@ -1056,35 +1056,35 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 55,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
-        },
-        {
-          key: "Individual & Team",
-          value: 10,
-        },
-        {
-          key: "People & Resources",
           value: 35,
         },
         {
-          key: "Structure & Capabilities",
-          value: 15,
+          key: "Individual & Team",
+          value: 45,
         },
         {
-          key: "Decision Making",
-          value: 25,
-        },
-        {
-          key: "Openness to Feedback",
+          key: "People & Resources",
           value: 30,
         },
         {
-          key: "Work Prioritisation",
+          key: "Structure & Capabilities",
+          value: 65,
+        },
+        {
+          key: "Decision Making",
           value: 15,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 40,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 70,
         },
       ],
     },
@@ -1094,23 +1094,23 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 60,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 45,
         },
         {
           key: "Individual & Team",
-          value: 30,
-        },
-        {
-          key: "People & Resources",
           value: 35,
         },
         {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 55,
         },
         {
           key: "Decision Making",
@@ -1118,11 +1118,11 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Openness to Feedback",
-          value: 20,
+          value: 40,
         },
         {
           key: "Work Prioritisation",
-          value: 25,
+          value: 30,
         },
       ],
     },
@@ -1132,15 +1132,15 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 35,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 20,
         },
         {
           key: "Individual & Team",
-          value: 25,
+          value: 20,
         },
         {
           key: "People & Resources",
@@ -1148,15 +1148,15 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 60,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 40,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 55,
         },
         {
           key: "Work Prioritisation",
@@ -1170,35 +1170,35 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 40,
-        },
-        {
-          key: "Work Technology & Tools",
-          value: 15,
-        },
-        {
-          key: "Individual & Team",
           value: 35,
         },
         {
+          key: "Work Technology & Tools",
+          value: 65,
+        },
+        {
+          key: "Individual & Team",
+          value: 30,
+        },
+        {
           key: "People & Resources",
-          value: 10,
+          value: 45,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 25,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 15,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 60,
         },
         {
           key: "Work Prioritisation",
-          value: 30,
+          value: 25,
         },
       ],
     },
@@ -1208,23 +1208,23 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 65,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 30,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 45,
         },
         {
           key: "People & Resources",
-          value: 35,
+          value: 40,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 60,
         },
         {
           key: "Decision Making",
@@ -1232,11 +1232,11 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 35,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 40,
         },
       ],
     },
@@ -1248,35 +1248,35 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 25,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 55,
         },
         {
           key: "Individual & Team",
-          value: 15,
+          value: 75,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 40,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
-        },
-        {
-          key: "Decision Making",
           value: 30,
         },
         {
-          key: "Openness to Feedback",
+          key: "Decision Making",
           value: 35,
         },
         {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
           key: "Work Prioritisation",
-          value: 15,
+          value: 65,
         },
       ],
     },
@@ -1286,35 +1286,35 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 25,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 55,
         },
         {
           key: "Individual & Team",
-          value: 15,
+          value: 75,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 60,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
-        },
-        {
-          key: "Decision Making",
           value: 30,
         },
         {
-          key: "Openness to Feedback",
+          key: "Decision Making",
           value: 35,
         },
         {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
           key: "Work Prioritisation",
-          value: 15,
+          value: 65,
         },
       ],
     },
@@ -1324,35 +1324,35 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 25,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 55,
         },
         {
           key: "Individual & Team",
-          value: 15,
+          value: 75,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 60,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
-        },
-        {
-          key: "Decision Making",
           value: 30,
         },
         {
-          key: "Openness to Feedback",
+          key: "Decision Making",
           value: 35,
         },
         {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
           key: "Work Prioritisation",
-          value: 15,
+          value: 65,
         },
       ],
     },
@@ -1362,23 +1362,23 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 35,
         },
         {
           key: "Work Technology & Tools",
-          value: 25,
+          value: 60,
         },
         {
           key: "Individual & Team",
-          value: 25,
+          value: 15,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 45,
         },
         {
           key: "Structure & Capabilities",
-          value: 15,
+          value: 20,
         },
         {
           key: "Decision Making",
@@ -1386,11 +1386,11 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Openness to Feedback",
-          value: 10,
+          value: 25,
         },
         {
           key: "Work Prioritisation",
-          value: 35,
+          value: 45,
         },
       ],
     },
@@ -1400,35 +1400,35 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 30,
+          value: 10,
         },
         {
           key: "Work Technology & Tools",
-          value: 25,
+          value: 50,
         },
         {
           key: "Individual & Team",
-          value: 30,
+          value: 35,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 40,
         },
         {
           key: "Structure & Capabilities",
-          value: 25,
+          value: 45,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 45,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 50,
         },
         {
           key: "Work Prioritisation",
-          value: 35,
+          value: 25,
         },
       ],
     },
@@ -1438,35 +1438,35 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
-        },
-        {
-          key: "Work Technology & Tools",
-          value: 20,
-        },
-        {
-          key: "Individual & Team",
-          value: 40,
-        },
-        {
-          key: "People & Resources",
           value: 30,
         },
         {
+          key: "Work Technology & Tools",
+          value: 60,
+        },
+        {
+          key: "Individual & Team",
+          value: 25,
+        },
+        {
+          key: "People & Resources",
+          value: 45,
+        },
+        {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 45,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 30,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 75,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 20,
         },
       ],
     },
@@ -1476,35 +1476,35 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 40,
+          value: 35,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 35,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 45,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 55,
         },
         {
           key: "Structure & Capabilities",
-          value: 25,
+          value: 45,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 35,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 30,
         },
         {
           key: "Work Prioritisation",
-          value: 30,
+          value: 15,
         },
       ],
     },
@@ -1522,7 +1522,7 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 35,
         },
         {
           key: "People & Resources",
@@ -1530,15 +1530,15 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 40,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 40,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 35,
         },
         {
           key: "Work Prioritisation",
@@ -1556,11 +1556,11 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 20,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 30,
         },
         {
           key: "People & Resources",
@@ -1568,19 +1568,19 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Structure & Capabilities",
-          value: 15,
+          value: 75,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 40,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 75,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 55,
         },
       ],
     },
@@ -1598,11 +1598,11 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 35,
         },
         {
           key: "People & Resources",
-          value: 15,
+          value: 20,
         },
         {
           key: "Structure & Capabilities",
@@ -1610,11 +1610,11 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 60,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 55,
         },
         {
           key: "Work Prioritisation",
@@ -1632,31 +1632,31 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 35,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 40,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 50,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 55,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 45,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 45,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 35,
         },
       ],
     },
@@ -1666,15 +1666,15 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 40,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 35,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 45,
         },
         {
           key: "People & Resources",
@@ -1682,11 +1682,11 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Structure & Capabilities",
-          value: 15,
+          value: 20,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 60,
         },
         {
           key: "Openness to Feedback",
@@ -1708,31 +1708,31 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
-        },
-        {
-          key: "Individual & Team",
-          value: 30,
-        },
-        {
-          key: "People & Resources",
           value: 35,
         },
         {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 35,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 40,
         },
         {
           key: "Openness to Feedback",
-          value: 20,
+          value: 40,
         },
         {
           key: "Work Prioritisation",
-          value: 25,
+          value: 45,
         },
       ],
     },
@@ -1742,23 +1742,23 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 45,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 50,
         },
         {
           key: "Individual & Team",
-          value: 25,
+          value: 55,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 50,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 10,
         },
         {
           key: "Decision Making",
@@ -1766,11 +1766,11 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 30,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 60,
         },
       ],
     },
@@ -1780,11 +1780,11 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 40,
+          value: 25,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 20,
         },
         {
           key: "Individual & Team",
@@ -1792,23 +1792,23 @@ export const allTeamsThemeResult = {
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 45,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 45,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 60,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 15,
         },
         {
           key: "Work Prioritisation",
-          value: 30,
+          value: 45,
         },
       ],
     },
@@ -1818,7 +1818,7 @@ export const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 20,
         },
         {
           key: "Work Technology & Tools",
@@ -1826,27 +1826,27 @@ export const allTeamsThemeResult = {
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 45,
         },
         {
           key: "People & Resources",
-          value: 35,
-        },
-        {
-          key: "Structure & Capabilities",
-          value: 30,
-        },
-        {
-          key: "Decision Making",
           value: 25,
         },
         {
+          key: "Structure & Capabilities",
+          value: 10,
+        },
+        {
+          key: "Decision Making",
+          value: 50,
+        },
+        {
           key: "Openness to Feedback",
-          value: 30,
+          value: 35,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 40,
         },
       ],
     },

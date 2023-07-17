@@ -905,7 +905,6 @@ app.get("/getEnterpriseLevelSentimentSummary", async (req, res) => {
   let finalResult = [];
   let selectedFormat = req.query.selectedFormat;
   let team = req.query.team;
-  console.log("selectedFormat::", selectedFormat);
 
   switch (team) {
     case "0":
@@ -945,44 +944,662 @@ app.get("/getEnterpriseLevelSentimentSummary", async (req, res) => {
 });
 
 // Chart 6: Api to get Enterprise Level Sentiments Moods :
-// In Progress
 app.get("/getEnterpriseLevelSentimentsTheme", async (req, res) => {
-  let sadResult = [];
-  let neutralResult = [];
-  let happyResult = [];
-
   let fromDate = req.query.fromDate;
   let toDate = req.query.toDate;
   let team = req.query.team;
 
-  for (let i = 0; i < allTeamsThemeResult.sadData.length; i++) {
-    if (
-      allTeamsThemeResult.sadData[i].id >= fromDate &&
-      allTeamsThemeResult.sadData[i].id <= toDate
-    ) {
-      sadResult.push(allTeamsThemeResult.sadData[i]);
-    }
+  // Main Keywords
+  const external_Environment = "External Environment & Conditions";
+  const work_Technology = "Work Technology & Tools";
+  const individual_And_Team = "Individual & Team";
+  const people_And_Resources = "People & Resources";
+  const structure_And_Capabilities = "Structure & Capabilities";
+  const decision_Making = "Decision Making";
+  const openness_to_Feedback = "Openness to Feedback";
+  const work_Prioritisation = "Work Prioritisation";
+
+  let sadResult = [];
+  let neutralResult = [];
+  let happyResult = [];
+  let finalResult;
+
+  // Sad Data
+  let external_Environment_Sad_Value = 0;
+  let work_Technology_Sad_Value = 0;
+  let individual_And_Team_Sad_Value = 0;
+  let people_And_Resources_Sad_Value = 0;
+  let structure_And_Capabilities_Sad_Value = 0;
+  let decision_Making_Sad_Value = 0;
+  let openness_to_Feedback_Sad_Value = 0;
+  let work_Prioritisation_Sad_Value = 0;
+  // Neutral Data
+  let external_Environment_Neutral_Value = 0;
+  let work_Technology_Neutral_Value = 0;
+  let individual_And_Team_Neutral_Value = 0;
+  let people_And_Resources_Neutral_Value = 0;
+  let structure_And_Capabilities_Neutral_Value = 0;
+  let decision_Making_Neutral_Value = 0;
+  let openness_to_Feedback_Neutral_Value = 0;
+  let work_Prioritisation_Neutral_Value = 0;
+  // Happy Data
+  let external_Environment_Happy_Value = 0;
+  let work_Technology_Happy_Value = 0;
+  let individual_And_Team_Happy_Value = 0;
+  let people_And_Resources_Happy_Value = 0;
+  let structure_And_Capabilities_Happy_Value = 0;
+  let decision_Making_Happy_Value = 0;
+  let openness_to_Feedback_Happy_Value = 0;
+  let work_Prioritisation_Happy_Value = 0;
+
+  switch (team) {
+    case "0":
+      //  Sad Loop
+      for (let i = 0; i < allTeamsThemeResult.sadData.length; i++) {
+        if (
+          allTeamsThemeResult.sadData[i].id >= fromDate &&
+          allTeamsThemeResult.sadData[i].id <= toDate
+        ) {
+          sadResult.push(allTeamsThemeResult.sadData[i]);
+        }
+      }
+
+      for (let i = 0; i < sadResult.length; i++) {
+        for (let j = 0; j < sadResult[i].data.length; j++) {
+          if (sadResult[i].data[j].key === external_Environment) {
+            external_Environment_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === work_Technology) {
+            work_Technology_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === individual_And_Team) {
+            individual_And_Team_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === people_And_Resources) {
+            people_And_Resources_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === structure_And_Capabilities) {
+            structure_And_Capabilities_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === decision_Making) {
+            decision_Making_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === openness_to_Feedback) {
+            openness_to_Feedback_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === work_Prioritisation) {
+            work_Prioritisation_Sad_Value += sadResult[i].data[j].value;
+          }
+        }
+      }
+
+      // Neutral Loop
+      for (let i = 0; i < allTeamsThemeResult.neutralData.length; i++) {
+        if (
+          allTeamsThemeResult.neutralData[i].id >= fromDate &&
+          allTeamsThemeResult.neutralData[i].id <= toDate
+        ) {
+          neutralResult.push(allTeamsThemeResult.neutralData[i]);
+        }
+      }
+
+      for (let i = 0; i < neutralResult.length; i++) {
+        for (let j = 0; j < neutralResult[i].data.length; j++) {
+          if (neutralResult[i].data[j].key === external_Environment) {
+            external_Environment_Neutral_Value +=
+              neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === work_Technology) {
+            work_Technology_Neutral_Value += neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === individual_And_Team) {
+            individual_And_Team_Neutral_Value += neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === people_And_Resources) {
+            people_And_Resources_Neutral_Value +=
+              neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === structure_And_Capabilities) {
+            structure_And_Capabilities_Neutral_Value +=
+              neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === decision_Making) {
+            decision_Making_Neutral_Value += neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === openness_to_Feedback) {
+            openness_to_Feedback_Neutral_Value +=
+              neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === work_Prioritisation) {
+            work_Prioritisation_Neutral_Value += neutralResult[i].data[j].value;
+          }
+        }
+      }
+
+      // Happy Loop
+      for (let i = 0; i < allTeamsThemeResult.happyData.length; i++) {
+        if (
+          allTeamsThemeResult.happyData[i].id >= fromDate &&
+          allTeamsThemeResult.happyData[i].id <= toDate
+        ) {
+          happyResult.push(allTeamsThemeResult.happyData[i]);
+        }
+      }
+
+      for (let i = 0; i < happyResult.length; i++) {
+        for (let j = 0; j < happyResult[i].data.length; j++) {
+          if (happyResult[i].data[j].key === external_Environment) {
+            external_Environment_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === work_Technology) {
+            work_Technology_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === individual_And_Team) {
+            individual_And_Team_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === people_And_Resources) {
+            people_And_Resources_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === structure_And_Capabilities) {
+            structure_And_Capabilities_Happy_Value +=
+              happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === decision_Making) {
+            decision_Making_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === openness_to_Feedback) {
+            openness_to_Feedback_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === work_Prioritisation) {
+            work_Prioritisation_Happy_Value += happyResult[i].data[j].value;
+          }
+        }
+      }
+
+      break;
+    case "1":
+      //  Sad Loop
+      for (let i = 0; i < mobileTeamsThemeResult.sadData.length; i++) {
+        if (
+          mobileTeamsThemeResult.sadData[i].id >= fromDate &&
+          mobileTeamsThemeResult.sadData[i].id <= toDate
+        ) {
+          sadResult.push(mobileTeamsThemeResult.sadData[i]);
+        }
+      }
+
+      for (let i = 0; i < sadResult.length; i++) {
+        for (let j = 0; j < sadResult[i].data.length; j++) {
+          if (sadResult[i].data[j].key === external_Environment) {
+            external_Environment_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === work_Technology) {
+            work_Technology_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === individual_And_Team) {
+            individual_And_Team_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === people_And_Resources) {
+            people_And_Resources_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === structure_And_Capabilities) {
+            structure_And_Capabilities_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === decision_Making) {
+            decision_Making_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === openness_to_Feedback) {
+            openness_to_Feedback_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === work_Prioritisation) {
+            work_Prioritisation_Sad_Value += sadResult[i].data[j].value;
+          }
+        }
+      }
+
+      // Neutral Loop
+      for (let i = 0; i < mobileTeamsThemeResult.neutralData.length; i++) {
+        if (
+          mobileTeamsThemeResult.neutralData[i].id >= fromDate &&
+          mobileTeamsThemeResult.neutralData[i].id <= toDate
+        ) {
+          neutralResult.push(mobileTeamsThemeResult.neutralData[i]);
+        }
+      }
+
+      for (let i = 0; i < neutralResult.length; i++) {
+        for (let j = 0; j < neutralResult[i].data.length; j++) {
+          if (neutralResult[i].data[j].key === external_Environment) {
+            external_Environment_Neutral_Value +=
+              neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === work_Technology) {
+            work_Technology_Neutral_Value += neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === individual_And_Team) {
+            individual_And_Team_Neutral_Value += neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === people_And_Resources) {
+            people_And_Resources_Neutral_Value +=
+              neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === structure_And_Capabilities) {
+            structure_And_Capabilities_Neutral_Value +=
+              neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === decision_Making) {
+            decision_Making_Neutral_Value += neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === openness_to_Feedback) {
+            openness_to_Feedback_Neutral_Value +=
+              neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === work_Prioritisation) {
+            work_Prioritisation_Neutral_Value += neutralResult[i].data[j].value;
+          }
+        }
+      }
+
+      // Happy Loop
+      for (let i = 0; i < mobileTeamsThemeResult.happyData.length; i++) {
+        if (
+          mobileTeamsThemeResult.happyData[i].id >= fromDate &&
+          mobileTeamsThemeResult.happyData[i].id <= toDate
+        ) {
+          happyResult.push(mobileTeamsThemeResult.happyData[i]);
+        }
+      }
+
+      for (let i = 0; i < happyResult.length; i++) {
+        for (let j = 0; j < happyResult[i].data.length; j++) {
+          if (happyResult[i].data[j].key === external_Environment) {
+            external_Environment_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === work_Technology) {
+            work_Technology_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === individual_And_Team) {
+            individual_And_Team_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === people_And_Resources) {
+            people_And_Resources_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === structure_And_Capabilities) {
+            structure_And_Capabilities_Happy_Value +=
+              happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === decision_Making) {
+            decision_Making_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === openness_to_Feedback) {
+            openness_to_Feedback_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === work_Prioritisation) {
+            work_Prioritisation_Happy_Value += happyResult[i].data[j].value;
+          }
+        }
+      }
+      break;
+    case "2":
+      //  Sad Loop
+      for (let i = 0; i < superannuationTeamThemeResult.sadData.length; i++) {
+        if (
+          superannuationTeamThemeResult.sadData[i].id >= fromDate &&
+          superannuationTeamThemeResult.sadData[i].id <= toDate
+        ) {
+          sadResult.push(superannuationTeamThemeResult.sadData[i]);
+        }
+      }
+
+      for (let i = 0; i < sadResult.length; i++) {
+        for (let j = 0; j < sadResult[i].data.length; j++) {
+          if (sadResult[i].data[j].key === external_Environment) {
+            external_Environment_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === work_Technology) {
+            work_Technology_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === individual_And_Team) {
+            individual_And_Team_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === people_And_Resources) {
+            people_And_Resources_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === structure_And_Capabilities) {
+            structure_And_Capabilities_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === decision_Making) {
+            decision_Making_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === openness_to_Feedback) {
+            openness_to_Feedback_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === work_Prioritisation) {
+            work_Prioritisation_Sad_Value += sadResult[i].data[j].value;
+          }
+        }
+      }
+
+      // Neutral Loop
+      for (
+        let i = 0;
+        i < superannuationTeamThemeResult.neutralData.length;
+        i++
+      ) {
+        if (
+          superannuationTeamThemeResult.neutralData[i].id >= fromDate &&
+          superannuationTeamThemeResult.neutralData[i].id <= toDate
+        ) {
+          neutralResult.push(superannuationTeamThemeResult.neutralData[i]);
+        }
+      }
+
+      for (let i = 0; i < neutralResult.length; i++) {
+        for (let j = 0; j < neutralResult[i].data.length; j++) {
+          if (neutralResult[i].data[j].key === external_Environment) {
+            external_Environment_Neutral_Value +=
+              neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === work_Technology) {
+            work_Technology_Neutral_Value += neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === individual_And_Team) {
+            individual_And_Team_Neutral_Value += neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === people_And_Resources) {
+            people_And_Resources_Neutral_Value +=
+              neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === structure_And_Capabilities) {
+            structure_And_Capabilities_Neutral_Value +=
+              neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === decision_Making) {
+            decision_Making_Neutral_Value += neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === openness_to_Feedback) {
+            openness_to_Feedback_Neutral_Value +=
+              neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === work_Prioritisation) {
+            work_Prioritisation_Neutral_Value += neutralResult[i].data[j].value;
+          }
+        }
+      }
+
+      // Happy Loop
+      for (let i = 0; i < superannuationTeamThemeResult.happyData.length; i++) {
+        if (
+          superannuationTeamThemeResult.happyData[i].id >= fromDate &&
+          superannuationTeamThemeResult.happyData[i].id <= toDate
+        ) {
+          happyResult.push(superannuationTeamThemeResult.happyData[i]);
+        }
+      }
+
+      for (let i = 0; i < happyResult.length; i++) {
+        for (let j = 0; j < happyResult[i].data.length; j++) {
+          if (happyResult[i].data[j].key === external_Environment) {
+            external_Environment_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === work_Technology) {
+            work_Technology_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === individual_And_Team) {
+            individual_And_Team_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === people_And_Resources) {
+            people_And_Resources_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === structure_And_Capabilities) {
+            structure_And_Capabilities_Happy_Value +=
+              happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === decision_Making) {
+            decision_Making_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === openness_to_Feedback) {
+            openness_to_Feedback_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === work_Prioritisation) {
+            work_Prioritisation_Happy_Value += happyResult[i].data[j].value;
+          }
+        }
+      }
+      break;
+    case "3":
+      //  Sad Loop
+      for (let i = 0; i < insuranceTeamThemeResult.sadData.length; i++) {
+        if (
+          insuranceTeamThemeResult.sadData[i].id >= fromDate &&
+          insuranceTeamThemeResult.sadData[i].id <= toDate
+        ) {
+          sadResult.push(insuranceTeamThemeResult.sadData[i]);
+        }
+      }
+
+      for (let i = 0; i < sadResult.length; i++) {
+        for (let j = 0; j < sadResult[i].data.length; j++) {
+          if (sadResult[i].data[j].key === external_Environment) {
+            external_Environment_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === work_Technology) {
+            work_Technology_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === individual_And_Team) {
+            individual_And_Team_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === people_And_Resources) {
+            people_And_Resources_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === structure_And_Capabilities) {
+            structure_And_Capabilities_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === decision_Making) {
+            decision_Making_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === openness_to_Feedback) {
+            openness_to_Feedback_Sad_Value += sadResult[i].data[j].value;
+          }
+          if (sadResult[i].data[j].key === work_Prioritisation) {
+            work_Prioritisation_Sad_Value += sadResult[i].data[j].value;
+          }
+        }
+      }
+
+      // Neutral Loop
+      for (let i = 0; i < insuranceTeamThemeResult.neutralData.length; i++) {
+        if (
+          insuranceTeamThemeResult.neutralData[i].id >= fromDate &&
+          insuranceTeamThemeResult.neutralData[i].id <= toDate
+        ) {
+          neutralResult.push(insuranceTeamThemeResult.neutralData[i]);
+        }
+      }
+
+      for (let i = 0; i < neutralResult.length; i++) {
+        for (let j = 0; j < neutralResult[i].data.length; j++) {
+          if (neutralResult[i].data[j].key === external_Environment) {
+            external_Environment_Neutral_Value +=
+              neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === work_Technology) {
+            work_Technology_Neutral_Value += neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === individual_And_Team) {
+            individual_And_Team_Neutral_Value += neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === people_And_Resources) {
+            people_And_Resources_Neutral_Value +=
+              neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === structure_And_Capabilities) {
+            structure_And_Capabilities_Neutral_Value +=
+              neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === decision_Making) {
+            decision_Making_Neutral_Value += neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === openness_to_Feedback) {
+            openness_to_Feedback_Neutral_Value +=
+              neutralResult[i].data[j].value;
+          }
+          if (neutralResult[i].data[j].key === work_Prioritisation) {
+            work_Prioritisation_Neutral_Value += neutralResult[i].data[j].value;
+          }
+        }
+      }
+
+      // Happy Loop
+      for (let i = 0; i < insuranceTeamThemeResult.happyData.length; i++) {
+        if (
+          insuranceTeamThemeResult.happyData[i].id >= fromDate &&
+          insuranceTeamThemeResult.happyData[i].id <= toDate
+        ) {
+          happyResult.push(insuranceTeamThemeResult.happyData[i]);
+        }
+      }
+
+      for (let i = 0; i < happyResult.length; i++) {
+        for (let j = 0; j < happyResult[i].data.length; j++) {
+          if (happyResult[i].data[j].key === external_Environment) {
+            external_Environment_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === work_Technology) {
+            work_Technology_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === individual_And_Team) {
+            individual_And_Team_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === people_And_Resources) {
+            people_And_Resources_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === structure_And_Capabilities) {
+            structure_And_Capabilities_Happy_Value +=
+              happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === decision_Making) {
+            decision_Making_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === openness_to_Feedback) {
+            openness_to_Feedback_Happy_Value += happyResult[i].data[j].value;
+          }
+          if (happyResult[i].data[j].key === work_Prioritisation) {
+            work_Prioritisation_Happy_Value += happyResult[i].data[j].value;
+          }
+        }
+      }
+      break;
+
+    default:
+      break;
   }
 
-  for (let i = 0; i < allTeamsThemeResult.neutralData.length; i++) {
-    if (
-      allTeamsThemeResult.neutralData[i].id >= fromDate &&
-      allTeamsThemeResult.neutralData[i].id <= toDate
-    ) {
-      neutralResult.push(allTeamsThemeResult.neutralData[i]);
-    }
-  }
-
-  for (let i = 0; i < allTeamsThemeResult.happyData.length; i++) {
-    if (
-      allTeamsThemeResult.happyData[i].id >= fromDate &&
-      allTeamsThemeResult.happyData[i].id <= toDate
-    ) {
-      happyResult.push(allTeamsThemeResult.happyData[i]);
-    }
-  }
-
-  console.log("a::", a);
+  finalResult = {
+    series: [
+      //data on the y-axis
+      {
+        name: "Work Prioritisation",
+        data: [
+          work_Prioritisation_Sad_Value,
+          work_Prioritisation_Neutral_Value,
+          work_Prioritisation_Happy_Value,
+        ],
+      },
+      {
+        name: "Openness to Feedback",
+        data: [
+          openness_to_Feedback_Sad_Value,
+          openness_to_Feedback_Neutral_Value,
+          openness_to_Feedback_Happy_Value,
+        ],
+      },
+      {
+        name: "Decision Making",
+        data: [
+          decision_Making_Sad_Value,
+          decision_Making_Neutral_Value,
+          decision_Making_Happy_Value,
+        ],
+      },
+      {
+        name: "Structure & Capabilities",
+        data: [
+          structure_And_Capabilities_Sad_Value,
+          structure_And_Capabilities_Neutral_Value,
+          structure_And_Capabilities_Happy_Value,
+        ],
+      },
+      {
+        name: "People & Resources",
+        data: [
+          people_And_Resources_Sad_Value,
+          people_And_Resources_Neutral_Value,
+          people_And_Resources_Happy_Value,
+        ],
+      },
+      {
+        name: "Individual & Team",
+        data: [
+          individual_And_Team_Sad_Value,
+          individual_And_Team_Neutral_Value,
+          individual_And_Team_Happy_Value,
+        ],
+      },
+      {
+        name: "Work Technology & Tools",
+        data: [
+          work_Technology_Sad_Value,
+          work_Technology_Neutral_Value,
+          work_Technology_Happy_Value,
+        ],
+      },
+      {
+        name: "External Environment & Condition",
+        data: [
+          external_Environment_Sad_Value,
+          external_Environment_Neutral_Value,
+          external_Environment_Happy_Value,
+        ],
+      },
+    ],
+    happyPercentage: Math.round(
+      ((external_Environment_Happy_Value +
+        work_Technology_Happy_Value +
+        individual_And_Team_Happy_Value +
+        people_And_Resources_Happy_Value +
+        structure_And_Capabilities_Happy_Value +
+        decision_Making_Happy_Value +
+        openness_to_Feedback_Happy_Value +
+        work_Prioritisation_Happy_Value) /
+        8) *
+        100
+    ),
+    sadPercentage: Math.round(
+      ((external_Environment_Sad_Value +
+        work_Technology_Sad_Value +
+        individual_And_Team_Sad_Value +
+        people_And_Resources_Sad_Value +
+        structure_And_Capabilities_Sad_Value +
+        decision_Making_Sad_Value +
+        openness_to_Feedback_Sad_Value +
+        work_Prioritisation_Sad_Value) /
+        8) *
+        100
+    ),
+    neutralPercentage: Math.round(
+      ((external_Environment_Neutral_Value +
+        work_Technology_Neutral_Value +
+        individual_And_Team_Neutral_Value +
+        people_And_Resources_Neutral_Value +
+        structure_And_Capabilities_Neutral_Value +
+        decision_Making_Neutral_Value +
+        openness_to_Feedback_Neutral_Value +
+        work_Prioritisation_Neutral_Value) /
+        8) *
+        100
+    ),
+  };
 
   return res.status(200).json({ result: finalResult });
 });
@@ -4020,29 +4637,7 @@ const insuranceTeamSummaryResult = [
 
 // ------------------------------- Chart 6: EnterpriseLevelSentimentsTheme ------------------------------//
 
-const keywords = [
-  "External Environment & Conditions",
-  "Work Technology & Tools",
-  "Individual & Team",
-  "People & Resources",
-  "Structure & Capabilities",
-  "Decision Making",
-  "Openness to Feedback",
-  "Work Prioritisation",
-];
-
 const allTeamsThemeResult = {
-  xAxis: ["Sad", "Neutral", "Happy"],
-  yAxis: [
-    "External Environment & Conditions",
-    "Work Technology & Tools",
-    "Individual & Team",
-    "People & Resources",
-    "Structure & Capabilities",
-    "Decision Making",
-    "Openness to Feedback",
-    "Work Prioritisation",
-  ],
   sadData: [
     {
       id: 1,
@@ -4660,15 +5255,15 @@ const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 65,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 30,
         },
         {
           key: "Individual & Team",
-          value: 15,
+          value: 10,
         },
         {
           key: "People & Resources",
@@ -4676,11 +5271,11 @@ const allTeamsThemeResult = {
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 30,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 50,
         },
         {
           key: "Openness to Feedback",
@@ -4688,7 +5283,7 @@ const allTeamsThemeResult = {
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 20,
         },
       ],
     },
@@ -4698,27 +5293,27 @@ const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 65,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
-        },
-        {
-          key: "Individual & Team",
-          value: 15,
-        },
-        {
-          key: "People & Resources",
           value: 10,
         },
         {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 50,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 35,
         },
         {
           key: "Openness to Feedback",
@@ -4726,7 +5321,7 @@ const allTeamsThemeResult = {
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 20,
         },
       ],
     },
@@ -4736,27 +5331,27 @@ const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 65,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 30,
         },
         {
           key: "Individual & Team",
-          value: 15,
-        },
-        {
-          key: "People & Resources",
           value: 10,
         },
         {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 50,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 35,
         },
         {
           key: "Openness to Feedback",
@@ -4764,7 +5359,7 @@ const allTeamsThemeResult = {
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 20,
         },
       ],
     },
@@ -4774,35 +5369,35 @@ const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 45,
         },
         {
           key: "Work Technology & Tools",
-          value: 25,
-        },
-        {
-          key: "Individual & Team",
-          value: 25,
-        },
-        {
-          key: "People & Resources",
-          value: 30,
-        },
-        {
-          key: "Structure & Capabilities",
           value: 15,
         },
         {
+          key: "Individual & Team",
+          value: 60,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 65,
+        },
+        {
           key: "Decision Making",
-          value: 35,
+          value: 30,
         },
         {
           key: "Openness to Feedback",
-          value: 10,
+          value: 45,
         },
         {
           key: "Work Prioritisation",
-          value: 35,
+          value: 40,
         },
       ],
     },
@@ -4812,7 +5407,7 @@ const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 30,
+          value: 60,
         },
         {
           key: "Work Technology & Tools",
@@ -4820,27 +5415,27 @@ const allTeamsThemeResult = {
         },
         {
           key: "Individual & Team",
-          value: 30,
+          value: 35,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 40,
         },
         {
           key: "Structure & Capabilities",
-          value: 25,
-        },
-        {
-          key: "Decision Making",
-          value: 20,
-        },
-        {
-          key: "Openness to Feedback",
           value: 30,
         },
         {
-          key: "Work Prioritisation",
+          key: "Decision Making",
           value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 20,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
         },
       ],
     },
@@ -4850,7 +5445,7 @@ const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 55,
         },
         {
           key: "Work Technology & Tools",
@@ -4858,11 +5453,125 @@ const allTeamsThemeResult = {
         },
         {
           key: "Individual & Team",
-          value: 40,
+          value: 35,
         },
         {
           key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 10,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 65,
+        },
+      ],
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
           value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 45,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 50,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
+        },
+      ],
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 70,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 55,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 40,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 60,
+        },
+      ],
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 30,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 65,
+        },
+        {
+          key: "Individual & Team",
+          value: 50,
+        },
+        {
+          key: "People & Resources",
+          value: 60,
         },
         {
           key: "Structure & Capabilities",
@@ -4874,25 +5583,177 @@ const allTeamsThemeResult = {
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 10,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 25,
         },
       ],
     },
     {
-      id: 7,
-      month: "Oct 22",
+      id: 10,
+      month: "Jan 23",
       data: [
         {
           key: "External Environment & Conditions",
-          value: 40,
+          value: 60,
         },
         {
           key: "Work Technology & Tools",
+          value: 40,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 65,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 40,
+        },
+        {
+          key: "Decision Making",
+          value: 15,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 20,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 70,
+        },
+      ],
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
           value: 30,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 40,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 25,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 59,
+        },
+      ],
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 55,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 65,
+        },
+        {
+          key: "Decision Making",
+          value: 15,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 40,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 70,
+        },
+      ],
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 60,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 45,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 55,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 40,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 30,
+        },
+      ],
+    },
+    {
+      id: 14,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
         },
         {
           key: "Individual & Team",
@@ -4904,19 +5765,363 @@ const allTeamsThemeResult = {
         },
         {
           key: "Structure & Capabilities",
+          value: 60,
+        },
+        {
+          key: "Decision Making",
+          value: 40,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 55,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 65,
+        },
+        {
+          key: "Individual & Team",
+          value: 30,
+        },
+        {
+          key: "People & Resources",
+          value: 45,
+        },
+        {
+          key: "Structure & Capabilities",
           value: 25,
         },
         {
           key: "Decision Making",
-          value: 20,
-        },
-        {
-          key: "Openness to Feedback",
           value: 15,
         },
         {
+          key: "Openness to Feedback",
+          value: 60,
+        },
+        {
           key: "Work Prioritisation",
+          value: 25,
+        },
+      ],
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 65,
+        },
+        {
+          key: "Work Technology & Tools",
           value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 60,
+        },
+        {
+          key: "Decision Making",
+          value: 25,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
+        },
+      ],
+    },
+  ],
+  happyData: [
+    {
+      id: 1,
+      month: "Apr 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 55,
+        },
+        {
+          key: "Individual & Team",
+          value: 75,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 65,
+        },
+      ],
+    },
+    {
+      id: 2,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 55,
+        },
+        {
+          key: "Individual & Team",
+          value: 75,
+        },
+        {
+          key: "People & Resources",
+          value: 60,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 65,
+        },
+      ],
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 55,
+        },
+        {
+          key: "Individual & Team",
+          value: 75,
+        },
+        {
+          key: "People & Resources",
+          value: 60,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 65,
+        },
+      ],
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 60,
+        },
+        {
+          key: "Individual & Team",
+          value: 15,
+        },
+        {
+          key: "People & Resources",
+          value: 45,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 20,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 25,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 45,
+        },
+      ],
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 10,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 50,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 45,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 50,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 25,
+        },
+      ],
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 30,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 60,
+        },
+        {
+          key: "Individual & Team",
+          value: 25,
+        },
+        {
+          key: "People & Resources",
+          value: 45,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 75,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 55,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
         },
       ],
     },
@@ -4934,7 +6139,7 @@ const allTeamsThemeResult = {
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 35,
         },
         {
           key: "People & Resources",
@@ -4942,15 +6147,15 @@ const allTeamsThemeResult = {
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 40,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 40,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 35,
         },
         {
           key: "Work Prioritisation",
@@ -4968,11 +6173,11 @@ const allTeamsThemeResult = {
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 20,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 30,
         },
         {
           key: "People & Resources",
@@ -4980,19 +6185,19 @@ const allTeamsThemeResult = {
         },
         {
           key: "Structure & Capabilities",
-          value: 15,
+          value: 75,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 40,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 75,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 55,
         },
       ],
     },
@@ -5010,11 +6215,11 @@ const allTeamsThemeResult = {
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 35,
         },
         {
           key: "People & Resources",
-          value: 15,
+          value: 20,
         },
         {
           key: "Structure & Capabilities",
@@ -5022,11 +6227,11 @@ const allTeamsThemeResult = {
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 60,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 55,
         },
         {
           key: "Work Prioritisation",
@@ -5044,31 +6249,31 @@ const allTeamsThemeResult = {
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 35,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 40,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 50,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 55,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 45,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 45,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 35,
         },
       ],
     },
@@ -5078,15 +6283,15 @@ const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 40,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 35,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 45,
         },
         {
           key: "People & Resources",
@@ -5094,11 +6299,11 @@ const allTeamsThemeResult = {
         },
         {
           key: "Structure & Capabilities",
-          value: 15,
+          value: 20,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 60,
         },
         {
           key: "Openness to Feedback",
@@ -5120,31 +6325,31 @@ const allTeamsThemeResult = {
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
-        },
-        {
-          key: "Individual & Team",
-          value: 30,
-        },
-        {
-          key: "People & Resources",
           value: 35,
         },
         {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 35,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 40,
         },
         {
           key: "Openness to Feedback",
-          value: 20,
+          value: 40,
         },
         {
           key: "Work Prioritisation",
-          value: 25,
+          value: 45,
         },
       ],
     },
@@ -5154,23 +6359,23 @@ const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 45,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 50,
         },
         {
           key: "Individual & Team",
-          value: 25,
+          value: 55,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 50,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 10,
         },
         {
           key: "Decision Making",
@@ -5178,11 +6383,11 @@ const allTeamsThemeResult = {
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 30,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 60,
         },
       ],
     },
@@ -5192,11 +6397,11 @@ const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 40,
+          value: 25,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 20,
         },
         {
           key: "Individual & Team",
@@ -5204,23 +6409,23 @@ const allTeamsThemeResult = {
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 45,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 45,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 60,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 15,
         },
         {
           key: "Work Prioritisation",
-          value: 30,
+          value: 45,
         },
       ],
     },
@@ -5230,7 +6435,7 @@ const allTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 20,
         },
         {
           key: "Work Technology & Tools",
@@ -5238,32 +6443,34 @@ const allTeamsThemeResult = {
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 45,
         },
         {
           key: "People & Resources",
-          value: 35,
-        },
-        {
-          key: "Structure & Capabilities",
-          value: 30,
-        },
-        {
-          key: "Decision Making",
           value: 25,
         },
         {
+          key: "Structure & Capabilities",
+          value: 10,
+        },
+        {
+          key: "Decision Making",
+          value: 50,
+        },
+        {
           key: "Openness to Feedback",
-          value: 30,
+          value: 35,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 40,
         },
       ],
     },
   ],
-  happyData: [
+};
+const mobileTeamsThemeResult = {
+  sadData: [
     {
       id: 1,
       month: "Apr 22",
@@ -5873,6 +7080,4892 @@ const allTeamsThemeResult = {
       ],
     },
   ],
+  neutralData: [
+    {
+      id: 1,
+      month: "Apr 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 65,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 10,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 50,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 2,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 65,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 10,
+        },
+        {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 50,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 65,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 50,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 45,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 15,
+        },
+        {
+          key: "Individual & Team",
+          value: 60,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 65,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 45,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
+        },
+      ],
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 60,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 25,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 20,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
+        },
+      ],
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 55,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 10,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 65,
+        },
+      ],
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 45,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 50,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
+        },
+      ],
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 70,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 55,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 40,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 60,
+        },
+      ],
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 30,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 65,
+        },
+        {
+          key: "Individual & Team",
+          value: 50,
+        },
+        {
+          key: "People & Resources",
+          value: 60,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 10,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 10,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 25,
+        },
+      ],
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 60,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 40,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 65,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 40,
+        },
+        {
+          key: "Decision Making",
+          value: 15,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 20,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 70,
+        },
+      ],
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 30,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 40,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 25,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 59,
+        },
+      ],
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 55,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 65,
+        },
+        {
+          key: "Decision Making",
+          value: 15,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 40,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 70,
+        },
+      ],
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 60,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 45,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 55,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 40,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 30,
+        },
+      ],
+    },
+    {
+      id: 14,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 20,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 60,
+        },
+        {
+          key: "Decision Making",
+          value: 40,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 55,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 65,
+        },
+        {
+          key: "Individual & Team",
+          value: 30,
+        },
+        {
+          key: "People & Resources",
+          value: 45,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 25,
+        },
+        {
+          key: "Decision Making",
+          value: 15,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 60,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 25,
+        },
+      ],
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 65,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 60,
+        },
+        {
+          key: "Decision Making",
+          value: 25,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
+        },
+      ],
+    },
+  ],
+  happyData: [
+    {
+      id: 1,
+      month: "Apr 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 55,
+        },
+        {
+          key: "Individual & Team",
+          value: 75,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 65,
+        },
+      ],
+    },
+    {
+      id: 2,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 55,
+        },
+        {
+          key: "Individual & Team",
+          value: 75,
+        },
+        {
+          key: "People & Resources",
+          value: 60,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 65,
+        },
+      ],
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 55,
+        },
+        {
+          key: "Individual & Team",
+          value: 75,
+        },
+        {
+          key: "People & Resources",
+          value: 60,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 65,
+        },
+      ],
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 60,
+        },
+        {
+          key: "Individual & Team",
+          value: 15,
+        },
+        {
+          key: "People & Resources",
+          value: 45,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 20,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 25,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 45,
+        },
+      ],
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 10,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 50,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 45,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 50,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 25,
+        },
+      ],
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 30,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 60,
+        },
+        {
+          key: "Individual & Team",
+          value: 25,
+        },
+        {
+          key: "People & Resources",
+          value: 45,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 75,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 55,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 15,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 40,
+        },
+        {
+          key: "Decision Making",
+          value: 40,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 30,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 75,
+        },
+        {
+          key: "Decision Making",
+          value: 40,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 75,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 55,
+        },
+      ],
+    },
+    {
+      id: 10,
+      month: "Jan 232",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 20,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 60,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 55,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 40,
+        },
+        {
+          key: "People & Resources",
+          value: 50,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 55,
+        },
+        {
+          key: "Decision Making",
+          value: 45,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 45,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 35,
+        },
+      ],
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 40,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 35,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 20,
+        },
+        {
+          key: "Decision Making",
+          value: 60,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 20,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 35,
+        },
+        {
+          key: "Decision Making",
+          value: 40,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 40,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 45,
+        },
+      ],
+    },
+    {
+      id: 14,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 45,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 50,
+        },
+        {
+          key: "Individual & Team",
+          value: 55,
+        },
+        {
+          key: "People & Resources",
+          value: 50,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 10,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 60,
+        },
+      ],
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 45,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 60,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 15,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 45,
+        },
+      ],
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 20,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 10,
+        },
+        {
+          key: "Decision Making",
+          value: 50,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
+        },
+      ],
+    },
+  ],
+};
+
+const superannuationTeamThemeResult = {
+  sadData: [
+    {
+      id: 1,
+      month: "Apr 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 10,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 15,
+        },
+        {
+          key: "Individual & Team",
+          value: 15,
+        },
+        {
+          key: "People & Resources",
+          value: 10,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 20,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 2,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 10,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 15,
+        },
+        {
+          key: "Individual & Team",
+          value: 15,
+        },
+        {
+          key: "People & Resources",
+          value: 10,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 20,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 10,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 15,
+        },
+        {
+          key: "Individual & Team",
+          value: 15,
+        },
+        {
+          key: "People & Resources",
+          value: 10,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 20,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 20,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 25,
+        },
+        {
+          key: "Individual & Team",
+          value: 25,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 15,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 10,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 35,
+        },
+      ],
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 30,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 25,
+        },
+        {
+          key: "Individual & Team",
+          value: 30,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 25,
+        },
+        {
+          key: "Decision Making",
+          value: 20,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 35,
+        },
+      ],
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 15,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 40,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 10,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 15,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 40,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 20,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 25,
+        },
+        {
+          key: "Decision Making",
+          value: 20,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 15,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 30,
+        },
+      ],
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 15,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 20,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 15,
+        },
+        {
+          key: "Individual & Team",
+          value: 20,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 15,
+        },
+        {
+          key: "Decision Making",
+          value: 25,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 15,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 10,
+      month: "Jan 232",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 20,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 20,
+        },
+        {
+          key: "People & Resources",
+          value: 15,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 25,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 25,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 20,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 20,
+        },
+        {
+          key: "Decision Making",
+          value: 20,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 25,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 35,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 15,
+        },
+        {
+          key: "Decision Making",
+          value: 25,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 20,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 30,
+        },
+        {
+          key: "People & Resources",
+          value: 35,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 10,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 20,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 25,
+        },
+      ],
+    },
+    {
+      id: 14,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 20,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 25,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 15,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 40,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 15,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 10,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 25,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 25,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 30,
+        },
+      ],
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 15,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 35,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 25,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+  ],
+  neutralData: [
+    {
+      id: 1,
+      month: "Apr 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 65,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 10,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 50,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 2,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 65,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 10,
+        },
+        {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 50,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 65,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 50,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 45,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 15,
+        },
+        {
+          key: "Individual & Team",
+          value: 60,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 65,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 45,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
+        },
+      ],
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 60,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 25,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 20,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
+        },
+      ],
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 55,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 10,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 65,
+        },
+      ],
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 45,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 50,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
+        },
+      ],
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 70,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 55,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 40,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 60,
+        },
+      ],
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 30,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 65,
+        },
+        {
+          key: "Individual & Team",
+          value: 50,
+        },
+        {
+          key: "People & Resources",
+          value: 60,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 10,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 10,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 25,
+        },
+      ],
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 60,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 40,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 65,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 40,
+        },
+        {
+          key: "Decision Making",
+          value: 15,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 20,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 70,
+        },
+      ],
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 30,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 40,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 25,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 59,
+        },
+      ],
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 55,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 65,
+        },
+        {
+          key: "Decision Making",
+          value: 15,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 40,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 70,
+        },
+      ],
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 60,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 45,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 55,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 40,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 30,
+        },
+      ],
+    },
+    {
+      id: 14,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 20,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 60,
+        },
+        {
+          key: "Decision Making",
+          value: 40,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 55,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 65,
+        },
+        {
+          key: "Individual & Team",
+          value: 30,
+        },
+        {
+          key: "People & Resources",
+          value: 45,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 25,
+        },
+        {
+          key: "Decision Making",
+          value: 15,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 60,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 25,
+        },
+      ],
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 65,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 60,
+        },
+        {
+          key: "Decision Making",
+          value: 25,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
+        },
+      ],
+    },
+  ],
+  happyData: [
+    {
+      id: 1,
+      month: "Apr 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 55,
+        },
+        {
+          key: "Individual & Team",
+          value: 75,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 65,
+        },
+      ],
+    },
+    {
+      id: 2,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 55,
+        },
+        {
+          key: "Individual & Team",
+          value: 75,
+        },
+        {
+          key: "People & Resources",
+          value: 60,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 65,
+        },
+      ],
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 55,
+        },
+        {
+          key: "Individual & Team",
+          value: 75,
+        },
+        {
+          key: "People & Resources",
+          value: 60,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 65,
+        },
+      ],
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 60,
+        },
+        {
+          key: "Individual & Team",
+          value: 15,
+        },
+        {
+          key: "People & Resources",
+          value: 45,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 20,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 25,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 45,
+        },
+      ],
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 10,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 50,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 45,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 50,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 25,
+        },
+      ],
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 30,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 60,
+        },
+        {
+          key: "Individual & Team",
+          value: 25,
+        },
+        {
+          key: "People & Resources",
+          value: 45,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 75,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 55,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 15,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 40,
+        },
+        {
+          key: "Decision Making",
+          value: 40,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 30,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 75,
+        },
+        {
+          key: "Decision Making",
+          value: 40,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 75,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 55,
+        },
+      ],
+    },
+    {
+      id: 10,
+      month: "Jan 232",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 20,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 60,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 55,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 40,
+        },
+        {
+          key: "People & Resources",
+          value: 50,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 55,
+        },
+        {
+          key: "Decision Making",
+          value: 45,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 45,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 35,
+        },
+      ],
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 40,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 35,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 20,
+        },
+        {
+          key: "Decision Making",
+          value: 60,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 20,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 35,
+        },
+        {
+          key: "Decision Making",
+          value: 40,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 40,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 45,
+        },
+      ],
+    },
+    {
+      id: 14,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 45,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 50,
+        },
+        {
+          key: "Individual & Team",
+          value: 55,
+        },
+        {
+          key: "People & Resources",
+          value: 50,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 10,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 60,
+        },
+      ],
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 45,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 60,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 15,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 45,
+        },
+      ],
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 20,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 10,
+        },
+        {
+          key: "Decision Making",
+          value: 50,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
+        },
+      ],
+    },
+  ],
+};
+
+const insuranceTeamThemeResult = {
+  sadData: [
+    {
+      id: 1,
+      month: "Apr 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 10,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 15,
+        },
+        {
+          key: "Individual & Team",
+          value: 15,
+        },
+        {
+          key: "People & Resources",
+          value: 10,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 20,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 2,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 10,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 15,
+        },
+        {
+          key: "Individual & Team",
+          value: 15,
+        },
+        {
+          key: "People & Resources",
+          value: 10,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 20,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 10,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 15,
+        },
+        {
+          key: "Individual & Team",
+          value: 15,
+        },
+        {
+          key: "People & Resources",
+          value: 10,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 20,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 20,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 25,
+        },
+        {
+          key: "Individual & Team",
+          value: 25,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 15,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 10,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 35,
+        },
+      ],
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 30,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 25,
+        },
+        {
+          key: "Individual & Team",
+          value: 30,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 25,
+        },
+        {
+          key: "Decision Making",
+          value: 20,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 35,
+        },
+      ],
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 15,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 40,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 10,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 15,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 40,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 20,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 25,
+        },
+        {
+          key: "Decision Making",
+          value: 20,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 15,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 30,
+        },
+      ],
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 15,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 20,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 15,
+        },
+        {
+          key: "Individual & Team",
+          value: 20,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 15,
+        },
+        {
+          key: "Decision Making",
+          value: 25,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 15,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 10,
+      month: "Jan 232",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 20,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 20,
+        },
+        {
+          key: "People & Resources",
+          value: 15,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 25,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 25,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 20,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 20,
+        },
+        {
+          key: "Decision Making",
+          value: 20,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 25,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 35,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 15,
+        },
+        {
+          key: "Decision Making",
+          value: 25,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 20,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 30,
+        },
+        {
+          key: "People & Resources",
+          value: 35,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 10,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 20,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 25,
+        },
+      ],
+    },
+    {
+      id: 14,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 20,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 25,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 15,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 40,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 15,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 10,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 25,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 25,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 30,
+        },
+      ],
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 15,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 35,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 25,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+  ],
+  neutralData: [
+    {
+      id: 1,
+      month: "Apr 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 65,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 10,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 50,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 2,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 65,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 10,
+        },
+        {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 50,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 65,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 50,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 45,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 15,
+        },
+        {
+          key: "Individual & Team",
+          value: 60,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 65,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 45,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
+        },
+      ],
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 60,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 25,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 20,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
+        },
+      ],
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 55,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 10,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 65,
+        },
+      ],
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 45,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 50,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
+        },
+      ],
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 70,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 55,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 40,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 60,
+        },
+      ],
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 30,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 65,
+        },
+        {
+          key: "Individual & Team",
+          value: 50,
+        },
+        {
+          key: "People & Resources",
+          value: 60,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 10,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 10,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 25,
+        },
+      ],
+    },
+    {
+      id: 10,
+      month: "Jan 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 60,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 40,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 65,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 40,
+        },
+        {
+          key: "Decision Making",
+          value: 15,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 20,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 70,
+        },
+      ],
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 30,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 40,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 25,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 59,
+        },
+      ],
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 55,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 65,
+        },
+        {
+          key: "Decision Making",
+          value: 15,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 40,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 70,
+        },
+      ],
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 60,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 45,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 55,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 40,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 30,
+        },
+      ],
+    },
+    {
+      id: 14,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 20,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 60,
+        },
+        {
+          key: "Decision Making",
+          value: 40,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 55,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 65,
+        },
+        {
+          key: "Individual & Team",
+          value: 30,
+        },
+        {
+          key: "People & Resources",
+          value: 45,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 25,
+        },
+        {
+          key: "Decision Making",
+          value: 15,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 60,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 25,
+        },
+      ],
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 65,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 60,
+        },
+        {
+          key: "Decision Making",
+          value: 25,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
+        },
+      ],
+    },
+  ],
+  happyData: [
+    {
+      id: 1,
+      month: "Apr 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 55,
+        },
+        {
+          key: "Individual & Team",
+          value: 75,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 65,
+        },
+      ],
+    },
+    {
+      id: 2,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 55,
+        },
+        {
+          key: "Individual & Team",
+          value: 75,
+        },
+        {
+          key: "People & Resources",
+          value: 60,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 65,
+        },
+      ],
+    },
+    {
+      id: 3,
+      month: "Jun 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 55,
+        },
+        {
+          key: "Individual & Team",
+          value: 75,
+        },
+        {
+          key: "People & Resources",
+          value: 60,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 65,
+        },
+      ],
+    },
+    {
+      id: 4,
+      month: "Jul 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 60,
+        },
+        {
+          key: "Individual & Team",
+          value: 15,
+        },
+        {
+          key: "People & Resources",
+          value: 45,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 20,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 25,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 45,
+        },
+      ],
+    },
+    {
+      id: 5,
+      month: "Aug 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 10,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 50,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 40,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 45,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 50,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 25,
+        },
+      ],
+    },
+    {
+      id: 6,
+      month: "Sep 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 30,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 60,
+        },
+        {
+          key: "Individual & Team",
+          value: 25,
+        },
+        {
+          key: "People & Resources",
+          value: 45,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 30,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 75,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 7,
+      month: "Oct 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 55,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 8,
+      month: "Nov 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 15,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 30,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 40,
+        },
+        {
+          key: "Decision Making",
+          value: 40,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 20,
+        },
+      ],
+    },
+    {
+      id: 9,
+      month: "Dec 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 30,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 75,
+        },
+        {
+          key: "Decision Making",
+          value: 40,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 75,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 55,
+        },
+      ],
+    },
+    {
+      id: 10,
+      month: "Jan 232",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 20,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 30,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 20,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 30,
+        },
+        {
+          key: "Decision Making",
+          value: 60,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 55,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 11,
+      month: "Feb 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 35,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 40,
+        },
+        {
+          key: "People & Resources",
+          value: 50,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 55,
+        },
+        {
+          key: "Decision Making",
+          value: 45,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 45,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 35,
+        },
+      ],
+    },
+    {
+      id: 12,
+      month: "Mar 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 40,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 35,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 20,
+        },
+        {
+          key: "Decision Making",
+          value: 60,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 15,
+        },
+      ],
+    },
+    {
+      id: 13,
+      month: "Apr 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 20,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 35,
+        },
+        {
+          key: "Decision Making",
+          value: 40,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 40,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 45,
+        },
+      ],
+    },
+    {
+      id: 14,
+      month: "May 22",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 45,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 50,
+        },
+        {
+          key: "Individual & Team",
+          value: 55,
+        },
+        {
+          key: "People & Resources",
+          value: 50,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 10,
+        },
+        {
+          key: "Decision Making",
+          value: 35,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 30,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 60,
+        },
+      ],
+    },
+    {
+      id: 15,
+      month: "Jun 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 25,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 20,
+        },
+        {
+          key: "Individual & Team",
+          value: 35,
+        },
+        {
+          key: "People & Resources",
+          value: 45,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 45,
+        },
+        {
+          key: "Decision Making",
+          value: 60,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 15,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 45,
+        },
+      ],
+    },
+    {
+      id: 16,
+      month: "Jul 23",
+      data: [
+        {
+          key: "External Environment & Conditions",
+          value: 20,
+        },
+        {
+          key: "Work Technology & Tools",
+          value: 35,
+        },
+        {
+          key: "Individual & Team",
+          value: 45,
+        },
+        {
+          key: "People & Resources",
+          value: 25,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 10,
+        },
+        {
+          key: "Decision Making",
+          value: 50,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 35,
+        },
+        {
+          key: "Work Prioritisation",
+          value: 40,
+        },
+      ],
+    },
+  ],
 };
 
 // ------------------------------- Chart 7: EnterpriseLevelSentimentsMoods ------------------------------//
@@ -6335,7 +12428,6 @@ const insuranceTeamMoodResult = [
     happy: 1155,
   },
 ];
-
 
 const port = process.env.PORT || 8080;
 
