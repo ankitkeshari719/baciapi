@@ -1495,6 +1495,36 @@ app.get("/getEnterpriseLevelSentimentsTheme", async (req, res) => {
       break;
   }
 
+  let sum_happy =
+    external_Environment_Happy_Value +
+    work_Technology_Happy_Value +
+    individual_And_Team_Happy_Value +
+    people_And_Resources_Happy_Value +
+    structure_And_Capabilities_Happy_Value +
+    decision_Making_Happy_Value +
+    openness_to_Feedback_Happy_Value +
+    work_Prioritisation_Happy_Value;
+
+  let sum_neutral =
+    external_Environment_Neutral_Value +
+    work_Technology_Neutral_Value +
+    individual_And_Team_Neutral_Value +
+    people_And_Resources_Neutral_Value +
+    structure_And_Capabilities_Neutral_Value +
+    decision_Making_Neutral_Value +
+    openness_to_Feedback_Neutral_Value +
+    work_Prioritisation_Neutral_Value;
+
+  let sum_sad =
+    external_Environment_Sad_Value +
+    work_Technology_Sad_Value +
+    individual_And_Team_Sad_Value +
+    people_And_Resources_Sad_Value +
+    structure_And_Capabilities_Sad_Value +
+    decision_Making_Sad_Value +
+    openness_to_Feedback_Sad_Value +
+    work_Prioritisation_Sad_Value;
+
   finalResult = {
     series: [
       //data on the y-axis
@@ -1564,40 +1594,13 @@ app.get("/getEnterpriseLevelSentimentsTheme", async (req, res) => {
       },
     ],
     happyPercentage: Math.round(
-      ((external_Environment_Happy_Value +
-        work_Technology_Happy_Value +
-        individual_And_Team_Happy_Value +
-        people_And_Resources_Happy_Value +
-        structure_And_Capabilities_Happy_Value +
-        decision_Making_Happy_Value +
-        openness_to_Feedback_Happy_Value +
-        work_Prioritisation_Happy_Value) /
-        8) *
-        100
+      (sum_happy / (sum_happy + sum_neutral + sum_sad)) * 100
     ),
     sadPercentage: Math.round(
-      ((external_Environment_Sad_Value +
-        work_Technology_Sad_Value +
-        individual_And_Team_Sad_Value +
-        people_And_Resources_Sad_Value +
-        structure_And_Capabilities_Sad_Value +
-        decision_Making_Sad_Value +
-        openness_to_Feedback_Sad_Value +
-        work_Prioritisation_Sad_Value) /
-        8) *
-        100
+      (sum_sad / (sum_happy + sum_neutral + sum_sad)) * 100
     ),
     neutralPercentage: Math.round(
-      ((external_Environment_Neutral_Value +
-        work_Technology_Neutral_Value +
-        individual_And_Team_Neutral_Value +
-        people_And_Resources_Neutral_Value +
-        structure_And_Capabilities_Neutral_Value +
-        decision_Making_Neutral_Value +
-        openness_to_Feedback_Neutral_Value +
-        work_Prioritisation_Neutral_Value) /
-        8) *
-        100
+      (sum_neutral / (sum_happy + sum_neutral + sum_sad)) * 100
     ),
   };
 
