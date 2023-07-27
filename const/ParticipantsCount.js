@@ -1,4 +1,4 @@
-export const allTeamsParticipantResult = [
+const allTeamsParticipantResult = [
   {
     id: 1,
     month: "Apr 22",
@@ -81,251 +81,251 @@ export const allTeamsParticipantResult = [
   },
 ];
 
-export const mobileTeamParticipantResult = [
+const mobileTeamParticipantResult = [
   {
     id: 1,
     month: "Apr 22",
-    averageParticipants: 55,
+    averageParticipants: 19,
   },
   {
     id: 2,
     month: "May 22",
-    averageParticipants: 78,
+    averageParticipants: 19,
   },
   {
     id: 3,
     month: "Jun 22",
-    averageParticipants: 101,
+    averageParticipants: 32,
   },
   {
     id: 4,
     month: "Jul 22",
-    averageParticipants: 95,
+    averageParticipants: 43,
   },
   {
     id: 5,
     month: "Aug 22",
-    averageParticipants: 82,
+    averageParticipants: 33,
   },
   {
     id: 6,
     month: "Sep 22",
-    averageParticipants: 121,
+    averageParticipants: 37,
   },
   {
     id: 7,
     month: "Oct 22",
-    averageParticipants: 320,
+    averageParticipants: 56,
   },
   {
     id: 8,
     month: "Nov 22",
-    averageParticipants: 511,
+    averageParticipants: 180,
   },
   {
     id: 9,
     month: "Dec 22",
-    averageParticipants: 570,
+    averageParticipants: 209,
   },
   {
     id: 10,
     month: "Jan 23",
-    averageParticipants: 677,
+    averageParticipants: 319,
   },
   {
     id: 11,
     month: "Feb 23",
-    averageParticipants: 930,
+    averageParticipants: 479,
   },
   {
     id: 12,
     month: "Mar 23",
-    averageParticipants: 1211,
+    averageParticipants: 571,
   },
   {
     id: 13,
     month: "Apr 23",
-    averageParticipants: 1350,
+    averageParticipants: 589,
   },
   {
     id: 14,
     month: "May 23",
-    averageParticipants: 1265,
+    averageParticipants: 476,
   },
   {
     id: 15,
     month: "Jun 23",
-    averageParticipants: 1200,
+    averageParticipants: 543,
   },
   {
     id: 16,
     month: "Jul 23",
-    averageParticipants: 1321,
+    averageParticipants: 593,
   },
 ];
 
-export const superannuationTeamParticipantResult = [
+const superannuationTeamParticipantResult = [
   {
     id: 1,
     month: "Apr 22",
-    averageParticipants: 55,
+    averageParticipants: 31,
   },
   {
     id: 2,
     month: "May 22",
-    averageParticipants: 78,
+    averageParticipants: 27,
   },
   {
     id: 3,
     month: "Jun 22",
-    averageParticipants: 101,
+    averageParticipants: 23,
   },
   {
     id: 4,
     month: "Jul 22",
-    averageParticipants: 95,
+    averageParticipants: 33,
   },
   {
     id: 5,
     month: "Aug 22",
-    averageParticipants: 82,
+    averageParticipants: 26,
   },
   {
     id: 6,
     month: "Sep 22",
-    averageParticipants: 121,
+    averageParticipants: 42,
   },
   {
     id: 7,
     month: "Oct 22",
-    averageParticipants: 320,
+    averageParticipants: 100,
   },
   {
     id: 8,
     month: "Nov 22",
-    averageParticipants: 511,
+    averageParticipants: 167,
   },
   {
     id: 9,
     month: "Dec 22",
-    averageParticipants: 570,
+    averageParticipants: 180,
   },
   {
     id: 10,
     month: "Jan 23",
-    averageParticipants: 677,
+    averageParticipants: 214,
   },
   {
     id: 11,
     month: "Feb 23",
-    averageParticipants: 930,
+    averageParticipants: 189,
   },
   {
     id: 12,
     month: "Mar 23",
-    averageParticipants: 1211,
+    averageParticipants: 340,
   },
   {
     id: 13,
     month: "Apr 23",
-    averageParticipants: 1350,
+    averageParticipants: 390,
   },
   {
     id: 14,
     month: "May 23",
-    averageParticipants: 1265,
+    averageParticipants: 479,
   },
   {
     id: 15,
     month: "Jun 23",
-    averageParticipants: 1200,
+    averageParticipants: 331,
   },
   {
     id: 16,
     month: "Jul 23",
-    averageParticipants: 1321,
+    averageParticipants: 370,
   },
 ];
 
-export const insuranceTeamParticipantResult = [
+const insuranceTeamParticipantResult = [
   {
     id: 1,
     month: "Apr 22",
-    averageParticipants: 55,
+    averageParticipants: 5,
   },
   {
     id: 2,
     month: "May 22",
-    averageParticipants: 78,
+    averageParticipants: 32,
   },
   {
     id: 3,
     month: "Jun 22",
-    averageParticipants: 101,
+    averageParticipants: 46,
   },
   {
     id: 4,
     month: "Jul 22",
-    averageParticipants: 95,
+    averageParticipants: 19,
   },
   {
     id: 5,
     month: "Aug 22",
-    averageParticipants: 82,
+    averageParticipants: 23,
   },
   {
     id: 6,
     month: "Sep 22",
-    averageParticipants: 121,
+    averageParticipants: 42,
   },
   {
     id: 7,
     month: "Oct 22",
-    averageParticipants: 320,
+    averageParticipants: 164,
   },
   {
     id: 8,
     month: "Nov 22",
-    averageParticipants: 511,
+    averageParticipants: 164,
   },
   {
     id: 9,
     month: "Dec 22",
-    averageParticipants: 570,
+    averageParticipants: 181,
   },
   {
     id: 10,
     month: "Jan 23",
-    averageParticipants: 677,
+    averageParticipants: 144,
   },
   {
     id: 11,
     month: "Feb 23",
-    averageParticipants: 930,
+    averageParticipants: 262,
   },
   {
     id: 12,
     month: "Mar 23",
-    averageParticipants: 1211,
+    averageParticipants: 300,
   },
   {
     id: 13,
     month: "Apr 23",
-    averageParticipants: 1350,
+    averageParticipants: 371,
   },
   {
     id: 14,
     month: "May 23",
-    averageParticipants: 1265,
+    averageParticipants: 310,
   },
   {
     id: 15,
     month: "Jun 23",
-    averageParticipants: 1200,
+    averageParticipants: 326,
   },
   {
     id: 16,
     month: "Jul 23",
-    averageParticipants: 1321,
+    averageParticipants: 358,
   },
 ];
