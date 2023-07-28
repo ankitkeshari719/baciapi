@@ -6482,35 +6482,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 2,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 15,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 2,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 15,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -6520,35 +6520,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 2,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 15,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 2,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 15,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -6558,35 +6558,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 2,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 15,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 2,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 15,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -6596,35 +6596,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 25,
-        },
-        {
-          key: "Individual & Team",
-          value: 25,
-        },
-        {
-          key: "People & Resources",
-          value: 30,
-        },
-        {
-          key: "Structure & Capabilities",
-          value: 15,
-        },
-        {
-          key: "Decision Making",
-          value: 35,
-        },
-        {
-          key: "Openness to Feedback",
           value: 10,
         },
         {
+          key: "Individual & Team",
+          value: 10,
+        },
+        {
+          key: "People & Resources",
+          value: 11,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 5,
+        },
+        {
+          key: "Decision Making",
+          value: 15,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 2,
+        },
+        {
           key: "Work Prioritisation",
-          value: 35,
+          value: 15,
         },
       ],
     },
@@ -6634,35 +6634,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 30,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 25,
+          value: 10,
         },
         {
           key: "Individual & Team",
-          value: 30,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 25,
+          value: 10,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 35,
+          value: 15,
         },
       ],
     },
@@ -6672,35 +6672,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 40,
+          value: 13,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 2,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 15,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -6710,35 +6710,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 40,
+          value: 13,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 10,
         },
         {
           key: "Structure & Capabilities",
-          value: 25,
+          value: 10,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 30,
+          value: 11,
         },
       ],
     },
@@ -6748,35 +6748,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 15,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 2,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 5,
         },
       ],
     },
@@ -6786,35 +6786,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 15,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 15,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 10,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 5,
         },
       ],
     },
@@ -6824,35 +6824,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 15,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 10,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -6862,35 +6862,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 15,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 10,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -6900,35 +6900,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
-        },
-        {
-          key: "Work Technology & Tools",
-          value: 30,
-        },
-        {
-          key: "Individual & Team",
           value: 10,
         },
         {
+          key: "Work Technology & Tools",
+          value: 11,
+        },
+        {
+          key: "Individual & Team",
+          value: 2,
+        },
+        {
           key: "People & Resources",
-          value: 35,
+          value: 15,
         },
         {
           key: "Structure & Capabilities",
-          value: 15,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 10,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -6938,35 +6938,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 30,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 35,
+          value: 15,
         },
         {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 2,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 20,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 25,
+          value: 10,
         },
       ],
     },
@@ -6976,35 +6976,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 25,
+          value: 10,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 10,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 35,
-        },
-        {
-          key: "Openness to Feedback",
           value: 15,
         },
         {
+          key: "Openness to Feedback",
+          value: 55,
+        },
+        {
           key: "Work Prioritisation",
-          value: 20,
+          value: 5,
         },
       ],
     },
@@ -7014,35 +7014,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 40,
+          value: 13,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 15,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 2,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 10,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 10,
         },
         {
           key: "Work Prioritisation",
-          value: 30,
+          value: 11,
         },
       ],
     },
@@ -7052,19 +7052,19 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 15,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 2,
         },
         {
           key: "People & Resources",
-          value: 35,
+          value: 15,
         },
         {
           key: "Structure & Capabilities",
@@ -7072,15 +7072,15 @@ const mobileTeamsThemeResult = {
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 10,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 5,
         },
       ],
     },
@@ -7092,35 +7092,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 65,
+          value: 24,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 2,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 17,
         },
         {
           key: "Decision Making",
-          value: 50,
+          value: 15,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 15,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 5,
         },
       ],
     },
@@ -7130,35 +7130,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 65,
+          value: 24,
         },
         {
           key: "Work Technology & Tools",
-          value: 10,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 2,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 50,
+          value: 17,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 15,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 15,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 5,
         },
       ],
     },
@@ -7168,35 +7168,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 65,
+          value: 24,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 2,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 50,
+          value: 17,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 15,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 15,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 5,
         },
       ],
     },
@@ -7206,35 +7206,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 45,
+          value: 13,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 60,
+          value: 34,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 10,
         },
         {
           key: "Structure & Capabilities",
-          value: 65,
+          value: 24,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 45,
+          value: 13,
         },
         {
           key: "Work Prioritisation",
-          value: 40,
+          value: 13,
         },
       ],
     },
@@ -7244,35 +7244,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 60,
+          value: 34,
         },
         {
           key: "Work Technology & Tools",
-          value: 25,
+          value: 10,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 15,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 13,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 15,
         },
         {
           key: "Openness to Feedback",
-          value: 20,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 40,
+          value: 13,
         },
       ],
     },
@@ -7282,35 +7282,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 55,
+          value: 31,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 35,
-        },
-        {
-          key: "People & Resources",
-          value: 25,
-        },
-        {
-          key: "Structure & Capabilities",
-          value: 45,
-        },
-        {
-          key: "Decision Making",
-          value: 35,
-        },
-        {
-          key: "Openness to Feedback",
           value: 10,
         },
         {
+          key: "People & Resources",
+          value: 15,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 13,
+        },
+        {
+          key: "Decision Making",
+          value: 15,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 2,
+        },
+        {
           key: "Work Prioritisation",
-          value: 65,
+          value: 24,
         },
       ],
     },
@@ -7320,35 +7320,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 10,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 15,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 15,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 45,
+          value: 13,
         },
         {
           key: "Openness to Feedback",
-          value: 50,
+          value: 17,
         },
         {
           key: "Work Prioritisation",
-          value: 40,
+          value: 13,
         },
       ],
     },
@@ -7358,35 +7358,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 70,
+          value: 32,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 55,
+          value: 31,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 13,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 40,
+          value: 13,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 15,
         },
         {
           key: "Work Prioritisation",
-          value: 60,
+          value: 34,
         },
       ],
     },
@@ -7396,35 +7396,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 30,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 65,
+          value: 24,
         },
         {
           key: "Individual & Team",
-          value: 50,
+          value: 17,
         },
         {
           key: "People & Resources",
-          value: 60,
+          value: 34,
         },
         {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 2,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 15,
         },
         {
           key: "Openness to Feedback",
-          value: 10,
+          value: 2,
         },
         {
           key: "Work Prioritisation",
-          value: 25,
+          value: 10,
         },
       ],
     },
@@ -7434,19 +7434,19 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 60,
+          value: 34,
         },
         {
           key: "Work Technology & Tools",
-          value: 40,
+          value: 13,
         },
         {
           key: "Individual & Team",
-          value: 45,
+          value: 13,
         },
         {
           key: "People & Resources",
-          value: 65,
+          value: 24,
         },
         {
           key: "Structure & Capabilities",
@@ -7454,15 +7454,15 @@ const mobileTeamsThemeResult = {
         },
         {
           key: "Decision Making",
-          value: 15,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 20,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 70,
+          value: 32,
         },
       ],
     },
@@ -7472,35 +7472,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 30,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 15,
         },
         {
           key: "Individual & Team",
-          value: 40,
+          value: 13,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 25,
+          value: 10,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 15,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 59,
+          value: 17,
         },
       ],
     },
@@ -7510,35 +7510,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 55,
-        },
-        {
-          key: "Work Technology & Tools",
-          value: 35,
-        },
-        {
-          key: "Individual & Team",
-          value: 45,
-        },
-        {
-          key: "People & Resources",
-          value: 30,
-        },
-        {
-          key: "Structure & Capabilities",
-          value: 65,
-        },
-        {
-          key: "Decision Making",
           value: 15,
         },
         {
+          key: "Work Technology & Tools",
+          value: 15,
+        },
+        {
+          key: "Individual & Team",
+          value: 13,
+        },
+        {
+          key: "People & Resources",
+          value: 11,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 24,
+        },
+        {
+          key: "Decision Making",
+          value: 5,
+        },
+        {
           key: "Openness to Feedback",
-          value: 40,
+          value: 13,
         },
         {
           key: "Work Prioritisation",
-          value: 70,
+          value: 32,
         },
       ],
     },
@@ -7548,35 +7548,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 60,
+          value: 34,
         },
         {
           key: "Work Technology & Tools",
-          value: 45,
+          value: 13,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 15,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 13,
         },
         {
           key: "Structure & Capabilities",
-          value: 55,
+          value: 31,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 40,
+          value: 13,
         },
         {
           key: "Work Prioritisation",
-          value: 30,
+          value: 11,
         },
       ],
     },
@@ -7586,35 +7586,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 15,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 10,
         },
         {
           key: "Structure & Capabilities",
-          value: 60,
+          value: 34,
         },
         {
           key: "Decision Making",
-          value: 40,
+          value: 13,
         },
         {
           key: "Openness to Feedback",
-          value: 55,
+          value: 31,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 5,
         },
       ],
     },
@@ -7624,35 +7624,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
-        },
-        {
-          key: "Work Technology & Tools",
-          value: 65,
-        },
-        {
-          key: "Individual & Team",
-          value: 30,
-        },
-        {
-          key: "People & Resources",
-          value: 45,
-        },
-        {
-          key: "Structure & Capabilities",
-          value: 25,
-        },
-        {
-          key: "Decision Making",
           value: 15,
         },
         {
+          key: "Work Technology & Tools",
+          value: 24,
+        },
+        {
+          key: "Individual & Team",
+          value: 11,
+        },
+        {
+          key: "People & Resources",
+          value: 13,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 10,
+        },
+        {
+          key: "Decision Making",
+          value: 5,
+        },
+        {
           key: "Openness to Feedback",
-          value: 60,
+          value: 34,
         },
         {
           key: "Work Prioritisation",
-          value: 25,
+          value: 10,
         },
       ],
     },
@@ -7662,35 +7662,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 65,
+          value: 24,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 45,
+          value: 13,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 13,
         },
         {
           key: "Structure & Capabilities",
-          value: 60,
+          value: 34,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 10,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 15,
         },
         {
           key: "Work Prioritisation",
-          value: 40,
+          value: 13,
         },
       ],
     },
@@ -7702,35 +7702,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 10,
         },
         {
           key: "Work Technology & Tools",
-          value: 55,
+          value: 31,
         },
         {
           key: "Individual & Team",
-          value: 75,
+          value: 32,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 34,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value:  11,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 15,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 65,
+          value: 24,
         },
       ],
     },
@@ -7740,35 +7740,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 10,
         },
         {
           key: "Work Technology & Tools",
-          value: 55,
+          value: 31,
         },
         {
           key: "Individual & Team",
-          value: 75,
+          value: 32,
         },
         {
           key: "People & Resources",
-          value: 60,
+          value: 34,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value:  11,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 15,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 65,
+          value: 24,
         },
       ],
     },
@@ -7778,35 +7778,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 10,
         },
         {
           key: "Work Technology & Tools",
-          value: 55,
+          value: 31,
         },
         {
           key: "Individual & Team",
-          value: 75,
+          value: 32,
         },
         {
           key: "People & Resources",
-          value: 60,
+          value: 34,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value:  11,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 15,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 65,
+          value: 24,
         },
       ],
     },
@@ -7816,35 +7816,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
-        },
-        {
-          key: "Work Technology & Tools",
-          value: 60,
-        },
-        {
-          key: "Individual & Team",
           value: 15,
         },
         {
+          key: "Work Technology & Tools",
+          value: 34,
+        },
+        {
+          key: "Individual & Team",
+          value: 5,
+        },
+        {
           key: "People & Resources",
-          value: 45,
+          value: 13,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 15,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 13,
         },
         {
           key: "Work Prioritisation",
-          value: 45,
+          value: 10,
         },
       ],
     },
@@ -7854,35 +7854,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 2,
         },
         {
           key: "Work Technology & Tools",
-          value: 50,
+          value: 17,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 15,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 13,
         },
         {
           key: "Structure & Capabilities",
-          value: 45,
+          value: 13,
         },
         {
           key: "Decision Making",
-          value: 45,
+          value: 13,
         },
         {
           key: "Openness to Feedback",
-          value: 50,
+          value: 17,
         },
         {
           key: "Work Prioritisation",
-          value: 25,
+          value: 10,
         },
       ],
     },
@@ -7892,35 +7892,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 30,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 60,
+          value: 34,
         },
         {
           key: "Individual & Team",
-          value: 25,
+          value: 10,
         },
         {
           key: "People & Resources",
-          value: 45,
+          value: 13,
         },
         {
           key: "Structure & Capabilities",
-          value: 45,
+          value: 13,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 75,
+          value: 32,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 5,
         },
       ],
     },
@@ -7930,35 +7930,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 15,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 15,
         },
         {
           key: "Individual & Team",
-          value: 45,
+          value: 13,
         },
         {
           key: "People & Resources",
-          value: 55,
+          value: 31,
         },
         {
           key: "Structure & Capabilities",
-          value: 45,
+          value: 13,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 13,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 15,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 11,
         },
       ],
     },
@@ -7968,35 +7968,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 15,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 15,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 40,
+          value: 13,
         },
         {
           key: "Decision Making",
-          value: 40,
+          value: 13,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 15,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 5,
         },
       ],
     },
@@ -8006,73 +8006,73 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 15,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 30,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 75,
+          value: 32,
         },
         {
           key: "Decision Making",
-          value: 40,
+          value: 13,
         },
         {
           key: "Openness to Feedback",
-          value: 75,
+          value: 31,
         },
         {
           key: "Work Prioritisation",
-          value: 55,
+          value: 32,
         },
       ],
     },
     {
       id: 10,
-      month: "Jan 232",
+      month: "Jan 23",
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 15,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 60,
+          value: 34,
         },
         {
           key: "Openness to Feedback",
-          value: 55,
+          value: 31,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -8082,35 +8082,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 15,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 13,
         },
         {
           key: "Individual & Team",
-          value: 40,
+          value: 13,
         },
         {
           key: "People & Resources",
-          value: 50,
+          value: 17,
         },
         {
           key: "Structure & Capabilities",
-          value: 55,
+          value: 31,
         },
         {
           key: "Decision Making",
-          value: 45,
+          value: 13,
         },
         {
           key: "Openness to Feedback",
-          value: 45,
+          value: 13,
         },
         {
           key: "Work Prioritisation",
-          value: 35,
+          value: 15,
         },
       ],
     },
@@ -8120,35 +8120,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 40,
+          value: 13,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 15,
         },
         {
           key: "Individual & Team",
-          value: 45,
+          value: 13,
         },
         {
           key: "People & Resources",
-          value: 35,
+          value: 15,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 60,
+          value: 34,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -8158,35 +8158,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 15,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 15,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 10,
         },
         {
           key: "Structure & Capabilities",
-          value: 35,
+          value: 15,
         },
         {
           key: "Decision Making",
-          value: 40,
+          value: 13,
         },
         {
           key: "Openness to Feedback",
-          value: 40,
+          value: 13,
         },
         {
           key: "Work Prioritisation",
-          value: 45,
+          value: 13,
         },
       ],
     },
@@ -8196,35 +8196,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 45,
+          value: 13,
         },
         {
           key: "Work Technology & Tools",
-          value: 50,
+          value: 17,
         },
         {
           key: "Individual & Team",
-          value: 55,
+          value: 31,
         },
         {
           key: "People & Resources",
-          value: 50,
+          value: 17,
         },
         {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 2,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 10,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 60,
+          value: 34,
         },
       ],
     },
@@ -8234,35 +8234,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 10,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 35,
-        },
-        {
-          key: "People & Resources",
-          value: 45,
-        },
-        {
-          key: "Structure & Capabilities",
-          value: 45,
-        },
-        {
-          key: "Decision Making",
-          value: 60,
-        },
-        {
-          key: "Openness to Feedback",
           value: 15,
         },
         {
+          key: "People & Resources",
+          value: 13,
+        },
+        {
+          key: "Structure & Capabilities",
+          value: 13,
+        },
+        {
+          key: "Decision Making",
+          value: 34,
+        },
+        {
+          key: "Openness to Feedback",
+          value: 5,
+        },
+        {
           key: "Work Prioritisation",
-          value: 45,
+          value: 13,
         },
       ],
     },
@@ -8272,35 +8272,35 @@ const mobileTeamsThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 15,
         },
         {
           key: "Individual & Team",
-          value: 45,
+          value: 13,
         },
         {
           key: "People & Resources",
-          value: 25,
-        },
-        {
-          key: "Structure & Capabilities",
           value: 10,
         },
         {
+          key: "Structure & Capabilities",
+          value: 2,
+        },
+        {
           key: "Decision Making",
-          value: 50,
+          value: 17,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 15,
         },
         {
           key: "Work Prioritisation",
-          value: 40,
+          value: 13,
         },
       ],
     },
@@ -8315,35 +8315,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 3,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 15,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 3,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 4,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 14,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -8353,35 +8353,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 3,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 15,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 3,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 4,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 14,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -8391,35 +8391,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 3,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 15,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 3,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 4,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 14,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -8429,35 +8429,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 4,
         },
         {
           key: "Work Technology & Tools",
-          value: 25,
+          value: 4,
         },
         {
           key: "Individual & Team",
-          value: 25,
+          value: 4,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 14,
         },
         {
           key: "Structure & Capabilities",
-          value: 15,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 9,
         },
         {
           key: "Openness to Feedback",
-          value: 10,
+          value: 3,
         },
         {
           key: "Work Prioritisation",
-          value: 35,
+          value: 9,
         },
       ],
     },
@@ -8467,35 +8467,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 30,
+          value: 14,
         },
         {
           key: "Work Technology & Tools",
-          value: 25,
+          value: 4,
         },
         {
           key: "Individual & Team",
-          value: 30,
+          value: 14,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 4,
         },
         {
           key: "Structure & Capabilities",
-          value: 25,
+          value: 4,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 4,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 14,
         },
         {
           key: "Work Prioritisation",
-          value: 35,
+          value: 9,
         },
       ],
     },
@@ -8505,35 +8505,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 9,
         },
         {
           key: "Individual & Team",
-          value: 40,
+          value: 16,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 14,
         },
         {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 3,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 9,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -8543,35 +8543,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 40,
+          value: 16,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 14,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 4,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 4,
         },
         {
           key: "Structure & Capabilities",
-          value: 25,
+          value: 4,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 4,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 30,
+          value: 14,
         },
       ],
     },
@@ -8581,35 +8581,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 9,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 3,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 14,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 4,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 14,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 4,
         },
       ],
     },
@@ -8619,35 +8619,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 4,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 4,
         },
         {
           key: "Structure & Capabilities",
-          value: 15,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 4,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 4,
         },
       ],
     },
@@ -8657,35 +8657,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 4,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 14,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 4,
         },
         {
           key: "People & Resources",
-          value: 15,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 4,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 4,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -8695,35 +8695,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 4,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 4,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 14,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 4,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 4,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 4,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -8733,35 +8733,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 4,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 14,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 3,
         },
         {
           key: "People & Resources",
-          value: 35,
+          value: 9,
         },
         {
           key: "Structure & Capabilities",
-          value: 15,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 4,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 14,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -8771,35 +8771,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 4,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 4,
         },
         {
           key: "Individual & Team",
-          value: 30,
+          value: 14,
         },
         {
           key: "People & Resources",
-          value: 35,
+          value: 9,
         },
         {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 3,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 14,
         },
         {
           key: "Openness to Feedback",
-          value: 20,
+          value: 4,
         },
         {
           key: "Work Prioritisation",
-          value: 25,
+          value: 4,
         },
       ],
     },
@@ -8809,35 +8809,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 4,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 14,
         },
         {
           key: "Individual & Team",
-          value: 25,
+          value: 4,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 4,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 9,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 4,
         },
       ],
     },
@@ -8847,35 +8847,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 40,
+          value: 16,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 9,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 3,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 4,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 4,
         },
         {
           key: "Work Prioritisation",
-          value: 30,
+          value: 14,
         },
       ],
     },
@@ -8885,35 +8885,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 9,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 3,
         },
         {
           key: "People & Resources",
-          value: 35,
+          value: 9,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 4,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 14,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 4,
         },
       ],
     },
@@ -8925,35 +8925,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 65,
+          value: 13,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 14,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 3,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 14,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 19,
         },
         {
           key: "Decision Making",
-          value: 50,
+          value: 9,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 4,
         },
       ],
     },
@@ -8963,35 +8963,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 65,
+          value: 13,
         },
         {
           key: "Work Technology & Tools",
-          value: 10,
+          value: 14,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 3,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 14,
         },
         {
           key: "Structure & Capabilities",
-          value: 50,
+          value: 19,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 9,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 4,
         },
       ],
     },
@@ -9001,35 +9001,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 65,
+          value: 13,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 14,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 3,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 14,
         },
         {
           key: "Structure & Capabilities",
-          value: 50,
+          value: 19,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 9,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 4,
         },
       ],
     },
@@ -9039,35 +9039,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 45,
+          value: 16,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 60,
+          value: 14,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 4,
         },
         {
           key: "Structure & Capabilities",
-          value: 65,
+          value: 13,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 14,
         },
         {
           key: "Openness to Feedback",
-          value: 45,
+          value: 16,
         },
         {
           key: "Work Prioritisation",
-          value: 40,
+          value: 16,
         },
       ],
     },
@@ -9077,35 +9077,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 60,
+          value: 14,
         },
         {
           key: "Work Technology & Tools",
-          value: 25,
+          value: 4,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 9,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 16,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 9,
         },
         {
           key: "Openness to Feedback",
-          value: 20,
+          value: 4,
         },
         {
           key: "Work Prioritisation",
-          value: 40,
+          value: 16,
         },
       ],
     },
@@ -9115,35 +9115,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 55,
+          value: 12,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 4,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 9,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 4,
         },
         {
           key: "Structure & Capabilities",
-          value: 45,
+          value: 16,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 9,
         },
         {
           key: "Openness to Feedback",
-          value: 10,
+          value: 3,
         },
         {
           key: "Work Prioritisation",
-          value: 65,
+          value: 13,
         },
       ],
     },
@@ -9153,35 +9153,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 4,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 9,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 9,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 4,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 45,
+          value: 16,
         },
         {
           key: "Openness to Feedback",
-          value: 50,
+          value: 19,
         },
         {
           key: "Work Prioritisation",
-          value: 40,
+          value: 16,
         },
       ],
     },
@@ -9191,35 +9191,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 70,
+          value: 12,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 14,
         },
         {
           key: "Individual & Team",
-          value: 55,
+          value: 12,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 16,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 40,
+          value: 16,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Prioritisation",
-          value: 60,
+          value: 14,
         },
       ],
     },
@@ -9229,35 +9229,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 30,
+          value: 14,
         },
         {
           key: "Work Technology & Tools",
-          value: 65,
+          value: 13,
         },
         {
           key: "Individual & Team",
-          value: 50,
+          value: 19,
         },
         {
           key: "People & Resources",
-          value: 60,
+          value: 14,
         },
         {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 3,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 9,
         },
         {
           key: "Openness to Feedback",
-          value: 10,
+          value: 3,
         },
         {
           key: "Work Prioritisation",
-          value: 25,
+          value: 4,
         },
       ],
     },
@@ -9267,35 +9267,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 60,
+          value: 14,
         },
         {
           key: "Work Technology & Tools",
-          value: 40,
+          value: 16,
         },
         {
           key: "Individual & Team",
-          value: 45,
+          value: 16,
         },
         {
           key: "People & Resources",
-          value: 65,
+          value: 13,
         },
         {
           key: "Structure & Capabilities",
-          value: 40,
+          value: 16,
         },
         {
           key: "Decision Making",
-          value: 15,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 20,
+          value: 4,
         },
         {
           key: "Work Prioritisation",
-          value: 70,
+          value: 12,
         },
       ],
     },
@@ -9305,35 +9305,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 30,
+          value: 14,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 9,
         },
         {
           key: "Individual & Team",
-          value: 40,
+          value: 16,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 4,
         },
         {
           key: "Structure & Capabilities",
-          value: 25,
+          value: 4,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 9,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 16,
         },
         {
           key: "Work Prioritisation",
-          value: 59,
+          value: 19,
         },
       ],
     },
@@ -9343,35 +9343,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 55,
+          value: 9,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 9,
         },
         {
           key: "Individual & Team",
-          value: 45,
+          value: 16,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 14,
         },
         {
           key: "Structure & Capabilities",
-          value: 65,
+          value: 13,
         },
         {
           key: "Decision Making",
-          value: 15,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 40,
+          value: 16,
         },
         {
           key: "Work Prioritisation",
-          value: 70,
+          value: 12,
         },
       ],
     },
@@ -9381,35 +9381,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 60,
+          value: 14,
         },
         {
           key: "Work Technology & Tools",
-          value: 45,
+          value: 16,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 9,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 16,
         },
         {
           key: "Structure & Capabilities",
-          value: 55,
+          value: 12,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 14,
         },
         {
           key: "Openness to Feedback",
-          value: 40,
+          value: 16,
         },
         {
           key: "Work Prioritisation",
-          value: 30,
+          value: 14,
         },
       ],
     },
@@ -9419,35 +9419,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 4,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 4,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 4,
         },
         {
           key: "Structure & Capabilities",
-          value: 60,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 40,
+          value: 16,
         },
         {
           key: "Openness to Feedback",
-          value: 55,
+          value: 12,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 4,
         },
       ],
     },
@@ -9457,35 +9457,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Technology & Tools",
-          value: 65,
+          value: 13,
         },
         {
           key: "Individual & Team",
-          value: 30,
+          value: 14,
         },
         {
           key: "People & Resources",
-          value: 45,
+          value: 16,
         },
         {
           key: "Structure & Capabilities",
-          value: 25,
+          value: 4,
         },
         {
           key: "Decision Making",
-          value: 15,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 60,
+          value: 14,
         },
         {
           key: "Work Prioritisation",
-          value: 25,
+          value: 4,
         },
       ],
     },
@@ -9495,35 +9495,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 65,
+          value: 13,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 14,
         },
         {
           key: "Individual & Team",
-          value: 45,
+          value: 16,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 16,
         },
         {
           key: "Structure & Capabilities",
-          value: 60,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 4,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Prioritisation",
-          value: 40,
+          value: 16,
         },
       ],
     },
@@ -9535,35 +9535,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 4,
         },
         {
           key: "Work Technology & Tools",
-          value: 55,
+          value: 12,
         },
         {
           key: "Individual & Team",
-          value: 75,
+          value: 29,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 14,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 9,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 14,
         },
         {
           key: "Work Prioritisation",
-          value: 65,
+          value: 13,
         },
       ],
     },
@@ -9573,35 +9573,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 4,
         },
         {
           key: "Work Technology & Tools",
-          value: 55,
+          value: 12,
         },
         {
           key: "Individual & Team",
-          value: 75,
+          value: 29,
         },
         {
           key: "People & Resources",
-          value: 60,
+          value: 14,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 9,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 14,
         },
         {
           key: "Work Prioritisation",
-          value: 65,
+          value: 13,
         },
       ],
     },
@@ -9611,35 +9611,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 4,
         },
         {
           key: "Work Technology & Tools",
-          value: 55,
+          value: 12,
         },
         {
           key: "Individual & Team",
-          value: 75,
+          value: 29,
         },
         {
           key: "People & Resources",
-          value: 60,
+          value: 14,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 9,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 14,
         },
         {
           key: "Work Prioritisation",
-          value: 65,
+          value: 13,
         },
       ],
     },
@@ -9649,35 +9649,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Technology & Tools",
-          value: 60,
+          value: 14,
         },
         {
           key: "Individual & Team",
-          value: 15,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 45,
+          value: 16,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 4,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 9,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 16,
         },
         {
           key: "Work Prioritisation",
-          value: 45,
+          value: 4,
         },
       ],
     },
@@ -9687,35 +9687,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 3,
         },
         {
           key: "Work Technology & Tools",
-          value: 50,
+          value: 19,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 9,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 16,
         },
         {
           key: "Structure & Capabilities",
-          value: 45,
+          value: 16,
         },
         {
           key: "Decision Making",
-          value: 45,
+          value: 16,
         },
         {
           key: "Openness to Feedback",
-          value: 50,
+          value: 19,
         },
         {
           key: "Work Prioritisation",
-          value: 25,
+          value: 4,
         },
       ],
     },
@@ -9725,35 +9725,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 30,
+          value: 14,
         },
         {
           key: "Work Technology & Tools",
-          value: 60,
+          value: 14,
         },
         {
           key: "Individual & Team",
-          value: 25,
+          value: 4,
         },
         {
           key: "People & Resources",
-          value: 45,
+          value: 16,
         },
         {
           key: "Structure & Capabilities",
-          value: 45,
+          value: 16,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 14,
         },
         {
           key: "Openness to Feedback",
-          value: 75,
+          value: 19,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 4,
         },
       ],
     },
@@ -9763,35 +9763,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 9,
         },
         {
           key: "Individual & Team",
-          value: 45,
+          value: 16,
         },
         {
           key: "People & Resources",
-          value: 55,
+          value: 12,
         },
         {
           key: "Structure & Capabilities",
-          value: 45,
+          value: 16,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 9,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 9,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 14,
         },
       ],
     },
@@ -9801,35 +9801,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 9,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 9,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 14,
         },
         {
           key: "Structure & Capabilities",
-          value: 40,
+          value: 16,
         },
         {
           key: "Decision Making",
-          value: 40,
+          value: 16,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 4,
         },
       ],
     },
@@ -9839,35 +9839,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 4,
         },
         {
           key: "Individual & Team",
-          value: 30,
+          value: 14,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 4,
         },
         {
           key: "Structure & Capabilities",
-          value: 75,
+          value: 29,
         },
         {
           key: "Decision Making",
-          value: 40,
+          value: 16,
         },
         {
           key: "Openness to Feedback",
-          value: 75,
+          value: 29,
         },
         {
           key: "Work Prioritisation",
-          value: 55,
+          value: 12,
         },
       ],
     },
@@ -9877,35 +9877,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 4,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 14,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 9,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 4,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 60,
+          value: 14,
         },
         {
           key: "Openness to Feedback",
-          value: 55,
+          value: 12,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -9915,35 +9915,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 16,
         },
         {
           key: "Individual & Team",
-          value: 40,
+          value: 16,
         },
         {
           key: "People & Resources",
-          value: 50,
+          value: 19,
         },
         {
           key: "Structure & Capabilities",
-          value: 55,
+          value: 12,
         },
         {
           key: "Decision Making",
-          value: 45,
+          value: 16,
         },
         {
           key: "Openness to Feedback",
-          value: 45,
+          value: 16,
         },
         {
           key: "Work Prioritisation",
-          value: 35,
+          value: 9,
         },
       ],
     },
@@ -9953,35 +9953,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 40,
+          value: 16,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 9,
         },
         {
           key: "Individual & Team",
-          value: 45,
+          value: 16,
         },
         {
           key: "People & Resources",
-          value: 35,
+          value: 9,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 4,
         },
         {
           key: "Decision Making",
-          value: 60,
+          value: 14,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 14,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -9991,35 +9991,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 4,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 9,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 9,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 4,
         },
         {
           key: "Structure & Capabilities",
-          value: 35,
+          value: 9,
         },
         {
           key: "Decision Making",
-          value: 40,
+          value: 16,
         },
         {
           key: "Openness to Feedback",
-          value: 40,
+          value: 16,
         },
         {
           key: "Work Prioritisation",
-          value: 45,
+          value: 16,
         },
       ],
     },
@@ -10029,35 +10029,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 45,
+          value: 16,
         },
         {
           key: "Work Technology & Tools",
-          value: 50,
+          value: 19,
         },
         {
           key: "Individual & Team",
-          value: 55,
+          value: 12,
         },
         {
           key: "People & Resources",
-          value: 50,
+          value: 19,
         },
         {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 3,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 4,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 14,
         },
         {
           key: "Work Prioritisation",
-          value: 60,
+          value: 14,
         },
       ],
     },
@@ -10067,35 +10067,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 4,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 4,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 9,
         },
         {
           key: "People & Resources",
-          value: 45,
+          value: 16,
         },
         {
           key: "Structure & Capabilities",
-          value: 45,
+          value: 16,
         },
         {
           key: "Decision Making",
-          value: 60,
+          value: 14,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 45,
+          value: 16,
         },
       ],
     },
@@ -10105,35 +10105,35 @@ const superannuationTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 4,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 9,
         },
         {
           key: "Individual & Team",
-          value: 45,
+          value: 16,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 4,
         },
         {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 3,
         },
         {
           key: "Decision Making",
-          value: 50,
+          value: 19,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 9,
         },
         {
           key: "Work Prioritisation",
-          value: 40,
+          value: 16,
         },
       ],
     },
