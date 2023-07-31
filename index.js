@@ -4641,7 +4641,7 @@ const insuranceTeamSummaryResult = [
 
 // ------------------------------- Chart 6: EnterpriseLevelSentimentsTheme ------------------------------//
 
-const allTeamsThemeResult = {
+const  allTeamsThemeResult = {
   sadData: [
     {
       id: 1,
@@ -4987,7 +4987,7 @@ const allTeamsThemeResult = {
     },
     {
       id: 10,
-      month: "Jan 232",
+      month: "Jan 23",
       data: [
         {
           key: "External Environment & Conditions",
@@ -6207,7 +6207,7 @@ const allTeamsThemeResult = {
     },
     {
       id: 10,
-      month: "Jan 232",
+      month: "Jan 23",
       data: [
         {
           key: "External Environment & Conditions",
@@ -6820,7 +6820,7 @@ const mobileTeamsThemeResult = {
     },
     {
       id: 10,
-      month: "Jan 232",
+      month: "Jan 23",
       data: [
         {
           key: "External Environment & Conditions",
@@ -8653,7 +8653,7 @@ const superannuationTeamThemeResult = {
     },
     {
       id: 10,
-      month: "Jan 232",
+      month: "Jan 23",
       data: [
         {
           key: "External Environment & Conditions",
@@ -9873,7 +9873,7 @@ const superannuationTeamThemeResult = {
     },
     {
       id: 10,
-      month: "Jan 232",
+      month: "Jan 23",
       data: [
         {
           key: "External Environment & Conditions",
@@ -10148,35 +10148,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 15,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -10186,35 +10186,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 15,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -10224,35 +10224,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 15,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -10262,35 +10262,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 25,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 25,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 15,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 10,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 35,
+          value: 11,
         },
       ],
     },
@@ -10300,35 +10300,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 30,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 25,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 30,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 25,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 35,
+          value: 11,
         },
       ],
     },
@@ -10338,35 +10338,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 40,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -10376,35 +10376,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 40,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 25,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 30,
+          value: 5,
         },
       ],
     },
@@ -10414,35 +10414,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 5,
         },
       ],
     },
@@ -10452,73 +10452,73 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 15,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 11,
         },
       ],
     },
     {
       id: 10,
-      month: "Jan 232",
+      month: "Jan 23",
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 15,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 11,
         },
       ],
     },
@@ -10528,35 +10528,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 20,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -10566,35 +10566,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 35,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 15,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -10604,35 +10604,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 30,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 35,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 20,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 25,
+          value: 5,
         },
       ],
     },
@@ -10642,35 +10642,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 25,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 11,
         },
       ],
     },
@@ -10680,35 +10680,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 40,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 30,
+          value: 5,
         },
       ],
     },
@@ -10718,35 +10718,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 35,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 11,
         },
       ],
     },
@@ -10758,35 +10758,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 65,
+          value: 28,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 10,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 50,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 11,
         },
       ],
     },
@@ -10796,35 +10796,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 65,
+          value: 28,
         },
         {
           key: "Work Technology & Tools",
-          value: 10,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 50,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 11,
         },
       ],
     },
@@ -10834,35 +10834,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 65,
+          value: 28,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 10,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 50,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 11,
         },
       ],
     },
@@ -10872,35 +10872,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 45,
+          value: 16,
         },
         {
           key: "Work Technology & Tools",
-          value: 15,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 60,
+          value: 12,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 65,
+          value: 28,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 45,
+          value: 16,
         },
         {
           key: "Work Prioritisation",
-          value: 40,
+          value: 11,
         },
       ],
     },
@@ -10910,35 +10910,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 60,
+          value: 12,
         },
         {
           key: "Work Technology & Tools",
-          value: 25,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 20,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 40,
+          value: 11,
         },
       ],
     },
@@ -10948,35 +10948,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 55,
+          value: 12,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 45,
+          value: 16,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 10,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 65,
+          value: 28,
         },
       ],
     },
@@ -10986,35 +10986,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 45,
+          value: 16,
         },
         {
           key: "Openness to Feedback",
-          value: 50,
+          value: 14,
         },
         {
           key: "Work Prioritisation",
-          value: 40,
+          value: 11,
         },
       ],
     },
@@ -11024,35 +11024,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 70,
+          value: 26,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 55,
+          value: 12,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 40,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 60,
+          value: 12,
         },
       ],
     },
@@ -11062,35 +11062,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 30,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 65,
+          value: 28,
         },
         {
           key: "Individual & Team",
-          value: 50,
+          value: 14,
         },
         {
           key: "People & Resources",
-          value: 60,
+          value: 12,
         },
         {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 10,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 25,
+          value: 11,
         },
       ],
     },
@@ -11100,35 +11100,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 60,
+          value: 12,
         },
         {
           key: "Work Technology & Tools",
-          value: 40,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 45,
+          value: 16,
         },
         {
           key: "People & Resources",
-          value: 65,
+          value: 28,
         },
         {
           key: "Structure & Capabilities",
-          value: 40,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 15,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 20,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 70,
+          value: 26,
         },
       ],
     },
@@ -11138,35 +11138,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 30,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 40,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 25,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 59,
+          value: 14,
         },
       ],
     },
@@ -11176,35 +11176,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 55,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 45,
+          value: 16,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 65,
+          value: 28,
         },
         {
           key: "Decision Making",
-          value: 15,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 40,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 70,
+          value: 26,
         },
       ],
     },
@@ -11214,35 +11214,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 60,
+          value: 12,
         },
         {
           key: "Work Technology & Tools",
-          value: 45,
+          value: 15,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 55,
+          value: 12,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 40,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 30,
+          value: 5,
         },
       ],
     },
@@ -11252,35 +11252,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 20,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 60,
+          value: 12,
         },
         {
           key: "Decision Making",
-          value: 40,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 55,
+          value: 12,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 11,
         },
       ],
     },
@@ -11290,35 +11290,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 65,
+          value: 28,
         },
         {
           key: "Individual & Team",
-          value: 30,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 45,
+          value: 16,
         },
         {
           key: "Structure & Capabilities",
-          value: 25,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 15,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 60,
+          value: 12,
         },
         {
           key: "Work Prioritisation",
-          value: 25,
+          value: 11,
         },
       ],
     },
@@ -11328,35 +11328,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 65,
+          value: 28,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 45,
+          value: 16,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 60,
+          value: 12,
         },
         {
           key: "Decision Making",
-          value: 25,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 40,
+          value: 11,
         },
       ],
     },
@@ -11368,35 +11368,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 55,
+          value: 12,
         },
         {
           key: "Individual & Team",
-          value: 75,
+          value: 14,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 12,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 65,
+          value: 28,
         },
       ],
     },
@@ -11406,35 +11406,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 55,
+          value: 12,
         },
         {
           key: "Individual & Team",
-          value: 75,
+          value: 14,
         },
         {
           key: "People & Resources",
-          value: 60,
+          value: 12,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 65,
+          value: 28,
         },
       ],
     },
@@ -11444,35 +11444,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 55,
+          value: 12,
         },
         {
           key: "Individual & Team",
-          value: 75,
+          value: 14,
         },
         {
           key: "People & Resources",
-          value: 60,
+          value: 12,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 65,
+          value: 28,
         },
       ],
     },
@@ -11482,35 +11482,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 60,
+          value: 12,
         },
         {
           key: "Individual & Team",
-          value: 15,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 45,
+          value: 16,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 25,
+          value: 16,
         },
         {
           key: "Work Prioritisation",
-          value: 45,
+          value: 11,
         },
       ],
     },
@@ -11520,35 +11520,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 10,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 50,
+          value: 14,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 40,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 45,
+          value: 16,
         },
         {
           key: "Decision Making",
-          value: 45,
+          value: 16,
         },
         {
           key: "Openness to Feedback",
-          value: 50,
+          value: 14,
         },
         {
           key: "Work Prioritisation",
-          value: 25,
+          value: 11,
         },
       ],
     },
@@ -11558,35 +11558,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 30,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 60,
+          value: 12,
         },
         {
           key: "Individual & Team",
-          value: 25,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 45,
+          value: 16,
         },
         {
           key: "Structure & Capabilities",
-          value: 45,
+          value: 16,
         },
         {
           key: "Decision Making",
-          value: 30,
+          value: 5,
         },
         {
           key: "Openness to Feedback",
-          value: 75,
+          value: 14,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 11,
         },
       ],
     },
@@ -11596,35 +11596,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 45,
+          value: 16,
         },
         {
           key: "People & Resources",
-          value: 55,
+          value: 12,
         },
         {
           key: "Structure & Capabilities",
-          value: 45,
+          value: 16,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -11634,35 +11634,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 30,
+          value: 5,
         },
         {
           key: "Structure & Capabilities",
-          value: 40,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 40,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 20,
+          value: 11,
         },
       ],
     },
@@ -11672,73 +11672,73 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 30,
+          value: 5,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 75,
+          value: 14,
         },
         {
           key: "Decision Making",
-          value: 40,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 75,
+          value: 7145,
         },
         {
           key: "Work Prioritisation",
-          value: 55,
+          value: 12,
         },
       ],
     },
     {
       id: 10,
-      month: "Jan 232",
+      month: "Jan 23",
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 30,
+          value: 5,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 20,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 30,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 60,
+          value: 12,
         },
         {
           key: "Openness to Feedback",
-          value: 55,
+          value: 12,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -11748,35 +11748,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 35,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 16,
         },
         {
           key: "Individual & Team",
-          value: 40,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 50,
+          value: 14,
         },
         {
           key: "Structure & Capabilities",
-          value: 55,
+          value: 12,
         },
         {
           key: "Decision Making",
-          value: 45,
+          value: 16,
         },
         {
           key: "Openness to Feedback",
-          value: 45,
+          value: 16,
         },
         {
           key: "Work Prioritisation",
-          value: 35,
+          value: 11,
         },
       ],
     },
@@ -11786,35 +11786,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 40,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 45,
+          value: 16,
         },
         {
           key: "People & Resources",
-          value: 35,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 20,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 60,
+          value: 12,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 15,
+          value: 5,
         },
       ],
     },
@@ -11824,35 +11824,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 35,
+          value: 11,
         },
         {
           key: "Decision Making",
-          value: 40,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 40,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 45,
+          value: 16,
         },
       ],
     },
@@ -11862,35 +11862,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 45,
+          value: 16,
         },
         {
           key: "Work Technology & Tools",
-          value: 50,
+          value: 14,
         },
         {
           key: "Individual & Team",
-          value: 55,
+          value: 12,
         },
         {
           key: "People & Resources",
-          value: 50,
+          value: 14,
         },
         {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 35,
+          value: 11,
         },
         {
           key: "Openness to Feedback",
-          value: 30,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 60,
+          value: 12,
         },
       ],
     },
@@ -11900,35 +11900,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 25,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 20,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 35,
+          value: 11,
         },
         {
           key: "People & Resources",
-          value: 45,
+          value: 16,
         },
         {
           key: "Structure & Capabilities",
-          value: 45,
+          value: 16,
         },
         {
           key: "Decision Making",
-          value: 60,
+          value: 12,
         },
         {
           key: "Openness to Feedback",
-          value: 15,
+          value: 5,
         },
         {
           key: "Work Prioritisation",
-          value: 45,
+          value: 16,
         },
       ],
     },
@@ -11938,35 +11938,35 @@ const insuranceTeamThemeResult = {
       data: [
         {
           key: "External Environment & Conditions",
-          value: 20,
+          value: 11,
         },
         {
           key: "Work Technology & Tools",
-          value: 35,
+          value: 11,
         },
         {
           key: "Individual & Team",
-          value: 45,
+          value: 16,
         },
         {
           key: "People & Resources",
-          value: 25,
+          value: 11,
         },
         {
           key: "Structure & Capabilities",
-          value: 10,
+          value: 5,
         },
         {
           key: "Decision Making",
-          value: 50,
+          value: 14,
         },
         {
           key: "Openness to Feedback",
-          value: 35,
+          value: 11,
         },
         {
           key: "Work Prioritisation",
-          value: 40,
+          value: 11,
         },
       ],
     },
