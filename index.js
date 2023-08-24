@@ -136,7 +136,11 @@ app.get(
 );
 
 // Api routes
+app.use("/users", require("./controllers/user.controller"));
 app.use("/roles", require("./controllers/role.controller"));
+app.use("/teams", require("./controllers/team.controller"));
+app.use("/enterprises", require("./controllers/enterprise.controller"));
+app.use("/actions", require("./controllers/action.controller"));
 
 // Retro API's
 app.post("/createRetro", async (req, res) => {
