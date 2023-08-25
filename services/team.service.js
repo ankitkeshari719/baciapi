@@ -25,6 +25,7 @@ async function create(teamParam) {
   const requested_data = {
     teamId: teamId,
     teamName: teamParam.teamName,
+    teamDepartment: teamParam.teamDepartment,
     teamDescription: teamParam.teamDescription,
     enterpriseId: teamParam.enterpriseId,
     userEmailIds: teamParam.userEmailIds,

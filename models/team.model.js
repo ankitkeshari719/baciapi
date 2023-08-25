@@ -11,6 +11,9 @@ const teamModel = mongoose.Schema(
       type: String,
       required: true,
     },
+    teamDepartment: {
+      type: String,
+    },
     teamDescription: {
       type: String,
       required: true,
