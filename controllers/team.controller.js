@@ -9,23 +9,28 @@ router.post("/update/:teamId", update);
 router.get("/", getAll);
 router.get("/:id", getById);
 router.delete("/:teamId", _delete);
-router.get("/getAllTeamsByEnterpriseId/:enterpriseId", getAllTeamsByEnterpriseId);
+router.get(
+  "/getAllTeamsByEnterpriseId/:enterpriseId",
+  getAllTeamsByEnterpriseId
+);
 
 module.exports = router;
 
 function create(req, res, next) {
   teamService
     .create(req.body)
-    .then(() =>
-      res.json({
+    .then((teamId) =>
+      res.status(200).json({
         status: STATUS.SUCCESS,
         message: "Team created successfully!",
+        data: teamId,
       })
     )
     .catch((err) =>
       res.json({
         status: STATUS.FAILED,
         message: "Team creations FAILED!" + " " + err,
+        data: err,
       })
     );
 }
@@ -33,16 +38,18 @@ function create(req, res, next) {
 function update(req, res, next) {
   teamService
     .update(req.params.teamId, req.body)
-    .then(() =>
-      res.json({
+    .then((team) =>
+      res.status(200).json({
         status: STATUS.SUCCESS,
         message: "Team updated successfully!",
+        data: team,
       })
     )
     .catch((err) =>
       res.json({
         status: STATUS.FAILED,
         message: "Team updation FAILED!" + " " + err,
+        data: err,
       })
     );
 }
@@ -51,7 +58,7 @@ function getAll(req, res, next) {
   teamService
     .getAll()
     .then((teams) =>
-      res.json({
+      res.status(200).json({
         status: STATUS.SUCCESS,
         message: "Teams fetched successfully!",
         data: teams,
@@ -61,6 +68,7 @@ function getAll(req, res, next) {
       res.json({
         status: STATUS.FAILED,
         message: "Teams fetched FAILED!" + " " + err,
+        data: err,
       })
     );
 }
@@ -70,21 +78,31 @@ function getById(req, res, next) {
     .getById(req.params.id)
     .then((team) =>
       team
-        ? res.json({
+        ? res.status(200).json({
             status: STATUS.SUCCESS,
             message: "Team fetched successfully!",
             data: team,
           })
-        : res.sendStatus(404)
+        : res.status(200).json({
+            status: STATUS.SUCCESS,
+            message: "Team not found!",
+            data: "Team not Found!",
+          })
     )
-    .catch((err) => next(err));
+    .catch((err) =>
+      res.json({
+        status: STATUS.FAILED,
+        message: "Team fetched FAILED!" + " " + err,
+        data: null,
+      })
+    );
 }
 
 function _delete(req, res, next) {
   teamService
     .delete(req.params.teamId)
     .then(() =>
-      res.json({
+      res.status(200).json({
         status: STATUS.SUCCESS,
         message: "Team deleted successfully!",
       })
@@ -93,6 +111,7 @@ function _delete(req, res, next) {
       res.json({
         status: STATUS.FAILED,
         message: "Team delete FAILED!" + " " + err,
+        data: err,
       })
     );
 }
@@ -101,7 +120,7 @@ function getAllTeamsByEnterpriseId(req, res, next) {
   teamService
     .getAllTeamsByEnterpriseId(req.params.enterpriseId)
     .then((teams) =>
-      res.json({
+      res.status(200).json({
         status: STATUS.SUCCESS,
         message: "Teams fetched successfully!",
         data: teams,
@@ -111,6 +130,7 @@ function getAllTeamsByEnterpriseId(req, res, next) {
       res.json({
         status: STATUS.FAILED,
         message: "Teams fetched FAILED!" + " " + err,
+        data: err,
       })
     );
 }

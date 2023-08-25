@@ -46,6 +46,8 @@ async function create(userParam) {
 
   // save user
   await user.save();
+
+  return user;
 }
 
 async function getAll() {
@@ -77,6 +79,7 @@ async function update(emailId, userParam) {
   Object.assign(user, userParam);
 
   await user.save();
+  return user;
 }
 
 async function _delete(emailId) {
@@ -89,7 +92,6 @@ async function _delete(emailId) {
 }
 
 async function getAllByEmails(userParam) {
-  console.log("emails::", userParam.emails);
   let user = [];
   for (let i = 0; i < userParam.emails.length; i++) {
     const tempUser = await User.findOne({ emailId: userParam.emails[i] });

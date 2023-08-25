@@ -36,6 +36,7 @@ async function create(teamParam) {
 
   // save team
   await team.save();
+  return teamId;
 }
 
 async function getAll() {
@@ -62,10 +63,10 @@ async function update(teamId, teamParam) {
   Object.assign(team, teamParam);
 
   await team.save();
+  return team;
 }
 
 async function _delete(teamId) {
-
   const team = await Team.findOne({ teamId: teamId });
 
   // validate

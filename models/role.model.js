@@ -12,7 +12,6 @@ const roleModel = mongoose.Schema(
     },
     isActive: {
       type: Boolean,
-      required: true,
     },
   },
   {

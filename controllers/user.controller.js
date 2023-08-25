@@ -9,10 +9,12 @@ router.post("/create", create);
 router.post("/update/:emailId", update);
 router.get("/", getAll);
 router.post("/", getAllByEmails);
-router.get("/:userId", getById);
 router.get("/:emailId", getByEmail);
 router.delete("/:userId", _delete);
-router.get("/getAllUsersByEnterpriseId/:enterpriseId", getAllUsersByEnterpriseId);
+router.get(
+  "/getAllUsersByEnterpriseId/:enterpriseId",
+  getAllUsersByEnterpriseId
+);
 
 module.exports = router;
 
@@ -21,12 +23,16 @@ function authenticate(req, res, next) {
     .authenticate(req.body)
     .then((user) =>
       user
-        ? res.json({
+        ? res.status(200).json({
             status: STATUS.SUCCESS,
             message: "User authenticated successfully!",
             data: user,
           })
-        : res.status(400).json({ message: "Username or password is incorrect" })
+        : res.status(200).json({
+            status: STATUS.SUCCESS,
+            message: "Username or password is incorrect",
+            data: "Username or password is incorrect",
+          })
     )
     .catch((err) => next(err));
 }
@@ -34,16 +40,18 @@ function authenticate(req, res, next) {
 function create(req, res, next) {
   userService
     .create(req.body)
-    .then(() =>
-      res.json({
+    .then((user) =>
+      res.status(200).json({
         status: STATUS.SUCCESS,
         message: "User created successfully!",
+        data: user,
       })
     )
     .catch((err) =>
       res.json({
         status: STATUS.FAILED,
         message: "User creations FAILED!" + " " + err,
+        data: err,
       })
     );
 }
@@ -52,7 +60,7 @@ function getAll(req, res, next) {
   userService
     .getAll()
     .then((users) =>
-      res.json({
+      res.status(200).json({
         status: STATUS.SUCCESS,
         message: "Users fetched successfully!",
         data: users,
@@ -62,6 +70,7 @@ function getAll(req, res, next) {
       res.json({
         status: STATUS.FAILED,
         message: "Users fetched FAILED!" + " " + err,
+        data: err,
       })
     );
 }
@@ -70,7 +79,7 @@ function getAllByEmails(req, res, next) {
   userService
     .getAllByEmails(req.body)
     .then((users) =>
-      res.json({
+      res.status(200).json({
         status: STATUS.SUCCESS,
         message: "Users fetched successfully!",
         data: users,
@@ -80,29 +89,7 @@ function getAllByEmails(req, res, next) {
       res.json({
         status: STATUS.FAILED,
         message: "Users fetched FAILED!" + " " + err,
-      })
-    );
-}
-
-function getById(req, res, next) {
-  userService
-    .getById(req.params.userId)
-    .then((user) =>
-      user
-        ? res.json({
-            status: STATUS.SUCCESS,
-            message: "User fetched successfully!",
-            data: user,
-          })
-        : res.json({
-            status: STATUS.SUCCESS,
-            message: "User not found!",
-          })
-    )
-    .catch((err) =>
-      res.json({
-        status: STATUS.FAILED,
-        message: "User fetched FAILED!" + " " + err,
+        data: err,
       })
     );
 }
@@ -112,20 +99,22 @@ function getByEmail(req, res, next) {
     .getByEmail(req.params.emailId)
     .then((user) =>
       user
-        ? res.json({
+        ? res.status(200).json({
             status: STATUS.SUCCESS,
             message: "User fetched successfully!",
             data: user,
           })
-        : res.json({
+        : res.status(200).json({
             status: STATUS.SUCCESS,
             message: "User not found!",
+            data: null,
           })
     )
     .catch((err) =>
       res.json({
         status: STATUS.FAILED,
         message: "User fetched FAILED!" + " " + err,
+        data: err,
       })
     );
 }
@@ -133,16 +122,18 @@ function getByEmail(req, res, next) {
 function update(req, res, next) {
   userService
     .update(req.params.emailId, req.body)
-    .then(() =>
-      res.json({
+    .then((user) =>
+      res.status(200).json({
         status: STATUS.SUCCESS,
         message: "User updated successfully!",
+        data: user,
       })
     )
     .catch((err) =>
       res.json({
         status: STATUS.FAILED,
         message: "User update FAILED!" + " " + err,
+        data: err,
       })
     );
 }
@@ -151,7 +142,7 @@ function _delete(req, res, next) {
   userService
     .delete(req.params.userId)
     .then(() =>
-      res.json({
+      res.status(200).json({
         status: STATUS.SUCCESS,
         message: "User deleted successfully!",
       })
@@ -160,6 +151,7 @@ function _delete(req, res, next) {
       res.json({
         status: STATUS.FAILED,
         message: "User delete FAILED!" + " " + err,
+        data: err,
       })
     );
 }
@@ -168,7 +160,7 @@ function getAllUsersByEnterpriseId(req, res, next) {
   userService
     .getAllUsersByEnterpriseId(req.params.enterpriseId)
     .then((users) =>
-      res.json({
+      res.status(200).json({
         status: STATUS.SUCCESS,
         message: "Users fetched successfully!",
         data: users,
@@ -178,6 +170,7 @@ function getAllUsersByEnterpriseId(req, res, next) {
       res.json({
         status: STATUS.FAILED,
         message: "Users fetched FAILED!" + " " + err,
+        data: err,
       })
     );
 }

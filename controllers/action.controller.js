@@ -15,16 +15,18 @@ module.exports = router;
 function create(req, res, next) {
   actionService
     .create(req.body)
-    .then(() =>
-      res.json({
+    .then((actionId) =>
+      res.status(200).json({
         status: STATUS.SUCCESS,
         message: "Action created successfully!",
+        data: actionId,
       })
     )
     .catch((err) =>
       res.json({
         status: STATUS.FAILED,
         message: "Action creations FAILED!" + " " + err,
+        data: err,
       })
     );
 }
@@ -33,7 +35,7 @@ function getAll(req, res, next) {
   actionService
     .getAll()
     .then((actions) =>
-      res.json({
+      res.status(200).json({
         status: STATUS.SUCCESS,
         message: "Actions fetched successfully!",
         data: actions,
@@ -43,6 +45,7 @@ function getAll(req, res, next) {
       res.json({
         status: STATUS.FAILED,
         message: "Actions fetched FAILED!" + " " + err,
+        data: err,
       })
     );
 }
@@ -52,20 +55,22 @@ function getById(req, res, next) {
     .getById(req.params.actionId)
     .then((action) =>
       action
-        ? res.json({
+        ? res.status(200).json({
             status: STATUS.SUCCESS,
             message: "Action fetched successfully!",
             data: action,
           })
-        : res.json({
+        : res.status(200).json({
             status: STATUS.SUCCESS,
             message: "Action not found!",
+            data: "Action not found!",
           })
     )
     .catch((err) =>
       res.json({
         status: STATUS.FAILED,
         message: "Action fetched FAILED!" + " " + err,
+        data: err,
       })
     );
 }
@@ -73,16 +78,18 @@ function getById(req, res, next) {
 function update(req, res, next) {
   actionService
     .update(req.params.actionId, req.body)
-    .then(() =>
-      res.json({
+    .then((action) =>
+      res.status(200).json({
         status: STATUS.SUCCESS,
         message: "Action updated successfully!",
+        data: action,
       })
     )
     .catch((err) =>
       res.json({
         status: STATUS.FAILED,
         message: "Action update FAILED!" + " " + err,
+        data: err,
       })
     );
 }
@@ -91,7 +98,7 @@ function _delete(req, res, next) {
   actionService
     .delete(req.params.actionId)
     .then(() =>
-      res.json({
+      res.status(200).json({
         status: STATUS.SUCCESS,
         message: "Action deleted successfully!",
       })
@@ -100,6 +107,7 @@ function _delete(req, res, next) {
       res.json({
         status: STATUS.FAILED,
         message: "Action delete FAILED!" + " " + err,
+        data: err,
       })
     );
 }

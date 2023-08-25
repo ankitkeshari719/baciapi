@@ -10,13 +10,16 @@ module.exports = {
 };
 
 async function create(roleParam) {
+  const roleId =
+    roleParam.roleName.toString().replace(" ", "_").toLowerCase() +
+    Math.random();
   // validate
   if (await Role.findOne({ roleName: roleParam.roleName })) {
     throw "Role name " + roleParam.roleName + " is already taken";
   }
 
   const requested_data = {
-    roleId: roleParam.roleName.toString().toLowerCase(),
+    roleId: roleId,
     roleName: roleParam.roleName,
     isActive: roleParam.isActive,
   };
@@ -25,6 +28,7 @@ async function create(roleParam) {
 
   // save role
   await role.save();
+  return roleId;
 }
 
 async function getAll() {
@@ -32,7 +36,8 @@ async function getAll() {
 }
 
 async function getById(roleId) {
-  return await Role.findOne({ roleId: roleId });
+  const role = await Role.findOne({ roleId: roleId });
+  return role;
 }
 
 async function update(roleId, roleParam) {
@@ -51,6 +56,7 @@ async function update(roleId, roleParam) {
   Object.assign(role, roleParam);
 
   await role.save();
+  return role;
 }
 
 async function _delete(roleId) {

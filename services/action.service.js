@@ -39,6 +39,7 @@ async function create(actionParam) {
 
   // save action
   await action.save();
+  return actionId;
 }
 
 async function getAll() {
@@ -59,6 +60,7 @@ async function update(actionId, actionParam) {
   Object.assign(action, actionParam);
 
   await action.save();
+  return action;
 }
 
 async function _delete(actionId) {

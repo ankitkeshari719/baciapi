@@ -38,6 +38,7 @@ async function create(enterpriseParam) {
 
   // save enterprise
   await enterprise.save();
+  return enterpriseId;
 }
 
 async function getAll() {
@@ -58,6 +59,7 @@ async function update(enterpriseId, enterpriseParam) {
   Object.assign(enterprise, enterpriseParam);
 
   await enterprise.save();
+  return enterprise;
 }
 
 async function _delete(enterpriseId) {

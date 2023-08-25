@@ -14,6 +14,7 @@ const { Socket } = require("./utils/socket");
 const moment = require("moment");
 var momentTimeZone = require("moment-timezone");
 const nodeCron = require("node-cron");
+const cors = require('cors');
 
 const BearerStrategy = require("passport-azure-ad").BearerStrategy;
 const url = process.env.COSMOS_CONNECTION_STRING;
@@ -108,6 +109,7 @@ process.on("uncaughtException", function (err) {
 const server = http.createServer(app);
 
 io.attach(server);
+app.use(cors()) 
 //enable CORS (for testing only -remove in production/deployment)
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
