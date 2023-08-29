@@ -1,5 +1,6 @@
 const db = require("../_helpers/db");
 const Team = db.Team;
+const Action = db.Action;
 
 module.exports = {
   getAll,
@@ -41,6 +42,14 @@ async function create(teamParam) {
 }
 
 async function getAll() {
+  // const teams = await Team.find();
+  // let finalData = [];
+  // for (let i = 0; i < teams.length; i++) {
+  //   let actions = await Action.find({ teamId: teams[i].teamId });
+  //   console.log("actions", actions);
+  //   finalData.push({ ...teams[i], actions: actions });
+  // }
+  // console.log("finalData", actions);
   return await Team.find();
 }
 

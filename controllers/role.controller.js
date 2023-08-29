@@ -35,7 +35,7 @@ function getAll(req, res, next) {
   roleService
     .getAll()
     .then((roles) =>
-      rres.status(200).json({
+      res.status(200).json({
         status: STATUS.SUCCESS,
         message: "Roles fetched successfully!",
         data: roles,

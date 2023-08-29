@@ -14,6 +14,10 @@ const actionModel = mongoose.Schema(
     },
     retroId: {
       type: String,
+      required: true,
+    },
+    teamId: {
+      type: String,
     },
     assignedTo: {
       type: String,

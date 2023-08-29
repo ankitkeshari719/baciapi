@@ -35,7 +35,7 @@ function getAll(req, res, next) {
   enterpriseService
     .getAll()
     .then((enterprises) =>
-      rres.status(200).json({
+      res.status(200).json({
         status: STATUS.SUCCESS,
         message: "Enterprises fetched successfully!",
         data: enterprises,

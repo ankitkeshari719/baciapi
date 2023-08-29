@@ -33,6 +33,7 @@ async function create(actionParam) {
     createdBy: actionParam.createdBy,
     status: actionParam.status,
     isActive: actionParam.isActive,
+    teamId: actionParam.teamId,
   };
 
   const action = new Action(requested_data);

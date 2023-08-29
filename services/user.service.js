@@ -27,19 +27,23 @@ async function create(userParam) {
   if (await User.findOne({ emailId: userParam.emailId })) {
     throw "User emailId " + userParam.emailId + " is already taken";
   }
-
-  // hash password
-  let hashedPassword = null;
-  if (userParam.password) {
-    hashedPassword = bcrypt.hashSync(userParam.password, 10);
-  }
-
   const requested_data = {
     emailId: userParam.emailId,
-    password: hashedPassword,
-    isActive: userParam.isActive,
+    firstName: userParam.firstName,
+    lastName: userParam.lastName,
+    phoneNo: userParam.phoneNo,
+    name: userParam.name,
+    cityCode: userParam.cityCode,
+    country: userParam.country,
+    companyName: userParam.companyName,
+    role: userParam.role,
+    team: userParam.team,
+    plan: userParam.plan,
     enterpriseId: userParam.enterpriseId,
     roleId: userParam.roleId,
+    roleName: userParam.roleName,
+    enterpriseName: userParam.enterpriseName,
+    isActive: userParam.isActive,
   };
 
   const user = new User(requested_data);
@@ -68,11 +72,6 @@ async function update(emailId, userParam) {
     (await User.findOne({ emailId: userParam.emailId }))
   ) {
     throw "User email id " + userParam.emailId + " is already taken";
-  }
-
-  // hash password if it was entered
-  if (userParam.password) {
-    userParam.password = bcrypt.hashSync(userParam.password, 10);
   }
 
   // copy userParam properties to user

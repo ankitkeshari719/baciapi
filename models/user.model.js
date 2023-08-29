@@ -2,6 +2,12 @@ const mongoose = require("mongoose");
 
 const userModel = mongoose.Schema(
   {
+    firstName: {
+      type: String,
+    },
+    lastName: {
+      type: String,
+    },
     emailId: {
       type: String,
       required: true,
@@ -9,19 +15,29 @@ const userModel = mongoose.Schema(
       unique: true,
       sparse: true,
     },
+    phoneNo: {
+      type: String,
+    },
     name: {
       type: String,
     },
-    mobileNo: {
+    country: {
       type: String,
     },
-    password: {
+    cityCode: {
       type: String,
-      required: true,
     },
-    isActive: {
-      type: Boolean,
-      required: true,
+    companyName: {
+      type: String,
+    },
+    role: {
+      type: String,
+    },
+    team: {
+      type: String,
+    },
+    plan: {
+      type: String,
     },
     enterpriseId: {
       type: String,
@@ -30,6 +46,15 @@ const userModel = mongoose.Schema(
     roleId: {
       type: String,
       required: true,
+    },
+    roleName: {
+      type: String,
+    },
+    enterpriseName: {
+      type: String,
+    },
+    isActive: {
+      type: Boolean,
     },
   },
   {
