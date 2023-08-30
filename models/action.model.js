@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const actionModel = mongoose.Schema(
   {
+    id:{
+      type:String,
+      required:true
+    },
     actionId: {
       type: String,
     },
@@ -26,6 +30,8 @@ const actionModel = mongoose.Schema(
       type: String,
       required: true,
     },
+    // There will be only four status
+    // "TO DO" , "IN-PROGRESS" , "DONE" , "CANCELLED"
     status: {
       type: String,
       required: true,
@@ -34,6 +40,15 @@ const actionModel = mongoose.Schema(
       type: Boolean,
       required: true,
     },
+    //It will be usefull for filter
+    entID:{
+      type:String,
+      required:true
+    },
+    jiraUrl:{
+      type:String
+    },
+
   },
   {
     timestamps: true,
