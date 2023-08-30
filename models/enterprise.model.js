@@ -2,23 +2,23 @@ const mongoose = require("mongoose");
 
 const enterpriseModel = mongoose.Schema(
   {
-    enterpriseId: {
+    organisationId: {
       type: String,
     },
-    enterpriseName: {
+    organisationName: {
       type: String,
       required: true,
     },
-    enterpriseDomain: {
-      type: String,
+    organisationDomain: {
+      type: Array,
+      required: true,
     },
-    enterpriseAddress: {
+    organisationCountry: {
       type: String,
       required: true,
     },
     isActive: {
       type: Boolean,
-      required: true,
     },
   },
   {

@@ -5,21 +5,21 @@ const { STATUS } = require("../_helpers/const");
 
 // routes
 router.post("/create", create);
-router.post("/update/:enterpriseId", update);
+router.post("/update/:organisationId", update);
 router.get("/", getAll);
-router.get("/:enterpriseId", getById);
-router.delete("/:enterpriseId", _delete);
+router.get("/:organisationId", getById);
+router.delete("/:organisationId", _delete);
 
 module.exports = router;
 
 function create(req, res, next) {
   enterpriseService
     .create(req.body)
-    .then((enterpriseId) =>
+    .then((organisationId) =>
       res.status(200).json({
         status: STATUS.SUCCESS,
         message: "Enterprise created successfully!",
-        data: enterpriseId,
+        data: organisationId,
       })
     )
     .catch((err) =>
@@ -52,7 +52,7 @@ function getAll(req, res, next) {
 
 function getById(req, res, next) {
   enterpriseService
-    .getById(req.params.enterpriseId)
+    .getById(req.params.organisationId)
     .then((enterprise) =>
       enterprise
         ? res.status(200).json({
@@ -77,7 +77,7 @@ function getById(req, res, next) {
 
 function update(req, res, next) {
   enterpriseService
-    .update(req.params.enterpriseId, req.body)
+    .update(req.params.organisationId, req.body)
     .then((enterprise) =>
       res.status(200).json({
         status: STATUS.SUCCESS,
@@ -96,7 +96,7 @@ function update(req, res, next) {
 
 function _delete(req, res, next) {
   enterpriseService
-    .delete(req.params.enterpriseId)
+    .delete(req.params.organisationId)
     .then(() =>
       res.status(200).json({
         status: STATUS.SUCCESS,

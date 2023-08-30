@@ -10,27 +10,27 @@ module.exports = {
 };
 
 async function create(enterpriseParam) {
-  let enterpriseId =
-    enterpriseParam.enterpriseName.toString().replace(" ", "_").toLowerCase() +
+  let organisationId =
+    enterpriseParam.organisationName.toString().replace(" ", "_").toLowerCase() +
     Math.random();
 
   // validate
   const tempEnterprise = await Enterprise.findOne({
-    enterpriseId: enterpriseId,
+    organisationId: organisationId,
   });
   if (tempEnterprise) {
-    enterpriseId =
-      enterpriseParam.enterpriseName
+    organisationId =
+      enterpriseParam.organisationName
         .toString()
         .replace(" ", "_")
         .toLowerCase() + Math.random();
   }
 
   const requested_data = {
-    enterpriseId: enterpriseId,
-    enterpriseName: enterpriseParam.enterpriseName,
-    enterpriseDomain: enterpriseParam.enterpriseDomain,
-    enterpriseAddress: enterpriseParam.enterpriseAddress,
+    organisationId: organisationId,
+    organisationName: enterpriseParam.organisationName,
+    organisationDomain: enterpriseParam.organisationDomain,
+    organisationCountry: enterpriseParam.organisationCountry,
     isActive: enterpriseParam.isActive,
   };
 
@@ -38,19 +38,19 @@ async function create(enterpriseParam) {
 
   // save enterprise
   await enterprise.save();
-  return enterpriseId;
+  return organisationId;
 }
 
 async function getAll() {
   return await Enterprise.find();
 }
 
-async function getById(enterpriseId) {
-  return await Enterprise.findOne({ enterpriseId: enterpriseId });
+async function getById(organisationId) {
+  return await Enterprise.findOne({ organisationId: organisationId });
 }
 
-async function update(enterpriseId, enterpriseParam) {
-  const enterprise = await Enterprise.findOne({ enterpriseId: enterpriseId });
+async function update(organisationId, enterpriseParam) {
+  const enterprise = await Enterprise.findOne({ organisationId: organisationId });
 
   // validate
   if (!enterprise) throw "Enterprise not found";
@@ -62,11 +62,11 @@ async function update(enterpriseId, enterpriseParam) {
   return enterprise;
 }
 
-async function _delete(enterpriseId) {
-  const enterprise = await Enterprise.findOne({ enterpriseId: enterpriseId });
+async function _delete(organisationId) {
+  const enterprise = await Enterprise.findOne({ organisationId: organisationId });
 
   // validate
   if (!enterprise) throw "Enterprise not found";
 
-  await Enterprise.deleteMany({ enterpriseId: enterpriseId });
+  await Enterprise.deleteMany({ organisationId: organisationId });
 }
