@@ -41,7 +41,7 @@ const actionModel = mongoose.Schema(
       required: true,
     },
     //It will be usefull for filter
-    entID:{
+    enterpriseId:{
       type:String,
       required:true
     },
@@ -53,6 +53,7 @@ const actionModel = mongoose.Schema(
   {
     timestamps: true,
   }
+  
 );
 
 module.exports = mongoose.model("Action", actionModel);

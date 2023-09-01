@@ -34,7 +34,7 @@ const userModel = mongoose.Schema(
       type: String,
     },
     team: {
-      type: String,
+      type: Array,
     },
     plan: {
       type: String,
