@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userService = require("../services/user.service");
 const { STATUS } = require("../_helpers/const");
+const { transporter } = require("../_helpers/emailTransport");
 
 // routes
 router.post("/authenticate", authenticate);
@@ -40,13 +41,26 @@ function authenticate(req, res, next) {
 function create(req, res, next) {
   userService
     .create(req.body)
-    .then((user) =>
-      res.status(200).json({
+    .then((user) => {
+      let mailOptions = {
+        from: "ankit.keshari@evoltech.com.au",
+        to: "vishal.gawande@evoltech.com.au",
+        subject: "Nodemailer Project",
+        text: "Hi from your nodemailer project",
+      };
+      transporter.sendMail(mailOptions, function (err, data) {
+        if (err) {
+          console.log("Error " + err);
+        } else {
+          console.log("Email sent successfully");
+        }
+      });
+      return res.status(200).json({
         status: STATUS.SUCCESS,
         message: "User created successfully!",
         data: user,
-      })
-    )
+      });
+    })
     .catch((err) =>
       res.json({
         status: STATUS.FAILED,
