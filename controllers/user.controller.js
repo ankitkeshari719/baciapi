@@ -65,7 +65,7 @@ function create(req, res, next) {
       res.json({
         status: STATUS.FAILED,
         message: "User creations FAILED!" + " " + err,
-        data: err,
+        data: null,
       })
     );
 }

@@ -6,6 +6,7 @@ module.exports = {
   getById,
   create,
   update,
+  getByName,
   delete: _delete,
 };
 
@@ -37,6 +38,11 @@ async function getAll() {
 
 async function getById(roleId) {
   const role = await Role.findOne({ roleId: roleId });
+  return role;
+}
+
+async function getByName(roleName) {
+  const role = await Role.findOne({ roleName: roleName });
   return role;
 }
 
