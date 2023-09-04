@@ -155,6 +155,9 @@ app.post("/createRetro", async (req, res) => {
     timestamp: Date.now(),
     retroStatus: "waiting",
     waitingTimestamp: Date.now(),
+    teamId:req.body.teamId?req.body.teamId:0,
+    enterpriseId:req.body.teamId?req.body.teamId:0,
+    facilitatorId:req.body.facilitatorId?req.body.facilitatorId:creator,
   });
   return res.status(200).json({ id: result.insertedId });
 });
