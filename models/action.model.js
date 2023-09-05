@@ -2,10 +2,7 @@ const mongoose = require("mongoose");
 
 const actionModel = mongoose.Schema(
   {
-    id:{
-      type:String,
-      required:true
-    },
+
     actionId: {
       type: String,
     },
@@ -19,6 +16,10 @@ const actionModel = mongoose.Schema(
     retroId: {
       type: String,
       required: true,
+    },
+    retroIdEnc:{
+      type:String,
+      required:true,
     },
     teamId: {
       type: String,

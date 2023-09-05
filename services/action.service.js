@@ -25,12 +25,15 @@ async function create(actionParam) {
   }
 
   const requested_data = {
-    actionId: actionId,
+    actionId: actionParam.actionId,
     actionName: actionParam.actionName,
     jiraId: actionParam.jiraId,
     retroId: actionParam.retroId,
+    retroIdEnc:actionParam.retroIdEnc,
+    enterpriseId:actionParam.enterpriseId,
     assignedTo: actionParam.assignedTo,
     createdBy: actionParam.createdBy,
+    jiraUrl:actionParam.jiraUrl,
     status: actionParam.status,
     isActive: actionParam.isActive,
     teamId: actionParam.teamId,

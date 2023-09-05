@@ -158,6 +158,8 @@ app.post("/createRetro", async (req, res) => {
     teamId:req.body.teamId?req.body.teamId:0,
     enterpriseId:req.body.teamId?req.body.teamId:0,
     facilitatorId:req.body.facilitatorId?req.body.facilitatorId:creator,
+    retroDate:req.body.retroDate?req.body.retroDate:Date.now(),
+  
   });
   return res.status(200).json({ id: result.insertedId });
 });
