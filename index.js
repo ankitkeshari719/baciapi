@@ -14,7 +14,7 @@ const { Socket } = require("./utils/socket");
 const moment = require("moment");
 var momentTimeZone = require("moment-timezone");
 const nodeCron = require("node-cron");
-const cors = require('cors');
+const cors = require("cors");
 
 const BearerStrategy = require("passport-azure-ad").BearerStrategy;
 const url = process.env.COSMOS_CONNECTION_STRING;
@@ -23,6 +23,9 @@ const axios = require("axios");
 const urlApi = require("url");
 const db = client.db(`bacidb`);
 const collection = db.collection("retros");
+const teamsDB = db.collection("teams");
+const usersDB = db.collection("users");
+
 
 //openAI
 const { Configuration, OpenAIApi } = require("azure-openai");
@@ -53,7 +56,7 @@ const {
   allTeamsMoodResult,
   mobileTeamMoodResult,
   superannuationTeamMoodResult,
-  insuranceTeamMoodResult
+  insuranceTeamMoodResult,
 } = require("./_helpers/analyticsConst");
 
 // const { inputLayer } = require("@tensorflow/tfjs-layers/dist/exports_layers");
@@ -109,7 +112,7 @@ process.on("uncaughtException", function (err) {
 const server = http.createServer(app);
 
 io.attach(server);
-app.use(cors()) 
+app.use(cors());
 //enable CORS (for testing only -remove in production/deployment)
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -155,11 +158,10 @@ app.post("/createRetro", async (req, res) => {
     timestamp: Date.now(),
     retroStatus: "waiting",
     waitingTimestamp: Date.now(),
-    teamId:req.body.teamId?req.body.teamId:0,
-    enterpriseId:req.body.teamId?req.body.teamId:0,
-    facilitatorId:req.body.facilitatorId?req.body.facilitatorId:creator,
-    retroDate:req.body.retroDate?req.body.retroDate:Date.now(),
-  
+    teamId: req.body.teamId ? req.body.teamId : 0,
+    enterpriseId: req.body.teamId ? req.body.teamId : 0,
+    facilitatorId: req.body.facilitatorId ? req.body.facilitatorId : creator,
+    retroDate: req.body.retroDate ? req.body.retroDate : Date.now(),
   });
   return res.status(200).json({ id: result.insertedId });
 });
@@ -711,48 +713,71 @@ app.post("/createJiraIssue", async (req, res) => {
 
 // ------------------------------- Analytics API's ----------------------------------------------
 // Api to get dummy chart data
-app.get("/getDummyChartData", async (req, res) => {
-  const result = [
-    {
-      id: 1,
-      date: "03/01/2022",
-      average_temp: 15,
-    },
-    {
-      id: 2,
-      date: "03/02/2022",
-      average_temp: 27,
-    },
-    {
-      id: 3,
-      date: "03/03/2022",
-      average_temp: 18,
-    },
-    {
-      id: 4,
-      date: "03/04/2022",
-      average_temp: 20,
-    },
-    {
-      id: 5,
-      date: "03/05/2022",
-      average_temp: 23,
-    },
-    {
-      id: 6,
-      date: "03/06/2022",
-      average_temp: 17,
-    },
-    {
-      id: 7,
-      date: "03/07/2022",
-      average_temp: 15,
-    },
-  ];
-  return res.status(200).json({ result: result });
+app.post("/getSessionsData", async (req, res) => {
+  const id = req.body.userId;
+  const roleName = req.body.roleName;
+  const enterpriseId = req.body.enterpriseId;
+  const teamId = req.body.teamId;
+  let timestamp1 = new Date(req.body.fromDate).getTime();
+  let timestamp2 = new Date(req.body.toDate).getTime();
+
+  //Get the team list
+
+  // if(roleName=="Enterprise Admin")
+  if (teamId == "0" && roleName == "Enterprise Admin") {
+    const j = await collection
+      .find({
+        enterpriseId: enterpriseId,
+        timestamp: { $gte: timestamp1, $lte: timestamp2 },
+      })
+      .toArray();
+    return res.status(200).json({ result: j });
+  } else if (teamId != "0" && roleName == "Enterprise Admin") {
+    const j = await collection
+      .find({
+        enterpriseId: enterpriseId,
+        timestamp: { $gte: timestamp1, $lte: timestamp2 },
+        teamId: teamId,
+      })
+      .toArray();
+    return res.status(200).json({ result: j });
+  } else {
+    let retroSession=[];
+    const user = await usersDB.find({ emailId: id }).toArray();
+    const teamIds = user && user[0].team;
+
+    if (teamIds?.length > 0) {
+
+      for(var i=0;i<teamIds.length;i++){
+        let team = teamIds[i];
+        let sessions = await collection
+        .find({
+          enterpriseId: enterpriseId,
+          timestamp: { $gte: timestamp1, $lte: timestamp2 },
+          teamId: team,
+        })
+        .toArray();
+
+        sessions.forEach((retro)=>{
+         
+          retroSession.push(retro)
+        })
+      }
+        return res.status(200).json({ result: retroSession })
+      
+    } else return res.status(200).json({ result: [] });
+  }
 });
 
 // Chart 1:  Api to get Team Level Actions Count
+
+app.get("getTeamLevelActionsCountsData", async (req, res) => {
+  let timestamp1 = new Date("01/01/2023").getTime();
+  let timestamp2 = new Date("01/01/2024").getTime();
+  console.log(timestamp1, timestamp2);
+  return res.status(200).json({ result: [] });
+});
+
 app.get("/getTeamLevelActionsCounts", async (req, res) => {
   let finalResult = [];
   let fromDate = req.query.fromDate;
