@@ -4,4 +4,5 @@ module.exports = {
   Enterprise: require("./enterprise.model.js"),
   Team: require("./team.model"),
   Action: require("./action.model"),
+  Notification: require("./notification.model"),
 };

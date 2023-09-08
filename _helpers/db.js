@@ -11,6 +11,7 @@ module.exports = {
   Team: require("../models/team.model"),
   Enterprise: require("../models/enterprise.model"),
   Action: require("../models/action.model"),
+  Notification: require("../models/notification.model"),
   isValidId,
 };
 

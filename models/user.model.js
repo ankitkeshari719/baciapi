@@ -43,16 +43,16 @@ const userModel = mongoose.Schema(
       type: String,
       required: true,
     },
+    enterpriseName: {
+      type: String,
+    },
     roleId: {
       type: String,
       required: true,
     },
     roleName: {
       type: String,
-    },
-    enterpriseName: {
-      type: String,
-    },
+    },    
     isActive: {
       type: Boolean,
     },
