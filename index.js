@@ -905,6 +905,137 @@ app.get("getTeamLevelActionsCountsData", async (req, res) => {
   return res.status(200).json({ result: [] });
 });
 
+app.post("/getTeamLevelActionsDataForChart", async (req, res) => {
+  const id = req.body.userId;
+  const roleName = req.body.roleName;
+  const enterpriseId = req.body.enterpriseId;
+  const teamId = req.body.teamId;
+  let timestamp1 = new Date(req.body.fromDate).getTime();
+  let timestamp2 = new Date(req.body.toDate).getTime();
+  var queryForTeamsData="";
+  
+  
+
+
+
+var queryForActions="";
+
+if(teamId=="0")
+{if(roleName=="Enterprise Admin"){
+  queryForActions={
+    enterpriseId: enterpriseId,
+    createdAt: { $gte: timestamp1, $lte: timestamp2 },
+  }
+}
+else{
+  const user = await usersDB.find({ emailId: id }).toArray();
+  const teamIds = user && user[0]?user[0].team :[];
+  if(teamIds==[]){
+    return res.status(200).json({
+      actionsData: [],
+      message:"No teams data found"
+    });
+  }
+  queryForActions={
+    enterpriseId: enterpriseId,
+    createdAt: { $gte: timestamp1, $lte: timestamp2 },
+    teamId: { $in: teamIds }
+  }
+}}
+else{
+
+  
+    queryForActions={
+      enterpriseId: enterpriseId,
+      createdAt: { $gte: timestamp1, $lte: timestamp2 },
+      teamId:  teamId 
+    
+  }
+}
+const teamsData = await teamsDB
+.find({
+  enterpriseId:enterpriseId
+})
+.toArray();
+console.log(teamsData);
+
+  const j = await actionsDB
+    .find(queryForActions)
+    .toArray();
+
+  var result = j.reduce((acc, elem) => {
+    isPresent = acc.findIndex((k) => k.actionId == elem.actionId);
+    if (isPresent == -1) {
+      acc.push(elem);
+    } else {
+      if (new Date(acc[isPresent].updatedAt) < new Date(elem.updatedAt))
+        acc[isPresent] = elem;
+    }
+    return acc;
+  }, []);
+
+  // Create a dictionary to store grouped elements
+  const groupedData = {};
+
+  // Iterate through the array and group elements by "id"
+  result.forEach((item) => {
+    const { teamId } = item;
+
+    // Check if the "id" already exists in the groupedData dictionary
+    if (!groupedData[teamId]) {
+      groupedData[teamId] = [];
+    }
+
+    // Add the current item to the corresponding group
+    groupedData[teamId].push(item);
+  });
+
+  // Convert the grouped data into an array of arrays
+  const result1 = Object.values(groupedData);
+  let teamActionsData = [];
+  result1.forEach((teamData) => {
+    const teamObj = {
+      teamId: "",
+      teamName: "",
+      completed: 0,
+      pending: 0,
+      completedInPer: 0,
+      actions: teamData,
+    };
+
+ 
+
+    teamData.forEach((jiraAction) => {
+      teamObj.teamId = jiraAction.teamId;
+      if (jiraAction.status == "DONE") {
+        teamObj.completed = teamObj.completed + 1;
+      } else {
+        teamObj.pending = teamObj.pending + 1;
+      }
+    });
+
+
+    teamsData.forEach((element) => {
+      if (element.teamId == teamObj.teamId) {
+        teamObj.teamName = element.teamName;
+        teamId
+      }
+    });
+
+
+    teamObj.completedInPer =
+      (teamObj.completed * 100) / teamObj.pending
+        ? (teamObj.completed * 100) / teamObj.pending
+        : 0;
+
+    teamActionsData.push(teamObj);
+  });
+
+  return res.status(200).json({
+    actionsData: teamActionsData,
+  });
+});
+
 app.get("/getTeamLevelActionsCounts", async (req, res) => {
   let finalResult = [];
   let fromDate = req.query.fromDate;
