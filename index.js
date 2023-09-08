@@ -15,7 +15,7 @@ const moment = require("moment");
 var momentTimeZone = require("moment-timezone");
 const nodeCron = require("node-cron");
 const cors = require("cors");
-
+const month = require("./utils/getMonthRange");
 const BearerStrategy = require("passport-azure-ad").BearerStrategy;
 const url = process.env.COSMOS_CONNECTION_STRING;
 const client = new MongoClient(url);
@@ -25,7 +25,7 @@ const db = client.db(`bacidb`);
 const collection = db.collection("retros");
 const teamsDB = db.collection("teams");
 const usersDB = db.collection("users");
-
+const actionsDB = db.collection("actions");
 
 //openAI
 const { Configuration, OpenAIApi } = require("azure-openai");
@@ -725,47 +725,174 @@ app.post("/getSessionsData", async (req, res) => {
 
   // if(roleName=="Enterprise Admin")
   if (teamId == "0" && roleName == "Enterprise Admin") {
-    const j = await collection
+    const retroSessions = await collection
       .find({
         enterpriseId: enterpriseId,
         timestamp: { $gte: timestamp1, $lte: timestamp2 },
       })
       .toArray();
-    return res.status(200).json({ result: j });
+    return res.status(200).json({ result: retroSessions });
   } else if (teamId != "0" && roleName == "Enterprise Admin") {
-    const j = await collection
+    const retroSessions = await collection
       .find({
         enterpriseId: enterpriseId,
         timestamp: { $gte: timestamp1, $lte: timestamp2 },
         teamId: teamId,
       })
       .toArray();
-    return res.status(200).json({ result: j });
+    return res.status(200).json({ result: retroSessions });
   } else {
-    let retroSession=[];
+    let retroSession = [];
     const user = await usersDB.find({ emailId: id }).toArray();
     const teamIds = user && user[0].team;
 
     if (teamIds?.length > 0) {
-
-      for(var i=0;i<teamIds.length;i++){
+      for (var i = 0; i < teamIds.length; i++) {
         let team = teamIds[i];
         let sessions = await collection
-        .find({
-          enterpriseId: enterpriseId,
-          timestamp: { $gte: timestamp1, $lte: timestamp2 },
-          teamId: team,
-        })
-        .toArray();
+          .find({
+            enterpriseId: enterpriseId,
+            timestamp: { $gte: timestamp1, $lte: timestamp2 },
+            teamId: team,
+          })
+          .toArray();
 
-        sessions.forEach((retro)=>{
-         
-          retroSession.push(retro)
-        })
+        sessions.forEach((retro) => {
+          retroSession.push(retro);
+        });
       }
-        return res.status(200).json({ result: retroSession })
-      
+      return res.status(200).json({ result: retroSession });
     } else return res.status(200).json({ result: [] });
+  }
+});
+
+app.post("/getActionsChartData", async (req, res) => {
+  const id = req.body.userId;
+  const roleName = req.body.roleName;
+  const enterpriseId = req.body.enterpriseId;
+  const teamId = req.body.teamId;
+  let timestamp1 = new Date(req.body.fromDate).getTime();
+  let timestamp2 = new Date(req.body.toDate).getTime();
+  let monthsWithinRange = month.getMonthRange(timestamp1, timestamp2);
+  var finalData = [];
+
+  monthsWithinRange.forEach((element) => {
+    const jiraChartObject = {
+      month: element,
+      pending: 0,
+      completed: 0,
+      completedInPer: 0,
+    };
+    finalData.push(jiraChartObject);
+  });
+
+  if (teamId == "0" && roleName == "Enterprise Admin") {
+    const j = await actionsDB
+      .find({
+        enterpriseId: enterpriseId,
+        createdAt: { $gte: timestamp1, $lte: timestamp2 },
+      })
+      .toArray();
+
+    var result = j.reduce((acc, elem) => {
+      isPresent = acc.findIndex((k) => k.actionId == elem.actionId);
+      if (isPresent == -1) {
+        acc.push(elem);
+      } else {
+        if (new Date(acc[isPresent].updatedAt) < new Date(elem.updatedAt))
+          acc[isPresent] = elem;
+      }
+      return acc;
+    }, []);
+
+    return res.status(200).json({
+      chartData: month.parseActionDataForChart(finalData, result),
+      actionsData: result,
+    });
+  } else if (
+    teamId != "0" &&
+    (roleName == "Enterprise Admin" || roleName == "Regular Enterprise")
+  ) {
+    var query = {
+      enterpriseId: enterpriseId,
+      createdAt: { $gte: timestamp1, $lte: timestamp2 },
+      teamId: teamId,
+    };
+    if (roleName == "EnterPrise Admin") {
+      query = {
+        enterpriseId: enterpriseId,
+        createdAt: { $gte: timestamp1, $lte: timestamp2 },
+        teamId: teamId,
+      };
+    } else {
+      query = {
+        enterpriseId: enterpriseId,
+        createdAt: { $gte: timestamp1, $lte: timestamp2 },
+        teamId: teamId,
+        assignedTo: id,
+      };
+    }
+    const j = await actionsDB.find(query).toArray();
+    var result = j.reduce((acc, elem) => {
+      isPresent = acc.findIndex((k) => k.actionId == elem.actionId);
+      if (isPresent == -1) {
+        acc.push(elem);
+      } else {
+        if (new Date(acc[isPresent].updatedAt) < new Date(elem.updatedAt))
+          acc[isPresent] = elem;
+      }
+      return acc;
+    }, []);
+    return res.status(200).json({
+      chartData: month.parseActionDataForChart(finalData, result),
+      actionsData: result,
+    });
+  } else if (teamId == "0" && roleName == "Regular Enterprise") {
+    const user = await usersDB.find({ emailId: id }).toArray();
+
+    const teamIds = user && user[0].team;
+
+    const query = {
+      enterpriseId: enterpriseId,
+      createdAt: { $gte: timestamp1, $lte: timestamp2 },
+      teamId: { $in: teamIds },
+    };
+    const j = await actionsDB.find(query).toArray();
+    var result = j.reduce((acc, elem) => {
+      isPresent = acc.findIndex((k) => k.actionId == elem.actionId);
+      if (isPresent == -1) {
+        acc.push(elem);
+      } else {
+        if (new Date(acc[isPresent].updatedAt) < new Date(elem.updatedAt))
+          acc[isPresent] = elem;
+      }
+      return acc;
+    }, []);
+    return res.status(200).json({
+      chartData: month.parseActionDataForChart(finalData, result),
+      actionsData: result,
+    });
+  } else {
+    const query = {
+      enterpriseId: enterpriseId,
+      createdAt: { $gte: timestamp1, $lte: timestamp2 },
+      assignedTo: id,
+    };
+    const j = await actionsDB.find(query).toArray();
+    var result = j.reduce((acc, elem) => {
+      isPresent = acc.findIndex((k) => k.actionId == elem.actionId);
+      if (isPresent == -1) {
+        acc.push(elem);
+      } else {
+        if (new Date(acc[isPresent].updatedAt) < new Date(elem.updatedAt))
+          acc[isPresent] = elem;
+      }
+      return acc;
+    }, []);
+    return res.status(200).json({
+      chartData: month.parseActionDataForChart(finalData, result),
+      actionsData: result,
+    });
   }
 });
 
