@@ -56,6 +56,9 @@ const userModel = mongoose.Schema(
     isActive: {
       type: Boolean,
     },
+    isEnterpriserRequested: {
+      type: Boolean,
+    },
   },
   {
     timestamps: true,

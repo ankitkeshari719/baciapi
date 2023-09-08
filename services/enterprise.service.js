@@ -28,6 +28,7 @@ async function create(enterpriseParam) {
 
   const requested_data = {
     organisationId: organisationId,
+    organisationPhoto: enterpriseParam.organisationPhoto,
     organisationName: enterpriseParam.organisationName,
     organisationDomain: enterpriseParam.organisationDomain,
     organisationCountry: enterpriseParam.organisationCountry,
