@@ -35,7 +35,6 @@ async function create(userParam) {
     name: userParam.name,
     cityCode: userParam.cityCode,
     country: userParam.country,
-    companyName: userParam.companyName,
     role: userParam.role,
     team: userParam.team,
     plan: userParam.plan,

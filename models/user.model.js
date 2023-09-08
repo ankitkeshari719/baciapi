@@ -27,9 +27,6 @@ const userModel = mongoose.Schema(
     cityCode: {
       type: String,
     },
-    companyName: {
-      type: String,
-    },
     role: {
       type: String,
     },
@@ -41,7 +38,6 @@ const userModel = mongoose.Schema(
     },
     enterpriseId: {
       type: String,
-      required: true,
     },
     enterpriseName: {
       type: String,
