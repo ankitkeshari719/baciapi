@@ -44,6 +44,7 @@ async function create(userParam) {
     roleName: userParam.roleName,
     enterpriseName: userParam.enterpriseName,
     isActive: userParam.isActive,
+    isEnterpriserRequested: userParam.isEnterpriserRequested
   };
 
   const user = new User(requested_data);
