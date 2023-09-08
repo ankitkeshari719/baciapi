@@ -3,4 +3,10 @@ const STATUS = {
   FAILED: "Failed",
 };
 
-module.exports = { STATUS };
+const JIRA_STATUS={
+  TODO:"TODO",
+  INPROGRESS:"IN-PROGRESS",
+  DONE:"DONE"
+}
+
+module.exports = { STATUS,JIRA_STATUS };
