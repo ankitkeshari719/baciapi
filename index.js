@@ -26,6 +26,7 @@ const collection = db.collection("retros");
 const teamsDB = db.collection("teams");
 const usersDB = db.collection("users");
 const actionsDB = db.collection("actions");
+const { ROLE_NAME } = require("./_helpers/const");
 
 //openAI
 const { Configuration, OpenAIApi } = require("azure-openai");
@@ -788,7 +789,7 @@ app.post("/getActionsChartData", async (req, res) => {
     finalData.push(jiraChartObject);
   });
 
-  if (teamId == "0" && roleName == "Enterprise Admin") {
+  if (teamId == "0" && roleName == ROLE_NAME.ENTERPRISE_ADMIN) {
     const j = await actionsDB
       .find({
         enterpriseId: enterpriseId,
@@ -813,14 +814,14 @@ app.post("/getActionsChartData", async (req, res) => {
     });
   } else if (
     teamId != "0" &&
-    (roleName == "Enterprise Admin" || roleName == "Regular Enterprise")
+    (roleName == ROLE_NAME.ENTERPRISE_ADMIN || roleName == ROLE_NAME.REGULAR_ENTERPRISE)
   ) {
     var query = {
       enterpriseId: enterpriseId,
       createdAt: { $gte: timestamp1, $lte: timestamp2 },
       teamId: teamId,
     };
-    if (roleName == "EnterPrise Admin") {
+    if (roleName == ROLE_NAME.ENTERPRISE_ADMIN) {
       query = {
         enterpriseId: enterpriseId,
         createdAt: { $gte: timestamp1, $lte: timestamp2 },
@@ -849,7 +850,7 @@ app.post("/getActionsChartData", async (req, res) => {
       chartData: month.parseActionDataForChart(finalData, result),
       actionsData: result,
     });
-  } else if (teamId == "0" && roleName == "Regular Enterprise") {
+  } else if (teamId == "0" && roleName == ROLE_NAME.REGULAR_ENTERPRISE) {
     const user = await usersDB.find({ emailId: id }).toArray();
 
     const teamIds = user && user[0].team;

@@ -9,4 +9,10 @@ const JIRA_STATUS={
   DONE:"DONE"
 }
 
-module.exports = { STATUS,JIRA_STATUS };
+const ROLE_NAME={
+ENTERPRISE_ADMIN:  "Enterprise Admin",
+REGULAR_ENTERPRISE:"Regular Enterprise",
+REGULAR_USER:"Regular User"
+}
+
+module.exports = { STATUS,JIRA_STATUS,ROLE_NAME };
