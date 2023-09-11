@@ -42,4 +42,20 @@
     });
     return finalData;
   }
-  module.exports={getMonthRange,parseActionDataForChart}
+
+  function returnUniqueValuesWithLatestUpdateTime(inputData){
+
+    inputData.reduce((acc, elem) => {
+      isPresent = acc.findIndex((k) => k.actionId == elem.actionId);
+      if (isPresent == -1) {
+        acc.push(elem);
+      } else {
+        if (new Date(acc[isPresent].updatedAt) < new Date(elem.updatedAt))
+          acc[isPresent] = elem;
+      }
+      return acc;
+    }, []);
+
+    return inputData
+  }
+  module.exports={getMonthRange,parseActionDataForChart,returnUniqueValuesWithLatestUpdateTime}
