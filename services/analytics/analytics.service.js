@@ -1,12 +1,9 @@
-// const { MongoClient, ObjectId, Logger } = require("mongodb");
-// const url = process.env.COSMOS_CONNECTION_STRING;
-// const client = new MongoClient(url);
-// const db1 = client.db(`bacidb`);
-const db = require("../_helpers/db");
+
+const db = require("../../_helpers/db");
 const usersDB = db.User;
 const teamsDB = db.Team;
 const actionsDB = db.Action;
-const { JIRA_STATUS } = require("../_helpers/const");
+const { JIRA_STATUS,ROLE_NAME } = require("../../_helpers/const");
 async function getTeamLevelActionsDataForChart(req){
     const id = req.body.userId;
     const roleName = req.body.roleName;
@@ -19,7 +16,7 @@ async function getTeamLevelActionsDataForChart(req){
   var queryForActions="";
   
   if(teamId=="0")
-  {if(roleName=="Enterprise Admin"){
+  {if(roleName==ROLE_NAME.ENTERPRISE_ADMIN){
     queryForActions={
       enterpriseId: enterpriseId,
       createdAt: { $gte: timestamp1, $lte: timestamp2 },

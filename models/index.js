@@ -5,4 +5,5 @@ module.exports = {
   Team: require("./team.model"),
   Action: require("./action.model"),
   Notification: require("./notification.model"),
+  Retro:require("./retro.model")
 };
