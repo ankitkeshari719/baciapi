@@ -36,12 +36,13 @@ async function create(userParam) {
     cityCode: userParam.cityCode,
     country: userParam.country,
     role: userParam.role,
-    team: userParam.team,
+    teams: userParam.teams,
     plan: userParam.plan,
     enterpriseId: userParam.enterpriseId,
     roleId: userParam.roleId,
     roleName: userParam.roleName,
     enterpriseName: userParam.enterpriseName,
+    enterprisePhoto: userParam.enterprisePhoto,
     isActive: userParam.isActive,
     isEnterpriserRequested: userParam.isEnterpriserRequested
   };
