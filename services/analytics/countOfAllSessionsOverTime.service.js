@@ -89,7 +89,7 @@ async function getCountOfAllSessionsOverTime(req) {
     if(ROLE_NAME.REGULAR_ENTERPRISE==roleName){
         if(teamId=="0"){
             const user = await usersDB.find({ emailId: id });
-            const teamIds = user && user[0]?user[0].team :[];
+            const teamIds = user && user[0]?user[0].teams :[];
 
             if(teamIds==[])
             {return []}

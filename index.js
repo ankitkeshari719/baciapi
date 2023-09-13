@@ -747,7 +747,7 @@ app.post("/getSessionsData", async (req, res) => {
   } else {
     let retroSession = [];
     const user = await usersDB.find({ emailId: id }).toArray();
-    const teamIds = user && user[0].team;
+    const teamIds = user && user[0].teams;
 
     if (teamIds?.length > 0) {
       for (var i = 0; i < teamIds.length; i++) {
@@ -853,7 +853,7 @@ app.post("/getActionsChartData", async (req, res) => {
   } else if (teamId == "0" && roleName == ROLE_NAME.REGULAR_ENTERPRISE) {
     const user = await usersDB.find({ emailId: id }).toArray();
 
-    const teamIds = user && user[0].team;
+    const teamIds = user && user[0].teams;
 
     const query = {
       enterpriseId: enterpriseId,
