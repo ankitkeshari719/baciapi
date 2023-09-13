@@ -36,14 +36,16 @@ async function create(userParam) {
     cityCode: userParam.cityCode,
     country: userParam.country,
     role: userParam.role,
-    team: userParam.team,
+    teams: userParam.teams,
     plan: userParam.plan,
     enterpriseId: userParam.enterpriseId,
     roleId: userParam.roleId,
     roleName: userParam.roleName,
     enterpriseName: userParam.enterpriseName,
+    enterprisePhoto: userParam.enterprisePhoto,
     isActive: userParam.isActive,
-    isEnterpriserRequested: userParam.isEnterpriserRequested
+    isEnterpriserRequested: userParam.isEnterpriserRequested,
+    selectedAvatar:userParam.selectedAvatar
   };
 
   const user = new User(requested_data);
