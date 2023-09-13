@@ -58,6 +58,9 @@ const userModel = mongoose.Schema(
     isEnterpriserRequested: {
       type: Boolean,
     },
+    selectedAvatar: {
+      type: String,
+    }
   },
   {
     timestamps: true,

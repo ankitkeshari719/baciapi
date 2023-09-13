@@ -44,7 +44,8 @@ async function create(userParam) {
     enterpriseName: userParam.enterpriseName,
     enterprisePhoto: userParam.enterprisePhoto,
     isActive: userParam.isActive,
-    isEnterpriserRequested: userParam.isEnterpriserRequested
+    isEnterpriserRequested: userParam.isEnterpriserRequested,
+    selectedAvatar:userParam.selectedAvatar
   };
 
   const user = new User(requested_data);
