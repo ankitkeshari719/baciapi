@@ -98,9 +98,6 @@ async function getAllByEmails(userParam) {
     const tempUser = await User.findOne({ emailId: userParam.emails[i] });
     user.push(tempUser);
   }
-
-  console.log("user::", user);
-
   return await user;
 }
 
