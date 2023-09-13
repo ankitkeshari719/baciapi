@@ -30,7 +30,7 @@ const userModel = mongoose.Schema(
     role: {
       type: String,
     },
-    team: {
+    teams: {
       type: Array,
     },
     plan: {
