@@ -3,7 +3,7 @@ const usersDB = db.User;
 const teamsDB = db.Team;
 const actionsDB = db.Action;
 const retroDB = db.Retro;
-const { JIRA_STATUS, ROLE_NAME } = require("../../_helpers/const");
+const {  ROLE_NAME } = require("../../_helpers/const");
 
 async function getTeamDataForTable(req) {
   const id = req.body.userId;
@@ -11,8 +11,8 @@ async function getTeamDataForTable(req) {
   const enterpriseId = req.body.enterpriseId;
   const teamId = req.body.teamId;
   var teamIds=[]
-  let timestamp1 = new Date(req.body.fromDate).getTime();
-  let timestamp2 = new Date(req.body.toDate).getTime();
+  // let timestamp1 = new Date(req.body.fromDate).getTime();
+  // let timestamp2 = new Date(req.body.toDate).getTime();
 
   if(roleName==ROLE_NAME.ENTERPRISE_ADMIN){
 
@@ -36,7 +36,7 @@ async function getTeamDataForTable(req) {
         //   $gte: timestamp1,
         //   $lte: timestamp2,
         // },
-        //   teamId: { $in: teamIds },
+  
         enterpriseId: enterpriseId,
         $expr: {
           $cond: {
@@ -137,7 +137,13 @@ async function getTeamDataForTable(req) {
 
   const actionGroupData =await actionsDB.aggregate(queryForActionGroupData);
 
-  data.map((team) => {
+
+
+    for(var i=0;i<data.length;i++){
+
+    team=data[i]
+
+  team.createdByObj=  await usersDB.find({ emailId: team.createdBy })
     retroGroupData.forEach((retros) => {
       if (team.teamId == retros._id) {
         if(retros.retroList!=undefined)
@@ -159,7 +165,8 @@ async function getTeamDataForTable(req) {
         team.actions=actions.actionList;
       }
     })
-  });
+  }
+
 
 
 
