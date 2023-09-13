@@ -48,13 +48,16 @@ const userModel = mongoose.Schema(
     },
     roleName: {
       type: String,
-    },    
+    },
     isActive: {
       type: Boolean,
     },
     isEnterpriserRequested: {
       type: Boolean,
     },
+    selectedAvatar: {
+      type: String,
+    }
   },
   {
     timestamps: true,

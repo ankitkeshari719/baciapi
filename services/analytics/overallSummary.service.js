@@ -5,7 +5,7 @@ const retroDB = db.Retro;
 const { ROLE_NAME } = require("../../_helpers/const");
 const month = require("../../utils/getMonthRange");
 
-async function getCountOfAllParticipantsOverTime(req) {
+async function getOverAllSummary(req) {
   const id = req.body.userId;
   const roleName = req.body.roleName;
   const enterpriseId = req.body.enterpriseId;
@@ -193,5 +193,5 @@ async function getCountOfAllParticipantsOverTime(req) {
 }
 
 module.exports = {
-  getCountOfAllParticipantsOverTime,
+    getOverAllSummary,
 };

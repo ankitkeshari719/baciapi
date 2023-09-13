@@ -16,6 +16,7 @@ router.get(
   "/getAllUsersByEnterpriseId/:enterpriseId",
   getAllUsersByEnterpriseId
 );
+router.post("/deleteMany", _deleteMany);
 
 module.exports = router;
 
@@ -184,6 +185,24 @@ function getAllUsersByEnterpriseId(req, res, next) {
       res.json({
         status: STATUS.FAILED,
         message: "Users fetched FAILED!" + " " + err,
+        data: err,
+      })
+    );
+}
+
+function _deleteMany(req, res, next) {
+  userService
+    .deleteMany(req.body)
+    .then(() =>
+      res.status(200).json({
+        status: STATUS.SUCCESS,
+        message: "Users deleted successfully!",
+      })
+    )
+    .catch((err) =>
+      res.json({
+        status: STATUS.FAILED,
+        message: "Users delete FAILED!" + " " + err,
         data: err,
       })
     );

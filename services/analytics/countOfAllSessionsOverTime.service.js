@@ -5,7 +5,7 @@ const retroDB = db.Retro;
 const { ROLE_NAME } = require("../../_helpers/const");
 const month = require("../../utils/getMonthRange");
 
-async function getCountOfAllParticipantsOverTime(req) {
+async function getCountOfAllSessionsOverTime(req) {
   const id = req.body.userId;
   const roleName = req.body.roleName;
   const enterpriseId = req.body.enterpriseId;
@@ -167,22 +167,12 @@ async function getCountOfAllParticipantsOverTime(req) {
   monthsWithinRange.forEach((month) => {
     var retroDataObj = {
       month: month,
-      users: [],
-      userCount: 0,
+      retroCount: 0,
       retros: [],
     };
     retroData.forEach((retroArray) => {
       if (month == retroArray._id) {
-        let users=[]
-        retroArray.data.forEach((retro) => {
-          retro.action.forEach((action) => {
-            if(action.actionName=="joinRetro"&&action.userId!=""){
-                users.push(action.userId)
-            }
-          });
-        });
-        retroDataObj.users=[... new Set(users)];
-        retroDataObj.userCount=retroDataObj.users.length;
+        retroDataObj.retroCount= retroArray.data.length;
         retroDataObj.retros=retroArray.data;
       }
     });
@@ -193,5 +183,5 @@ async function getCountOfAllParticipantsOverTime(req) {
 }
 
 module.exports = {
-  getCountOfAllParticipantsOverTime,
+    getCountOfAllSessionsOverTime,
 };
