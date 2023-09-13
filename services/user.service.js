@@ -11,6 +11,7 @@ module.exports = {
   update,
   delete: _delete,
   getAllUsersByEnterpriseId,
+  deleteMany: _deleteMany,
 };
 
 async function authenticate(userParam) {
@@ -42,10 +43,9 @@ async function create(userParam) {
     roleId: userParam.roleId,
     roleName: userParam.roleName,
     enterpriseName: userParam.enterpriseName,
-    enterprisePhoto: userParam.enterprisePhoto,
     isActive: userParam.isActive,
     isEnterpriserRequested: userParam.isEnterpriserRequested,
-    selectedAvatar:userParam.selectedAvatar
+    selectedAvatar: userParam.selectedAvatar,
   };
 
   const user = new User(requested_data);
@@ -98,12 +98,14 @@ async function getAllByEmails(userParam) {
     const tempUser = await User.findOne({ emailId: userParam.emails[i] });
     user.push(tempUser);
   }
-
-  console.log("user::", user);
-
   return await user;
 }
 
 async function getAllUsersByEnterpriseId(enterpriseId) {
   return await User.find({ enterpriseId: enterpriseId });
+}
+
+async function _deleteMany(userParam) {
+  console.log("userParam", userParam.emailIds);
+  await User.deleteMany({ emailId: userParam.emailIds });
 }

@@ -42,9 +42,6 @@ const userModel = mongoose.Schema(
     enterpriseName: {
       type: String,
     },
-    enterprisePhoto: {
-      type: String,
-    },
     roleId: {
       type: String,
       required: true,
