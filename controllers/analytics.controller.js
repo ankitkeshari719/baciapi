@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const analyticsService = require("../services/analytics/analytics.service");
+const analyticsService = require("../services/analytics/teamLevelActionsDataForChart.service");
 const countOfAllPOverTime = require("../services/analytics/countOfAllPOverTime.service");
 const countOfAllSessionsOverTime = require("../services/analytics/countOfAllSessionsOverTime.service");
 const participantMoodCount =require("../services/analytics/participantMood.service")
 const overAllSummary =require("../services/analytics/overallSummary.service")
+const teamDataForTable =require("../services/analytics/teamDataForTable.service")
+
+
 const { STATUS,JIRA_STATUS } = require("../_helpers/const");
 
 
@@ -14,7 +17,8 @@ router.post("/getTeamLevelActionsDataForChart", getTeamLevelActionsDataForChart)
 router.post("/getCountOfAllParticipantsOverTime",getCountOfAllParticipantsOverTime);
 router.post("/getCountOfAllSessionsOverTime",getCountOfAllSessionsOverTime);
 router.post("/getParticipantMoodCount",getParticipantMoodCount);
-router.post("/getOverAllSummary",getOverAllSummary)
+router.post("/getOverAllSummary",getOverAllSummary);
+router.post("/getTeamDataForTable",getTeamDataForTable)
 
 
 
@@ -118,3 +122,21 @@ function getTeamLevelActionsDataForChart(req, res, next) {
       );
   }
   
+  function getTeamDataForTable(req, res, next) {
+    teamDataForTable
+      .getTeamDataForTable(req)
+      .then((action) =>
+        res.status(200).json({
+          status: STATUS.SUCCESS,
+          message: "Overall retro summary fetched successfully!",
+          data: action,
+        })
+      )
+      .catch((err) =>
+        res.json({
+          status: STATUS.FAILED,
+          message: "Overall retro summary fetched FAILED!" + " " + err,
+          data: err,
+        })
+      );
+  }
