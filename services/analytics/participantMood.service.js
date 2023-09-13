@@ -86,8 +86,7 @@ async function getParticipantMoodCount(req) {
       if (teamId == "0") {
         const user = await usersDB.find({ emailId: id });
         const teamIds = user && user[0] ? user[0].team : [];
-
-        if (teamIds == []) {
+        if (teamIds==undefined||teamIds == []) {
           return [];
         }
 
