@@ -29,23 +29,22 @@ async function create(userParam) {
     throw "User emailId " + userParam.emailId + " is already taken";
   }
   const requested_data = {
-    emailId: userParam.emailId,
     firstName: userParam.firstName,
     lastName: userParam.lastName,
+    emailId: userParam.emailId,
     phoneNo: userParam.phoneNo,
     name: userParam.name,
-    cityCode: userParam.cityCode,
     country: userParam.country,
-    role: userParam.role,
-    teams: userParam.teams,
+    cityCode: userParam.cityCode,
     plan: userParam.plan,
-    enterpriseId: userParam.enterpriseId,
     roleId: userParam.roleId,
     roleName: userParam.roleName,
+    enterpriseId: userParam.enterpriseId,
     enterpriseName: userParam.enterpriseName,
-    isActive: userParam.isActive,
-    isEnterpriserRequested: userParam.isEnterpriserRequested,
     selectedAvatar: userParam.selectedAvatar,
+    isEnterpriserRequested: userParam.isEnterpriserRequested,
+    teams: userParam.teams,
+    isActive: userParam.isActive,
   };
 
   const user = new User(requested_data);
