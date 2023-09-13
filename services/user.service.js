@@ -46,7 +46,6 @@ async function create(userParam) {
     teams: userParam.teams,
     isActive: userParam.isActive,
   };
-
   const user = new User(requested_data);
 
   // save user
