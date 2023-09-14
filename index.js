@@ -26,7 +26,7 @@ const collection = db.collection("retros");
 const teamsDB = db.collection("teams");
 const usersDB = db.collection("users");
 const actionsDB = db.collection("actions");
-const { ROLE_NAME } = require("./_helpers/const");
+const { ROLE_NAME, RETRO_STATUS } = require("./_helpers/const");
 
 //openAI
 const { Configuration, OpenAIApi } = require("azure-openai");
@@ -184,6 +184,13 @@ app.post("/addRetroAction", async (req, res) => {
     },
   };
   const options = { upsert: true };
+  console.log("action",action)
+  if(action.actionName=="endRetro"){
+    await collection.findOneAndReplace(query,{retroStatus:RETRO_STATUS.ENDED})
+  }
+  else if(action.actionName=="startRetro"){
+    await collection.findOneAndReplace(query,{retroStatus:RETRO_STATUS.STARTED})
+  }
   const result = await collection.findOneAndUpdate(query, update);
   action.timestamp = Date.now();
   console.log(`upsertResult1: ${JSON.stringify(result.value?._id)}\n`);
