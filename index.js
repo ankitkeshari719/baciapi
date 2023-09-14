@@ -486,6 +486,29 @@ async function getAiResponse(topic) {
   return completion;
 }
 
+
+
+app.post("/createRetroSummary",async(req,res)=>{
+  try{
+  const column= JSON.stringify(req.body.columns, null, 2) ;
+  const retroId=req.body.retroId;
+  const stringForRetroSummary =`Please create summary as Retro data is an array of column, column consists of groups with group name and array of cards
+  \n\n${column}
+  `;
+  const completion = await openai.createChatCompletion({
+    model: "prod-baci-chat",
+    messages: [{ role: "user", content: stringForRetroSummary }],
+  });
+  console.log(completion.data.choices[0].message.content)
+  return res.status(200).json({ response: completion.data.choices[0].message.content });
+  }
+  catch (error){
+    console.error(error);
+    return res.status(200).json(error);
+  }
+})
+
+
 app.post("/groupSuggestion", async (req, res) => {
   try {
     const data = [];

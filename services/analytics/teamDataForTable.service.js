@@ -67,6 +67,7 @@ async function getTeamDataForTable(req) {
         createdBy: "$createdBy",
         teamName: "$teamName",
         createdAt: "$createdAt",
+        teamDepartment:"$teamDepartment",
 
         users: {
           $map: {
