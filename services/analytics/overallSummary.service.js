@@ -2,8 +2,9 @@ const db = require("../../_helpers/db");
 const usersDB = db.User;
 
 const retroDB = db.Retro;
-const { ROLE_NAME } = require("../../_helpers/const");
+const { ROLE_NAME,RETRO_STATUS } = require("../../_helpers/const");
 const month = require("../../utils/getMonthRange");
+const { Configuration, OpenAIApi } = require("azure-openai");
 
 async function getOverAllSummary(req) {
   const id = req.body.userId;
@@ -12,186 +13,84 @@ async function getOverAllSummary(req) {
   const teamId = req.body.teamId;
   let timestamp1 = new Date(req.body.fromDate).getTime();
   let timestamp2 = new Date(req.body.toDate).getTime();
-  let monthsWithinRange = month.getMonthRange(timestamp1, timestamp2);
 
-  var aggregationPipeline = [];
-  if(ROLE_NAME.ENTERPRISE_ADMIN==roleName){
+  const openai = new OpenAIApi(
+    new Configuration({
+      apiKey: this.apiKey,
+      azure: {
+        apiKey: process.env.OPENAI_API_KEY,
+        endpoint: process.env.OPENAI_API_BASE,
+        //apiVersion: "2023-03-15-preview",
+        //apiType: "azure",
+      },
+    })
+  );
+  var queryForRetroSummary = {
+    enterpriseId: enterpriseId,
+    timestamp: {
+      $gte: timestamp1,
+      $lte: timestamp2,
+    },
+  };
+  if (teamId == "0") {
+    if (ROLE_NAME.ENTERPRISE_ADMIN == roleName) {
+      queryForRetroSummary = {
+        enterpriseId: enterpriseId,
+        timestamp: {
+          $gte: timestamp1,
+          $lte: timestamp2,
+        },
+        retroStatus:RETRO_STATUS.ENDED
+      };
+    } else if (ROLE_NAME.REGULAR_ENTERPRISE == roleName) {
+      const user = await usersDB.find({ emailId: id });
+      const teamIds = user && user[0] ? user[0].teams : [];
 
-    if(teamId=="0"){
-        aggregationPipeline=    [
-            {
-              $match: {
-                timestamp: {
-                  $gte: timestamp1, 
-                  $lte: timestamp2, 
-                },
-                enterpriseId:enterpriseId,
-              },
-            },
-            {
-              $project: {
-                yearMonth: {
-                  $dateToString: {
-                    format: "%Y-%m",
-                    date: {
-                      $toDate: "$timestamp", 
-                    },
-                  },
-                },
-                data: "$$ROOT", 
-              },
-            },
-            {
-              $group: {
-                _id: "$yearMonth", // Group by year and month
-                data: { $push: "$data" }, // Push the entire document into the 'data' array
-              },
-            },
-          ]
-
-    }else{
-        aggregationPipeline=[
-            {
-              $match: {
-                timestamp: {
-                  $gte: timestamp1, 
-                  $lte: timestamp2, 
-                },
-                teamId:teamId,enterpriseId:enterpriseId,
-              },
-            },
-            {
-              $project: {
-                yearMonth: {
-                  $dateToString: {
-                    format: "%Y-%m",
-                    date: {
-                      $toDate: "$timestamp", 
-                    },
-                  },
-                },
-                data: "$$ROOT", 
-              },
-            },
-            {
-              $group: {
-                _id: "$yearMonth", // Group by year and month
-                data: { $push: "$data" }, // Push the entire document into the 'data' array
-              },
-            },
-          ]
-
+      queryForRetroSummary = {
+        enterpriseId: enterpriseId,
+        timestamp: {
+          $gte: timestamp1,
+          $lte: timestamp2,
+        },
+        teamId: { $in: teamIds },
+        retroStatus:RETRO_STATUS.ENDED
+      };
     }
-    
-  }
-  else {
-
-    if(ROLE_NAME.REGULAR_ENTERPRISE==roleName){
-        if(teamId=="0"){
-            const user = await usersDB.find({ emailId: id });
-            const teamIds = user && user[0]?user[0].teams :[];
-
-            if(teamIds==[])
-            {return []}
-
-            aggregationPipeline=[
-                {
-                  $match: {
-                    timestamp: {
-                      $gte: timestamp1, 
-                      $lte: timestamp2, 
-                    },
-                    teamId:{ $in: teamIds },enterpriseId:enterpriseId,
-                  },
-                },
-                {
-                  $project: {
-                    yearMonth: {
-                      $dateToString: {
-                        format: "%Y-%m",
-                        date: {
-                          $toDate: "$timestamp", 
-                        },
-                      },
-                    },
-                    data: "$$ROOT", 
-                  },
-                },
-                {
-                  $group: {
-                    _id: "$yearMonth", // Group by year and month
-                    data: { $push: "$data" }, // Push the entire document into the 'data' array
-                  },
-                },
-              ]
-
-        }else{
-            aggregationPipeline=[
-                {
-                  $match: {
-                    timestamp: {
-                      $gte: timestamp1, 
-                      $lte: timestamp2, 
-                    },
-                    teamId:teamId,enterpriseId:enterpriseId
-                  },
-                },
-                {
-                  $project: {
-                    yearMonth: {
-                      $dateToString: {
-                        format: "%Y-%m",
-                        date: {
-                          $toDate: "$timestamp", 
-                        },
-                      },
-                    },
-                    data: "$$ROOT", 
-                  },
-                },
-                {
-                  $group: {
-                    _id: "$yearMonth", // Group by year and month
-                    data: { $push: "$data" }, // Push the entire document into the 'data' array
-                  },
-                },
-              ]
-
-        }
-    }
-
-  }
-
-  let retroData = await retroDB.aggregate(aggregationPipeline);
-  let output=[];
-  monthsWithinRange.forEach((month) => {
-    var retroDataObj = {
-      month: month,
-      users: [],
-      userCount: 0,
-      retros: [],
+  } else {
+    queryForRetroSummary = {
+      enterpriseId: enterpriseId,
+      timestamp: {
+        $gte: timestamp1,
+        $lte: timestamp2,
+      },
+      teamId: teamId,
+      retroStatus:RETRO_STATUS.ENDED
     };
-    retroData.forEach((retroArray) => {
-      if (month == retroArray._id) {
-        let users=[]
-        retroArray.data.forEach((retro) => {
-          retro.action.forEach((action) => {
-            if(action.actionName=="joinRetro"&&action.userId!=""){
-                users.push(action.userId)
-            }
-          });
-        });
-        retroDataObj.users=[... new Set(users)];
-        retroDataObj.userCount=retroDataObj.users.length;
-        retroDataObj.retros=retroArray.data;
-      }
-    });
-    output.push(retroDataObj)
+  }
+
+  const retroSummaryArray = await retroDB.find(queryForRetroSummary, {
+    retroSummary: 1,
+  });
+  var retroSummaryString = "";
+  console.log(retroSummaryArray.length)
+  retroSummaryArray.forEach((element, index) => {
+    if (index < 40) {
+      retroSummaryString = element.retroSummary;
+    }
   });
 
-  return output;
+  const stringForRetroSummary = `Please write the retros summary in your way using below data and the summary should be of more than 1000 characters
+${retroSummaryString}`;
+if(retroSummaryArray.length!=0)
+  {const completion = await openai.createChatCompletion({
+    model: "prod-baci-chat",
+    messages: [{ role: "user", content: stringForRetroSummary }],
+  });
+  return completion.data.choices[0].message.content;
+  }
+else return ""
 }
 
 module.exports = {
-    getOverAllSummary,
+  getOverAllSummary,
 };
