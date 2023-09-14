@@ -28,6 +28,7 @@ const retroModel = mongoose.Schema(
     enterpriseId:{ type: String,},
     facilitatorId:{type:facilitatorModel},
     retroDate:{type:Number},
+    retroSummary:{type:String},
     action:{  type: Array,
         },
 

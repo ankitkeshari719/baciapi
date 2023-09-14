@@ -500,6 +500,11 @@ app.post("/createRetroSummary",async(req,res)=>{
     messages: [{ role: "user", content: stringForRetroSummary }],
   });
   console.log(completion.data.choices[0].message.content)
+  const filter = { _id: retroId }
+  const update = {
+    $set: { retroSummary: completion.data.choices[0].message.content } 
+  };
+  await collection.updateOne(filter, update);
   return res.status(200).json({ response: completion.data.choices[0].message.content });
   }
   catch (error){
