@@ -186,10 +186,21 @@ app.post("/addRetroAction", async (req, res) => {
   const options = { upsert: true };
   console.log("action",action)
   if(action.actionName=="endRetro"){
-    await collection.findOneAndReplace(query,{retroStatus:RETRO_STATUS.ENDED})
+    const filter = { _id: retroId }
+    const update = {
+      $set: { retroStatus: RETRO_STATUS.ENDED } 
+    };
+    await collection.updateOne(filter, update);
+
   }
   else if(action.actionName=="startRetro"){
-    await collection.findOneAndReplace(query,{retroStatus:RETRO_STATUS.STARTED})
+    const filter = { _id: retroId }
+    const update = {
+      $set: { retroStatus: RETRO_STATUS.STARTED } 
+    };
+    await collection.updateOne(filter, update);
+
+
   }
   const result = await collection.findOneAndUpdate(query, update);
   action.timestamp = Date.now();
@@ -499,7 +510,7 @@ app.post("/createRetroSummary",async(req,res)=>{
   try{
   const column= JSON.stringify(req.body.columns, null, 2) ;
   const retroId=req.body.retroId;
-  const stringForRetroSummary =`Please create summary as Retro data is an array of column, column consists of groups with group name and array of cards
+  const stringForRetroSummary =`Please extract the summary from retro data
   \n\n${column}
   `;
   const completion = await openai.createChatCompletion({
