@@ -19,7 +19,7 @@ async function getTeamDataForTable(req) {
   }
   else{
     const user = await usersDB.find({ emailId: id });
-     teamIds = user && user[0]?user[0].team :[];
+     teamIds = user && user[0]?user[0].teams :[];
      console.log(teamIds)
     if(teamIds==[]){
     return {
@@ -67,6 +67,7 @@ async function getTeamDataForTable(req) {
         createdBy: "$createdBy",
         teamName: "$teamName",
         createdAt: "$createdAt",
+        teamDepartment:"$teamDepartment",
 
         users: {
           $map: {
@@ -137,7 +138,13 @@ async function getTeamDataForTable(req) {
 
   const actionGroupData =await actionsDB.aggregate(queryForActionGroupData);
 
-  data.map((team) => {
+
+
+    for(var i=0;i<data.length;i++){
+
+    team=data[i]
+
+  team.createdByObj=  await usersDB.find({ emailId: team.createdBy })
     retroGroupData.forEach((retros) => {
       if (team.teamId == retros._id) {
         if(retros.retroList!=undefined)
@@ -159,7 +166,8 @@ async function getTeamDataForTable(req) {
         team.actions=actions.actionList;
       }
     })
-  });
+  }
+
 
 
 

@@ -26,7 +26,7 @@ const collection = db.collection("retros");
 const teamsDB = db.collection("teams");
 const usersDB = db.collection("users");
 const actionsDB = db.collection("actions");
-const { ROLE_NAME } = require("./_helpers/const");
+const { ROLE_NAME, RETRO_STATUS } = require("./_helpers/const");
 
 //openAI
 const { Configuration, OpenAIApi } = require("azure-openai");
@@ -184,6 +184,13 @@ app.post("/addRetroAction", async (req, res) => {
     },
   };
   const options = { upsert: true };
+  console.log("action",action)
+  if(action.actionName=="endRetro"){
+    await collection.findOneAndReplace(query,{retroStatus:RETRO_STATUS.ENDED})
+  }
+  else if(action.actionName=="startRetro"){
+    await collection.findOneAndReplace(query,{retroStatus:RETRO_STATUS.STARTED})
+  }
   const result = await collection.findOneAndUpdate(query, update);
   action.timestamp = Date.now();
   console.log(`upsertResult1: ${JSON.stringify(result.value?._id)}\n`);
@@ -486,6 +493,34 @@ async function getAiResponse(topic) {
   return completion;
 }
 
+
+
+app.post("/createRetroSummary",async(req,res)=>{
+  try{
+  const column= JSON.stringify(req.body.columns, null, 2) ;
+  const retroId=req.body.retroId;
+  const stringForRetroSummary =`Please create summary as Retro data is an array of column, column consists of groups with group name and array of cards
+  \n\n${column}
+  `;
+  const completion = await openai.createChatCompletion({
+    model: "prod-baci-chat",
+    messages: [{ role: "user", content: stringForRetroSummary }],
+  });
+  console.log(completion.data.choices[0].message.content)
+  const filter = { _id: retroId }
+  const update = {
+    $set: { retroSummary: completion.data.choices[0].message.content } 
+  };
+  await collection.updateOne(filter, update);
+  return res.status(200).json({ response: completion.data.choices[0].message.content });
+  }
+  catch (error){
+    console.error(error);
+    return res.status(200).json(error);
+  }
+})
+
+
 app.post("/groupSuggestion", async (req, res) => {
   try {
     const data = [];
@@ -747,7 +782,7 @@ app.post("/getSessionsData", async (req, res) => {
   } else {
     let retroSession = [];
     const user = await usersDB.find({ emailId: id }).toArray();
-    const teamIds = user && user[0].team;
+    const teamIds = user && user[0].teams;
 
     if (teamIds?.length > 0) {
       for (var i = 0; i < teamIds.length; i++) {
@@ -853,7 +888,7 @@ app.post("/getActionsChartData", async (req, res) => {
   } else if (teamId == "0" && roleName == ROLE_NAME.REGULAR_ENTERPRISE) {
     const user = await usersDB.find({ emailId: id }).toArray();
 
-    const teamIds = user && user[0].team;
+    const teamIds = user && user[0].teams;
 
     const query = {
       enterpriseId: enterpriseId,

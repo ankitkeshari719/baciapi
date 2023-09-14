@@ -9,6 +9,7 @@ const JIRA_STATUS={
   DONE:"DONE"
 }
 
+
 const ROLE_NAME={
 ENTERPRISE_ADMIN:  "Enterprise Admin",
 REGULAR_ENTERPRISE:"Regular Enterprise",
@@ -19,5 +20,10 @@ const QUICK_PULSE_CHECK_QUESTIONS = [
   '2. Work Processes ',
   '3. Technical Tools ',
 ]
+const RETRO_STATUS={
+  WAITING:'waiting',
+  STARTED:'started',
+  ENDED:'ended'
+}
 
-module.exports = { STATUS,JIRA_STATUS,ROLE_NAME,QUICK_PULSE_CHECK_QUESTIONS };
+module.exports = { STATUS,JIRA_STATUS,ROLE_NAME,QUICK_PULSE_CHECK_QUESTIONS,RETRO_STATUS };

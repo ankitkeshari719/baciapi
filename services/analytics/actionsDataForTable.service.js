@@ -24,7 +24,7 @@ async function getTeamLevelActionsDataForChart(req){
   }
   else{
     const user = await usersDB.find({ emailId: id });
-    const teamIds = user && user[0]?user[0].team :[];
+    const teamIds = user && user[0]?user[0].teams :[];
     if(teamIds==[]){
     return {
         actionsData: teamActionsData,
