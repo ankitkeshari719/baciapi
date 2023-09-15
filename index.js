@@ -509,6 +509,7 @@ async function getAiResponse(topic) {
 app.post("/createRetroSummary",async(req,res)=>{
   try{
   const column= JSON.stringify(req.body.columns, null, 2) ;
+  const cards=req.body.cards;
   const retroId=req.body.retroId;
   const stringForRetroSummary =`Please extract the summary from retro data
   \n\n${column}
