@@ -26,7 +26,7 @@ const collection = db.collection("retros");
 const teamsDB = db.collection("teams");
 const usersDB = db.collection("users");
 const actionsDB = db.collection("actions");
-const { ROLE_NAME } = require("./_helpers/const");
+const { ROLE_NAME, RETRO_STATUS } = require("./_helpers/const");
 
 //openAI
 const { Configuration, OpenAIApi } = require("azure-openai");
@@ -184,6 +184,24 @@ app.post("/addRetroAction", async (req, res) => {
     },
   };
   const options = { upsert: true };
+  console.log("action",action)
+  if(action.actionName=="endRetro"){
+    const filter = { _id: retroId }
+    const update = {
+      $set: { retroStatus: RETRO_STATUS.ENDED } 
+    };
+    await collection.updateOne(filter, update);
+
+  }
+  else if(action.actionName=="startRetro"){
+    const filter = { _id: retroId }
+    const update = {
+      $set: { retroStatus: RETRO_STATUS.STARTED } 
+    };
+    await collection.updateOne(filter, update);
+
+
+  }
   const result = await collection.findOneAndUpdate(query, update);
   action.timestamp = Date.now();
   console.log(`upsertResult1: ${JSON.stringify(result.value?._id)}\n`);
@@ -491,8 +509,9 @@ async function getAiResponse(topic) {
 app.post("/createRetroSummary",async(req,res)=>{
   try{
   const column= JSON.stringify(req.body.columns, null, 2) ;
+  const cards=req.body.cards;
   const retroId=req.body.retroId;
-  const stringForRetroSummary =`Please create summary as Retro data is an array of column, column consists of groups with group name and array of cards
+  const stringForRetroSummary =`Please extract the summary from retro data
   \n\n${column}
   `;
   const completion = await openai.createChatCompletion({
@@ -500,6 +519,11 @@ app.post("/createRetroSummary",async(req,res)=>{
     messages: [{ role: "user", content: stringForRetroSummary }],
   });
   console.log(completion.data.choices[0].message.content)
+  const filter = { _id: retroId }
+  const update = {
+    $set: { retroSummary: completion.data.choices[0].message.content } 
+  };
+  await collection.updateOne(filter, update);
   return res.status(200).json({ response: completion.data.choices[0].message.content });
   }
   catch (error){
