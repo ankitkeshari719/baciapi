@@ -148,6 +148,7 @@ app.use("/teams", require("./controllers/team.controller"));
 app.use("/enterprises", require("./controllers/enterprise.controller"));
 app.use("/actions", require("./controllers/action.controller"));
 app.use("/notifications", require("./controllers/notification.controller"));
+app.use("/enterpriseRequests", require("./controllers/enterprise.request.controller"));
 app.use("/analytics",require("./controllers/analytics.controller"));
 
 // Retro API's
@@ -954,8 +955,6 @@ app.get("getTeamLevelActionsCountsData", async (req, res) => {
   console.log(timestamp1, timestamp2);
   return res.status(200).json({ result: [] });
 });
-
-
 
 app.get("/getTeamLevelActionsCounts", async (req, res) => {
   let finalResult = [];

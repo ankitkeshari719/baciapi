@@ -12,6 +12,7 @@ module.exports = {
   Enterprise: require("../models/enterprise.model"),
   Action: require("../models/action.model"),
   Notification: require("../models/notification.model"),
+  EnterpriseRequest: require("../models/enterprise.request.modal"),
   Retro:require("../models/retro.model"),
   isValidId,
 };

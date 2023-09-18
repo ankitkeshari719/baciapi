@@ -6,23 +6,23 @@ const notificationModel = mongoose.Schema(
       type: String,
       unique: true,
     },
-    // Request For Admin, Included In Team
+    // Request For Admin, Included In Team, Session Created
     type: {
-      type: String,
-    },
-    userName: {
-      type: String,
-    },
-    userId: {
       type: String,
     },
     organisationId: {
       type: String,
     },
-    description: {
+    fromName: {
       type: String,
     },
-    From: {
+    fromId: {
+      type: String,
+    },
+    fromTeam: {
+      type: String,
+    },
+    description: {
       type: String,
     },
     To: {
