@@ -29,9 +29,9 @@ const retroModel = mongoose.Schema(
     facilitatorId:{type:facilitatorModel},
     retroDate:{type:Number},
     retroSummary:{type:String},
+    isActive:{type:Boolean},
     action:{  type: Array,
         },
-
 
   },
   {

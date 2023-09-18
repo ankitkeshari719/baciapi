@@ -9,11 +9,11 @@ const JIRA_STATUS = {
   DONE: "DONE",
 };
 
-const ROLE_NAME = {
-  ENTERPRISE_ADMIN: "Enterprise",
-  REGULAR_ENTERPRISE: "Basic",
-  REGULAR_USER: "Regular User",
-};
+const ROLE_NAME={
+ENTERPRISE_ADMIN:  "Enterprise",
+REGULAR_ENTERPRISE:"Basic",
+REGULAR_USER:"Regular User"
+}
 const QUICK_PULSE_CHECK_QUESTIONS = [
   "1. People & Resources ",
   "2. Work Processes ",
