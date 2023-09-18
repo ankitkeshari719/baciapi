@@ -3,53 +3,47 @@ const usersDB = db.User;
 const teamsDB = db.Team;
 const actionsDB = db.Action;
 const retroDB = db.Retro;
-const {  ROLE_NAME } = require("../../_helpers/const");
+const { ROLE_NAME } = require("../../_helpers/const");
 
 async function getTeamDataForTable(req) {
   const id = req.body.userId;
   const roleName = req.body.roleName;
   const enterpriseId = req.body.enterpriseId;
   const teamId = req.body.teamId;
-  var teamIds=[]
+  var teamIds = [];
   // let timestamp1 = new Date(req.body.fromDate).getTime();
   // let timestamp2 = new Date(req.body.toDate).getTime();
 
-  if(roleName==ROLE_NAME.ENTERPRISE_ADMIN){
-
-  }
-  else{
+  if (roleName == ROLE_NAME.ENTERPRISE_ADMIN) {
+  } else {
     const user = await usersDB.find({ emailId: id });
-     teamIds = user && user[0]?user[0].teams :[];
-     console.log(teamIds)
-    if(teamIds==[]){
-    return {
+    teamIds = user && user[0] ? user[0].teams : [];
+    console.log(teamIds);
+    if (teamIds == []) {
+      return {
         actionsData: teamActionsData,
-      }
+      };
     }
-  
   }
 
-  var queryForTeamsData=[
+  var queryForTeamsData = [
     {
       $match: {
         // timestamp: {
         //   $gte: timestamp1,
         //   $lte: timestamp2,
         // },
-  
+
         enterpriseId: enterpriseId,
         $expr: {
           $cond: {
             if: "$$enableMatch", // Condition to enable or disable the $match stage
             then: {
-              
-              $in: ["$teamId", teamIds] 
+              $in: ["$teamId", teamIds],
             },
-            else: {} 
-          }
-        }
-
-        
+            else: {},
+          },
+        },
       },
     },
 
@@ -67,7 +61,7 @@ async function getTeamDataForTable(req) {
         createdBy: "$createdBy",
         teamName: "$teamName",
         createdAt: "$createdAt",
-        teamDepartment:"$teamDepartment",
+        teamDepartment: "$teamDepartment",
 
         users: {
           $map: {
@@ -91,8 +85,9 @@ async function getTeamDataForTable(req) {
     },
   ];
 
-  queryForTeamsData[0].$match.$expr.$cond.if = roleName==ROLE_NAME.ENTERPRISE_ADMIN?false:true;
-  var queryForRetroGroupData=[
+  queryForTeamsData[0].$match.$expr.$cond.if =
+    roleName == ROLE_NAME.ENTERPRISE_ADMIN ? false : true;
+  var queryForRetroGroupData = [
     {
       $match: {
         // timestamp: {
@@ -112,10 +107,9 @@ async function getTeamDataForTable(req) {
       },
     },
   ];
-  var queryForActionGroupData=[
+  var queryForActionGroupData = [
     {
       $match: {
-
         enterpriseId: enterpriseId,
       },
     },
@@ -127,51 +121,41 @@ async function getTeamDataForTable(req) {
         },
       },
     },
-  ]
-
-  
-
+  ];
 
   var data = await teamsDB.aggregate(queryForTeamsData);
 
   const retroGroupData = await retroDB.aggregate(queryForRetroGroupData);
 
-  const actionGroupData =await actionsDB.aggregate(queryForActionGroupData);
+  const actionGroupData = await actionsDB.aggregate(queryForActionGroupData);
 
+  for (var i = 0; i < data.length; i++) {
+    team = data[i];
 
-
-    for(var i=0;i<data.length;i++){
-
-    team=data[i]
-
-  team.createdByObj=  await usersDB.find({ emailId: team.createdBy })
+    team.createdByObj = await usersDB.find({ emailId: team.createdBy });
     retroGroupData.forEach((retros) => {
       if (team.teamId == retros._id) {
-        if(retros.retroList!=undefined)
-        {
-          if(retros.retroList.length==0){
-            team.retroCount=0;
-            team.retros=[]
-          }else{
-            team.retroCount=retros.retroList.length;
-            team.retros=retros.retroList
+        if (retros.retroList != undefined) {
+          if (retros.retroList.length == 0) {
+            team.retroCount = 0;
+            team.retros = [];
+          } else {
+            team.retroCount = retros.retroList.length;
+            team.retros = retros.retroList;
           }
-          }
+        }
       }
     });
 
-    actionGroupData.forEach((actions)=>{
+    actionGroupData.forEach((actions) => {
       if (team.teamId == actions._id) {
-        team.actionsCount=actions.actionList.length;
-        team.actions=actions.actionList;
+        team.actionsCount = actions.actionList.length;
+        team.actions = actions.actionList;
       }
-    })
+    });
   }
 
-
-
-
-  return  data ;
+  return data;
 }
 
 module.exports = {

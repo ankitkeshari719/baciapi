@@ -28,6 +28,7 @@ async function create(notificationParam) {
   const requested_data = {
     notificationId: notificationId,
     type: notificationParam.type,
+    userName: notificationParam.userName,
     userId: notificationParam.userId,
     organisationId: notificationParam.organisationId,
     description: notificationParam.description,

@@ -1,5 +1,6 @@
 const db = require("../_helpers/db");
 const User = db.User;
+const Team = db.Team;
 const bcrypt = require("bcryptjs");
 
 module.exports = {
@@ -59,7 +60,15 @@ async function getAll() {
 }
 
 async function getByEmail(emailId) {
-  return await User.findOne({ emailId: emailId });
+  const teamIds = await User.findOne({ emailId: emailId }).then(
+    (userData) => userData.teams
+  );
+  const teams = await Team.find({ teamId: { $in: teamIds } });
+  const user = await User.findOne({ emailId: emailId }).then((userData) => {
+    userData.teams = teams;
+    return userData;
+  });
+  return user;
 }
 
 async function update(emailId, userParam) {
