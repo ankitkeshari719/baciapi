@@ -165,6 +165,7 @@ app.post("/createRetro", async (req, res) => {
     enterpriseId: req.body.teamId ? req.body.teamId : 0,
     facilitatorId: req.body.facilitatorId ? req.body.facilitatorId : creator,
     retroDate: req.body.retroDate ? req.body.retroDate : Date.now(),
+    isActive:true
   });
   return res.status(200).json({ id: result.insertedId });
 });
@@ -509,20 +510,37 @@ async function getAiResponse(topic) {
 app.post("/createRetroSummary",async(req,res)=>{
   try{
   const column= JSON.stringify(req.body.columns, null, 2) ;
+  const cards=req.body.cards;
   const retroId=req.body.retroId;
   const stringForRetroSummary =`Please extract the summary from retro data
   \n\n${column}
   `;
+  const stringForRetroEmotionsSummary=`Please count the number of happy, sad, and neutral cards in the following list:${cards}. 
+  The output should be in json and the keys should be in camelCase notation`
+
   const completion = await openai.createChatCompletion({
     model: "prod-baci-chat",
     messages: [{ role: "user", content: stringForRetroSummary }],
   });
-  console.log(completion.data.choices[0].message.content)
+
   const filter = { _id: retroId }
   const update = {
     $set: { retroSummary: completion.data.choices[0].message.content } 
   };
+
+
+  const emotions =await openai.createChatCompletion({
+    model: "prod-baci-chat",
+    messages: [{ role: "user", content: stringForRetroEmotionsSummary }],
+  })
+  const updateEmotions = {
+    $set: { retroEmotions: JSON.parse(emotions.data.choices[0].message.content) } 
+  };
+  console.log(completion.data.choices[0].message.content, emotions.data.choices[0].message.content)
+
   await collection.updateOne(filter, update);
+  await collection.updateOne(filter,updateEmotions);
+
   return res.status(200).json({ response: completion.data.choices[0].message.content });
   }
   catch (error){
@@ -772,8 +790,7 @@ app.post("/getSessionsData", async (req, res) => {
 
   //Get the team list
 
-  // if(roleName=="Enterprise Admin")
-  if (teamId == "0" && roleName == "Enterprise Admin") {
+  if (teamId == "0" && roleName == roleName.ENTERPRISE_ADMIN) {
     const retroSessions = await collection
       .find({
         enterpriseId: enterpriseId,
@@ -781,7 +798,7 @@ app.post("/getSessionsData", async (req, res) => {
       })
       .toArray();
     return res.status(200).json({ result: retroSessions });
-  } else if (teamId != "0" && roleName == "Enterprise Admin") {
+  } else if (teamId != "0" && roleName == roleName.ENTERPRISE_ADMIN) {
     const retroSessions = await collection
       .find({
         enterpriseId: enterpriseId,

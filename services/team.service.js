@@ -42,20 +42,6 @@ async function create(teamParam) {
 }
 
 async function getAll() {
-  const teams = await Team.find();
-  const actions = await Action.find();
-
-  let finalData = [];
-  for (let i = 0; i < teams.length; i++) {
-    let actionsCount = 0;
-    for (let j = 0; j < actions.length; j++) {
-      if (teams[i].teamId === actions[j].teamId) {
-        actionsCount++;
-      }
-    }
-    Object.assign(teams[i], { actions: actionsCount });
-    finalData.push(teams[i]);
-  }
   return await Team.find();
 }
 

@@ -20,8 +20,7 @@ async function getOverAllSummary(req) {
       azure: {
         apiKey: process.env.OPENAI_API_KEY,
         endpoint: process.env.OPENAI_API_BASE,
-        //apiVersion: "2023-03-15-preview",
-        //apiType: "azure",
+      
       },
     })
   );
