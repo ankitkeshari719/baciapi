@@ -148,7 +148,7 @@ app.use("/teams", require("./controllers/team.controller"));
 app.use("/enterprises", require("./controllers/enterprise.controller"));
 app.use("/actions", require("./controllers/action.controller"));
 app.use("/notifications", require("./controllers/notification.controller"));
-app.use("/analytics",require("./controllers/analytics.controller"));
+app.use("/analytics", require("./controllers/analytics.controller"));
 
 // Retro API's
 app.post("/createRetro", async (req, res) => {
@@ -165,7 +165,7 @@ app.post("/createRetro", async (req, res) => {
     enterpriseId: req.body.teamId ? req.body.teamId : 0,
     facilitatorId: req.body.facilitatorId ? req.body.facilitatorId : creator,
     retroDate: req.body.retroDate ? req.body.retroDate : Date.now(),
-    isActive:true
+    isActive: true,
   });
   return res.status(200).json({ id: result.insertedId });
 });
@@ -185,23 +185,19 @@ app.post("/addRetroAction", async (req, res) => {
     },
   };
   const options = { upsert: true };
-  console.log("action",action)
-  if(action.actionName=="endRetro"){
-    const filter = { _id: retroId }
+  console.log("action", action);
+  if (action.actionName == "endRetro") {
+    const filter = { _id: retroId };
     const update = {
-      $set: { retroStatus: RETRO_STATUS.ENDED } 
+      $set: { retroStatus: RETRO_STATUS.ENDED },
     };
     await collection.updateOne(filter, update);
-
-  }
-  else if(action.actionName=="startRetro"){
-    const filter = { _id: retroId }
+  } else if (action.actionName == "startRetro") {
+    const filter = { _id: retroId };
     const update = {
-      $set: { retroStatus: RETRO_STATUS.STARTED } 
+      $set: { retroStatus: RETRO_STATUS.STARTED },
     };
     await collection.updateOne(filter, update);
-
-
   }
   const result = await collection.findOneAndUpdate(query, update);
   action.timestamp = Date.now();
@@ -505,50 +501,83 @@ async function getAiResponse(topic) {
   return completion;
 }
 
-
-
-app.post("/createRetroSummary",async(req,res)=>{
-  try{
-  const column= JSON.stringify(req.body.columns, null, 2) ;
-  const cards=req.body.cards;
-  const retroId=req.body.retroId;
-  const stringForRetroSummary =`Please extract the summary from retro data
+app.post("/createRetroSummary", async (req, res) => {
+  try {
+    const column = JSON.stringify(req.body.columns, null, 2);
+    const cards = req.body.cards;
+    const retroId = req.body.retroId;
+    const stringForRetroSummary = `Please extract the summary from retro data
   \n\n${column}
   `;
-  const stringForRetroEmotionsSummary=`Please count the number of happy, sad, and neutral cards in the following list:${cards}. 
-  The output should be in json and the keys should be in camelCase notation`
+    const stringForRetroEmotionsSummary = `Please count the number of happy, sad, and neutral cards in the following list:${cards}. 
+  The output should be in json and the keys should be in camelCase notation`;
 
-  const completion = await openai.createChatCompletion({
-    model: "prod-baci-chat",
-    messages: [{ role: "user", content: stringForRetroSummary }],
-  });
+    const stringForRetroEmotionsSummaryAsPerCategory = `Just return the output in json don’t write any code, categories below cards as per group name and push them depending on emotions  [
+  {groupName:‘Individual and Team Goals’,happyCards:[],neutralCards:[],sadCards:[]}
+  {groupName:’People and Resources’,happyCards:[],neutralCards:[],sadCards:[]}
+ {groupName: 'Team Structure and Capabilities’,happyCards:[],neutralCards:[],sadCards:[]}
+{ groupName: 'Decision Making (Individual and Team)’,happyCards:[],neutralCards:[],sadCards:[]}
+{  groupName: 'Openness to Feedback & Test and Learn’,happyCards:[],neutralCards:[],sadCards:[]}
+{ groupName: 'Work Prioritisation’,happyCards:[],neutralCards:[],sadCards:[]}
+{ groupName: 'Work Technology and Tools’,happyCards:[],neutralCards:[],sadCards:[]}
+] the cards are :${cards}`;
 
-  const filter = { _id: retroId }
-  const update = {
-    $set: { retroSummary: completion.data.choices[0].message.content } 
-  };
+    const completion = await openai.createChatCompletion({
+      model: "prod-baci-chat",
+      messages: [{ role: "user", content: stringForRetroSummary }],
+    });
 
+    const filter = { _id: retroId };
+    const update = {
+      $set: { retroSummary: completion.data.choices[0].message.content },
+    };
 
-  const emotions =await openai.createChatCompletion({
-    model: "prod-baci-chat",
-    messages: [{ role: "user", content: stringForRetroEmotionsSummary }],
-  })
-  const updateEmotions = {
-    $set: { retroEmotions: JSON.parse(emotions.data.choices[0].message.content) } 
-  };
-  console.log(completion.data.choices[0].message.content, emotions.data.choices[0].message.content)
+    const emotions = await openai.createChatCompletion({
+      model: "prod-baci-chat",
+      messages: [{ role: "user", content: stringForRetroEmotionsSummary }],
+    });
+    const updateEmotions = {
+      $set: {
+        retroEmotions: JSON.parse(emotions.data.choices[0].message.content),
+      },
+    };
+    console.log(
+      completion.data.choices[0].message.content,
+      emotions.data.choices[0].message.content
+    );
 
-  await collection.updateOne(filter, update);
-  await collection.updateOne(filter,updateEmotions);
+    const emotionsAsPerCategoryC = await openai.createChatCompletion({
+      model: "prod-baci-chat",
+      messages: [
+        { role: "user", content: stringForRetroEmotionsSummaryAsPerCategory },
+      ],
+    });
+    const updateEmotionsAsPerCategory = {
+      $set: {
+        emotionsAsPerCategory: JSON.parse(
+          emotionsAsPerCategoryC.data.choices[0].message.content
+        ),
+      },
+    };
 
-  return res.status(200).json({ response: completion.data.choices[0].message.content });
-  }
-  catch (error){
+    await collection.updateOne(filter, update);
+    await collection.updateOne(filter, updateEmotions);
+    await collection.updateOne(filter, updateEmotionsAsPerCategory);
+
+    return res
+      .status(200)
+      .json({
+        retroSummary: completion.data.choices[0].message.content,
+        retroEmotions: JSON.parse(emotions.data.choices[0].message.content),
+        emotionsAsPerCategory: JSON.parse(
+          emotionsAsPerCategoryC.data.choices[0].message.content
+        ),
+      });
+  } catch (error) {
     console.error(error);
     return res.status(200).json(error);
   }
-})
-
+});
 
 app.post("/groupSuggestion", async (req, res) => {
   try {
@@ -877,7 +906,8 @@ app.post("/getActionsChartData", async (req, res) => {
     });
   } else if (
     teamId != "0" &&
-    (roleName == ROLE_NAME.ENTERPRISE_ADMIN || roleName == ROLE_NAME.REGULAR_ENTERPRISE)
+    (roleName == ROLE_NAME.ENTERPRISE_ADMIN ||
+      roleName == ROLE_NAME.REGULAR_ENTERPRISE)
   ) {
     var query = {
       enterpriseId: enterpriseId,
@@ -970,8 +1000,6 @@ app.get("getTeamLevelActionsCountsData", async (req, res) => {
   console.log(timestamp1, timestamp2);
   return res.status(200).json({ result: [] });
 });
-
-
 
 app.get("/getTeamLevelActionsCounts", async (req, res) => {
   let finalResult = [];
