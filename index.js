@@ -148,7 +148,9 @@ app.use("/teams", require("./controllers/team.controller"));
 app.use("/enterprises", require("./controllers/enterprise.controller"));
 app.use("/actions", require("./controllers/action.controller"));
 app.use("/notifications", require("./controllers/notification.controller"));
-app.use("/analytics", require("./controllers/analytics.controller"));
+app.use("/enterpriseRequests", require("./controllers/enterprise.request.controller"));
+app.use("/analytics",require("./controllers/analytics.controller"));
+
 
 // Retro API's
 app.post("/createRetro", async (req, res) => {
