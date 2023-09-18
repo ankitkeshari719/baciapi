@@ -11,8 +11,8 @@ const JIRA_STATUS={
 
 
 const ROLE_NAME={
-ENTERPRISE_ADMIN:  "Enterprise Admin",
-REGULAR_ENTERPRISE:"Regular Enterprise",
+ENTERPRISE_ADMIN:  "Enterprise",
+REGULAR_ENTERPRISE:"Basic",
 REGULAR_USER:"Regular User"
 }
 const QUICK_PULSE_CHECK_QUESTIONS = [

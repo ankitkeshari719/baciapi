@@ -163,80 +163,29 @@ async function getParticipantMoodCount(req) {
     var retroDataObj = {
       month: month,
       pulseCheck: [],
-      pulseCheckChartData: [],
+      pulseCheckChartData:{happyCards:0,sadCards:0, neutralCards:0} ,
     };
     retroData.forEach((retroArray) => {
       if (month == retroArray._id) {
         retroArray.data.forEach((retro) => {
-          retro.action.forEach((action) => {
-            if (
-              action.actionName == "submitPulseCheck" &&
-              action.userId != ""
-            ) {
-              retroDataObj.pulseCheck.push(action.parameters.questions);
-            }
-          });
+          retroDataObj.pulseCheck.push(retro.retroEmotions);   
+    
         });
+
+        retroDataObj.pulseCheck.forEach((pulseobj)=>{
+          retroDataObj.pulseCheckChartData.happyCards=retroDataObj.pulseCheckChartData.happyCards+pulseobj.happyCards;
+          retroDataObj.pulseCheckChartData.sadCards=retroDataObj.pulseCheckChartData.sadCards+pulseobj.sadCards;
+          retroDataObj.pulseCheckChartData.neutralCards=retroDataObj.pulseCheckChartData.neutralCards+pulseobj.neutralCards;
+
+        })
+     
       }
     });
-    var pulseFinal = [
-      { questionId: "0", star0: 0, star1: 0, star2: 0, star3: 0 },
-      { questionId: "1", star0: 0, star1: 0, star2: 0, star3: 0 },
-      { questionId: "2", star0: 0, star1: 0, star2: 0, star3: 0 },
-    ];
 
-    retroDataObj.pulseCheck.forEach((pulse) => {
-      pulse.forEach((question) => {
-        switch (question.id) {
-          case "0":
-            switch (question.entry) {
-              case 1:
-                pulseFinal[0].star1 = pulseFinal[0].star1 + 1;
-                break;
-              case 2:
-                pulseFinal[0].star2 = pulseFinal[0].star2 + 1;
-                break;
-              case 3:
-                pulseFinal[0].star3 = pulseFinal[0].star3 + 1;
-                break;
-              default:
-                pulseFinal[0].star0 = pulseFinal[0].star0 + 1;
-            }
-            break;
-          case "1":
-            switch (question.entry) {
-              case 1:
-                pulseFinal[1].star1 = pulseFinal[0].star1 + 1;
-                break;
-              case 2:
-                pulseFinal[1].star2 = pulseFinal[0].star2 + 1;
-                break;
-              case 3:
-                pulseFinal[1].star3 = pulseFinal[0].star3 + 1;
-                break;
-              default:
-                pulseFinal[1].star0 = pulseFinal[0].star0 + 1;
-            }
-            break;
-          case "2":
-            switch (question.entry) {
-              case 1:
-                pulseFinal[2].star1 = pulseFinal[0].star1 + 1;
-                break;
-              case 2:
-                pulseFinal[2].star2 = pulseFinal[0].star2 + 1;
-                break;
-              case 3:
-                pulseFinal[2].star3 = pulseFinal[0].star3 + 1;
-                break;
-              default:
-                pulseFinal[2].star0 = pulseFinal[0].star0 + 1;
-            }
-        }
-      });
-    });
 
-    retroDataObj.pulseCheckChartData = pulseFinal;
+
+
+    // retroDataObj.pulseCheckChartData = pulseFinal;
     output.push(retroDataObj);
   });
 
