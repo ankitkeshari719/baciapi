@@ -30,10 +30,11 @@ const userModel = mongoose.Schema(
     role: {
       type: String,
     },
-    teams: {
-      type: Array,
+    roleId: {
+      type: String,
+      required: true,
     },
-    plan: {
+    roleName: {
       type: String,
     },
     enterpriseId: {
@@ -42,22 +43,18 @@ const userModel = mongoose.Schema(
     enterpriseName: {
       type: String,
     },
-    roleId: {
+    selectedAvatar: {
       type: String,
-      required: true,
-    },
-    roleName: {
-      type: String,
-    },
-    isActive: {
-      type: Boolean,
     },
     isEnterpriserRequested: {
       type: Boolean,
     },
-    selectedAvatar: {
-      type: String,
-    }
+    teams: {
+      type: Array,
+    },
+    isActive: {
+      type: Boolean,
+    },
   },
   {
     timestamps: true,
