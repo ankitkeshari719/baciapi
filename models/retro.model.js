@@ -32,6 +32,8 @@ const retroModel = mongoose.Schema(
     isActive:{type:Boolean},
     action:{  type: Array,
         },
+        emotionsAsPerCategory:{type:Array},
+        retroEmotions:{type:Object}
 
   },
   {

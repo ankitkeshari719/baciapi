@@ -139,8 +139,8 @@ async function getAllUsersByEnterpriseId(enterpriseId) {
     {
       $lookup: {
         from: "teams", // Name of the teams collection
-        localField: "team",
-        foreignField: "tableId",
+        localField: "teams",
+        foreignField: "teamId",
         as: "teamInfo",
       },
     },
@@ -172,6 +172,5 @@ async function getAllUsersByEnterpriseId(enterpriseId) {
 }
 
 async function _deleteMany(userParam) {
-  console.log("userParam", userParam.emailIds);
   await User.deleteMany({ emailId: userParam.emailIds });
 }
