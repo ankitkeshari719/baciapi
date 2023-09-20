@@ -71,7 +71,6 @@ async function getOverAllSummary(req) {
     retroSummary: 1,
   });
   var retroSummaryString = "";
-  console.log(retroSummaryArray.length)
   retroSummaryArray.forEach((element, index) => {
     if (index < 40) {
       retroSummaryString = element.retroSummary;

@@ -172,6 +172,5 @@ async function getAllUsersByEnterpriseId(enterpriseId) {
 }
 
 async function _deleteMany(userParam) {
-  console.log("userParam", userParam.emailIds);
   await User.deleteMany({ emailId: userParam.emailIds });
 }

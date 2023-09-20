@@ -77,7 +77,6 @@ function getById(req, res, next) {
 }
 
 function getByName(req, res, next) {
-  console.log();
   roleService
     .getByName(req.params.roleName)
     .then((role) =>

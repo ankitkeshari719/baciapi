@@ -18,7 +18,6 @@ async function getTeamDataForTable(req) {
   } else {
     const user = await usersDB.find({ emailId: id });
     teamIds = user && user[0] ? user[0].teams : [];
-    console.log(teamIds);
     if (teamIds == []) {
       return {
         actionsData: teamActionsData,
