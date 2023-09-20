@@ -26,7 +26,11 @@ const collection = db.collection("retros");
 const teamsDB = db.collection("teams");
 const usersDB = db.collection("users");
 const actionsDB = db.collection("actions");
-const { ROLE_NAME, RETRO_STATUS } = require("./_helpers/const");
+const {
+  ROLE_NAME,
+  RETRO_STATUS,
+  EMOTIONS_PER_CATEGORY,
+} = require("./_helpers/const");
 
 //openAI
 const { Configuration, OpenAIApi } = require("azure-openai");
@@ -513,21 +517,14 @@ app.post("/createRetroSummary", async (req, res) => {
     const stringForRetroSummary = `Please extract the summary from retro data
   \n\n${column}
   `;
+  const emotionsPerCategory= JSON.stringify(EMOTIONS_PER_CATEGORY, null, 2)
     const stringForRetroEmotionsSummary = `Please count the number of happy, sad, and neutral cards in the following list:${cards}. 
   The output should be in json and the keys should be in camelCase notation`;
 
-    const stringForRetroEmotionsSummaryAsPerCategory = `categories below cards as per group name and push them depending on emotions also return it in the form of JSON  [
-  {groupName:‘Individual and Team Goals’,happyCards:[],neutralCards:[],sadCards:[]}
-  {groupName:’People and Resources’,happyCards:[],neutralCards:[],sadCards:[]}
- {groupName: 'Team Structure and Capabilities’,happyCards:[],neutralCards:[],sadCards:[]}
-{ groupName: 'Decision Making (Individual and Team)’,happyCards:[],neutralCards:[],sadCards:[]}
-{  groupName: 'Openness to Feedback & Test and Learn’,happyCards:[],neutralCards:[],sadCards:[]}
-{ groupName: 'Work Prioritisation’,happyCards:[],neutralCards:[],sadCards:[]}
-{ groupName: 'Work Technology and Tools’,happyCards:[],neutralCards:[],sadCards:[]}
-] the cards are :${cards}, dont't include any note or other thing it should be only json of array, we have to push cards in one of group mentioned above`;
+    const stringForRetroEmotionsSummaryAsPerCategory = `categories below cards as per group name and push them depending on emotions also return it in the form of JSON  ${emotionsPerCategory},
+     the cards are :${cards}, dont't include any note or other thing it should be only json of array, we have to push cards in one of group mentioned above`;
 
-
-console.log(stringForRetroEmotionsSummaryAsPerCategory,"string")
+    console.log(stringForRetroEmotionsSummaryAsPerCategory, "string");
 
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
@@ -556,14 +553,13 @@ console.log(stringForRetroEmotionsSummaryAsPerCategory,"string")
       ],
     });
 
-
-
     console.log(emotionsAsPerCategoryC.data.choices[0].message.content);
 
     const updateEmotionsAsPerCategory = {
       $set: {
-        emotionsAsPerCategory:
-        JSON.parse( emotionsAsPerCategoryC.data.choices[0].message.content),
+        emotionsAsPerCategory: JSON.parse(
+          emotionsAsPerCategoryC.data.choices[0].message.content
+        ),
       },
     };
 
@@ -574,8 +570,9 @@ console.log(stringForRetroEmotionsSummaryAsPerCategory,"string")
     return res.status(200).json({
       retroSummary: completion.data.choices[0].message.content,
       retroEmotions: JSON.parse(emotions.data.choices[0].message.content),
-      emotionsAsPerCategory:
-      JSON.parse( emotionsAsPerCategoryC.data.choices[0].message.content),
+      emotionsAsPerCategory: JSON.parse(
+        emotionsAsPerCategoryC.data.choices[0].message.content
+      ),
     });
   } catch (error) {
     console.error(error);

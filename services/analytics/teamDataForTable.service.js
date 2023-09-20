@@ -131,7 +131,8 @@ async function getTeamDataForTable(req) {
 
   for (var i = 0; i < data.length; i++) {
     team = data[i];
-
+    team.retroCount = 0;
+    team.actionsCount = 0;
     team.createdByObj = await usersDB.find({ emailId: team.createdBy });
     retroGroupData.forEach((retros) => {
       if (team.teamId == retros._id) {
