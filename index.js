@@ -148,9 +148,11 @@ app.use("/teams", require("./controllers/team.controller"));
 app.use("/enterprises", require("./controllers/enterprise.controller"));
 app.use("/actions", require("./controllers/action.controller"));
 app.use("/notifications", require("./controllers/notification.controller"));
-app.use("/enterpriseRequests", require("./controllers/enterprise.request.controller"));
-app.use("/analytics",require("./controllers/analytics.controller"));
-
+app.use(
+  "/enterpriseRequests",
+  require("./controllers/enterprise.request.controller")
+);
+app.use("/analytics", require("./controllers/analytics.controller"));
 
 // Retro API's
 app.post("/createRetro", async (req, res) => {
@@ -514,7 +516,7 @@ app.post("/createRetroSummary", async (req, res) => {
     const stringForRetroEmotionsSummary = `Please count the number of happy, sad, and neutral cards in the following list:${cards}. 
   The output should be in json and the keys should be in camelCase notation`;
 
-    const stringForRetroEmotionsSummaryAsPerCategory = `Just return the output in json don’t write any code, categories below cards as per group name and push them depending on emotions  [
+    const stringForRetroEmotionsSummaryAsPerCategory = `categories below cards as per group name and push them depending on emotions also return it in the form of JSON  [
   {groupName:‘Individual and Team Goals’,happyCards:[],neutralCards:[],sadCards:[]}
   {groupName:’People and Resources’,happyCards:[],neutralCards:[],sadCards:[]}
  {groupName: 'Team Structure and Capabilities’,happyCards:[],neutralCards:[],sadCards:[]}
@@ -522,7 +524,10 @@ app.post("/createRetroSummary", async (req, res) => {
 {  groupName: 'Openness to Feedback & Test and Learn’,happyCards:[],neutralCards:[],sadCards:[]}
 { groupName: 'Work Prioritisation’,happyCards:[],neutralCards:[],sadCards:[]}
 { groupName: 'Work Technology and Tools’,happyCards:[],neutralCards:[],sadCards:[]}
-] the cards are :${cards}`;
+] the cards are :${cards}, dont't include any note or other thing it should be only json of array, we have to push cards in one of group mentioned above`;
+
+
+console.log(stringForRetroEmotionsSummaryAsPerCategory,"string")
 
     const completion = await openai.createChatCompletion({
       model: "prod-baci-chat",
@@ -543,10 +548,6 @@ app.post("/createRetroSummary", async (req, res) => {
         retroEmotions: JSON.parse(emotions.data.choices[0].message.content),
       },
     };
-    console.log(
-      completion.data.choices[0].message.content,
-      emotions.data.choices[0].message.content
-    );
 
     const emotionsAsPerCategoryC = await openai.createChatCompletion({
       model: "prod-baci-chat",
@@ -554,11 +555,15 @@ app.post("/createRetroSummary", async (req, res) => {
         { role: "user", content: stringForRetroEmotionsSummaryAsPerCategory },
       ],
     });
+
+
+
+    console.log(emotionsAsPerCategoryC.data.choices[0].message.content);
+
     const updateEmotionsAsPerCategory = {
       $set: {
-        emotionsAsPerCategory: JSON.parse(
-          emotionsAsPerCategoryC.data.choices[0].message.content
-        ),
+        emotionsAsPerCategory:
+        JSON.parse( emotionsAsPerCategoryC.data.choices[0].message.content),
       },
     };
 
@@ -566,15 +571,12 @@ app.post("/createRetroSummary", async (req, res) => {
     await collection.updateOne(filter, updateEmotions);
     await collection.updateOne(filter, updateEmotionsAsPerCategory);
 
-    return res
-      .status(200)
-      .json({
-        retroSummary: completion.data.choices[0].message.content,
-        retroEmotions: JSON.parse(emotions.data.choices[0].message.content),
-        emotionsAsPerCategory: JSON.parse(
-          emotionsAsPerCategoryC.data.choices[0].message.content
-        ),
-      });
+    return res.status(200).json({
+      retroSummary: completion.data.choices[0].message.content,
+      retroEmotions: JSON.parse(emotions.data.choices[0].message.content),
+      emotionsAsPerCategory:
+      JSON.parse( emotionsAsPerCategoryC.data.choices[0].message.content),
+    });
   } catch (error) {
     console.error(error);
     return res.status(200).json(error);
