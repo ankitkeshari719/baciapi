@@ -128,6 +128,7 @@ async function getAllUsersByEnterpriseId(enterpriseId) {
     {
       $match: {
         enterpriseId: enterpriseId,
+        isActive: true,
       },
     },
     {
