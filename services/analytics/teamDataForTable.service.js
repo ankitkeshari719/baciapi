@@ -45,7 +45,6 @@ async function getTeamDataForTable(req) {
         },
       },
     },
-
     {
       $lookup: {
         from: "users", // The name of the "users" collection
@@ -61,7 +60,6 @@ async function getTeamDataForTable(req) {
         teamName: "$teamName",
         createdAt: "$createdAt",
         teamDepartment: "$teamDepartment",
-
         users: {
           $map: {
             input: "$userEmailIds",
