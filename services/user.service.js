@@ -87,7 +87,18 @@ async function update(emailId, userParam) {
   Object.assign(user, userParam);
 
   await user.save();
-  return user;
+
+  const teamIds = await User.findOne({ emailId: emailId }).then(
+    (userData) => userData.teams
+  );
+  const teams = await Team.find({ teamId: { $in: teamIds } });
+  const sentUsers = await User.findOne({ emailId: emailId }).then(
+    (userData) => {
+      userData.teams = teams;
+      return userData;
+    }
+  );
+  return sentUsers;
 }
 
 async function _delete(emailId) {
@@ -108,8 +119,56 @@ async function getAllByEmails(userParam) {
   return await user;
 }
 
+// async function getAllUsersByEnterpriseId(enterpriseId) {
+//   return await User.find({ enterpriseId: enterpriseId });
+// }
+
 async function getAllUsersByEnterpriseId(enterpriseId) {
-  return await User.find({ enterpriseId: enterpriseId });
+  const users = await User.aggregate([
+    {
+      $match: {
+        enterpriseId: enterpriseId,
+      },
+    },
+    {
+      $unwind: {
+        path: "$team",
+        preserveNullAndEmptyArrays: true, // Preserve empty arrays
+      },
+    },
+    {
+      $lookup: {
+        from: "teams", // Name of the teams collection
+        localField: "team",
+        foreignField: "tableId",
+        as: "teamInfo",
+      },
+    },
+    {
+      $addFields: {
+        team: {
+          $cond: {
+            if: { $eq: [{ $size: "$teamInfo" }, 0] },
+            then: [],
+            else: {
+              $map: {
+                input: "$teamInfo",
+                as: "teamData",
+                in: "$$teamData",
+              },
+            },
+          },
+        },
+      },
+    },
+    {
+      $group: {
+        _id: "$_id",
+        user: { $first: "$$ROOT" },
+      },
+    },
+  ]);
+  return users;
 }
 
 async function _deleteMany(userParam) {
