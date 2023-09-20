@@ -32,7 +32,7 @@ async function getTeamDataForTable(req) {
         //   $gte: timestamp1,
         //   $lte: timestamp2,
         // },
-
+        isActive: true,
         enterpriseId: enterpriseId,
         $expr: {
           $cond: {

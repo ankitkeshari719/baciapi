@@ -15,155 +15,150 @@ async function getCountOfAllParticipantsOverTime(req) {
   let monthsWithinRange = month.getMonthRange(timestamp1, timestamp2);
 
   var aggregationPipeline = [];
-  if(ROLE_NAME.ENTERPRISE_ADMIN==roleName){
-
-    if(teamId=="0"){
-        aggregationPipeline=    [
-            {
-              $match: {
-                timestamp: {
-                  $gte: timestamp1, 
-                  $lte: timestamp2, 
+  if (ROLE_NAME.ENTERPRISE_ADMIN == roleName) {
+    if (teamId == "0") {
+      aggregationPipeline = [
+        {
+          $match: {
+            timestamp: {
+              $gte: timestamp1,
+              $lte: timestamp2,
+            },
+            enterpriseId: enterpriseId,
+          },
+        },
+        {
+          $project: {
+            yearMonth: {
+              $dateToString: {
+                format: "%Y-%m",
+                date: {
+                  $toDate: "$timestamp",
                 },
-                enterpriseId:enterpriseId,
               },
             },
-            {
-              $project: {
-                yearMonth: {
-                  $dateToString: {
-                    format: "%Y-%m",
-                    date: {
-                      $toDate: "$timestamp", 
-                    },
-                  },
+            data: "$$ROOT",
+          },
+        },
+        {
+          $group: {
+            _id: "$yearMonth", // Group by year and month
+            data: { $push: "$data" }, // Push the entire document into the 'data' array
+          },
+        },
+      ];
+    } else {
+      aggregationPipeline = [
+        {
+          $match: {
+            timestamp: {
+              $gte: timestamp1,
+              $lte: timestamp2,
+            },
+            teamId: teamId,
+            enterpriseId: enterpriseId,
+          },
+        },
+        {
+          $project: {
+            yearMonth: {
+              $dateToString: {
+                format: "%Y-%m",
+                date: {
+                  $toDate: "$timestamp",
                 },
-                data: "$$ROOT", 
               },
             },
-            {
-              $group: {
-                _id: "$yearMonth", // Group by year and month
-                data: { $push: "$data" }, // Push the entire document into the 'data' array
-              },
-            },
-          ]
-
-    }else{
-        aggregationPipeline=[
-            {
-              $match: {
-                timestamp: {
-                  $gte: timestamp1, 
-                  $lte: timestamp2, 
-                },
-                teamId:teamId,enterpriseId:enterpriseId,
-              },
-            },
-            {
-              $project: {
-                yearMonth: {
-                  $dateToString: {
-                    format: "%Y-%m",
-                    date: {
-                      $toDate: "$timestamp", 
-                    },
-                  },
-                },
-                data: "$$ROOT", 
-              },
-            },
-            {
-              $group: {
-                _id: "$yearMonth", // Group by year and month
-                data: { $push: "$data" }, // Push the entire document into the 'data' array
-              },
-            },
-          ]
-
+            data: "$$ROOT",
+          },
+        },
+        {
+          $group: {
+            _id: "$yearMonth", // Group by year and month
+            data: { $push: "$data" }, // Push the entire document into the 'data' array
+          },
+        },
+      ];
     }
-    
-  }
-  else {
+  } else {
+    if (ROLE_NAME.REGULAR_ENTERPRISE == roleName) {
+      if (teamId == "0") {
+        const user = await usersDB.find({ emailId: id });
+        const teamIds = user && user[0] ? user[0].teams : [];
 
-    if(ROLE_NAME.REGULAR_ENTERPRISE==roleName){
-        if(teamId=="0"){
-            const user = await usersDB.find({ emailId: id });
-            const teamIds = user && user[0]?user[0].teams :[];
-
-            if(teamIds==[])
-            {return []}
-
-            aggregationPipeline=[
-                {
-                  $match: {
-                    timestamp: {
-                      $gte: timestamp1, 
-                      $lte: timestamp2, 
-                    },
-                    teamId:{ $in: teamIds },enterpriseId:enterpriseId,
-                  },
-                },
-                {
-                  $project: {
-                    yearMonth: {
-                      $dateToString: {
-                        format: "%Y-%m",
-                        date: {
-                          $toDate: "$timestamp", 
-                        },
-                      },
-                    },
-                    data: "$$ROOT", 
-                  },
-                },
-                {
-                  $group: {
-                    _id: "$yearMonth", // Group by year and month
-                    data: { $push: "$data" }, // Push the entire document into the 'data' array
-                  },
-                },
-              ]
-
-        }else{
-            aggregationPipeline=[
-                {
-                  $match: {
-                    timestamp: {
-                      $gte: timestamp1, 
-                      $lte: timestamp2, 
-                    },
-                    teamId:teamId,enterpriseId:enterpriseId
-                  },
-                },
-                {
-                  $project: {
-                    yearMonth: {
-                      $dateToString: {
-                        format: "%Y-%m",
-                        date: {
-                          $toDate: "$timestamp", 
-                        },
-                      },
-                    },
-                    data: "$$ROOT", 
-                  },
-                },
-                {
-                  $group: {
-                    _id: "$yearMonth", // Group by year and month
-                    data: { $push: "$data" }, // Push the entire document into the 'data' array
-                  },
-                },
-              ]
-
+        if (teamIds == []) {
+          return [];
         }
-    }
 
+        aggregationPipeline = [
+          {
+            $match: {
+              timestamp: {
+                $gte: timestamp1,
+                $lte: timestamp2,
+              },
+              teamId: { $in: teamIds },
+              enterpriseId: enterpriseId,
+            },
+          },
+          {
+            $project: {
+              yearMonth: {
+                $dateToString: {
+                  format: "%Y-%m",
+                  date: {
+                    $toDate: "$timestamp",
+                  },
+                },
+              },
+              data: "$$ROOT",
+            },
+          },
+          {
+            $group: {
+              _id: "$yearMonth", // Group by year and month
+              data: { $push: "$data" }, // Push the entire document into the 'data' array
+            },
+          },
+        ];
+      } else {
+        aggregationPipeline = [
+          {
+            $match: {
+              timestamp: {
+                $gte: timestamp1,
+                $lte: timestamp2,
+              },
+              teamId: teamId,
+              enterpriseId: enterpriseId,
+            },
+          },
+          {
+            $project: {
+              yearMonth: {
+                $dateToString: {
+                  format: "%Y-%m",
+                  date: {
+                    $toDate: "$timestamp",
+                  },
+                },
+              },
+              data: "$$ROOT",
+            },
+          },
+          {
+            $group: {
+              _id: "$yearMonth", // Group by year and month
+              data: { $push: "$data" }, // Push the entire document into the 'data' array
+            },
+          },
+        ];
+      }
+    }
   }
 
   let retroData = await retroDB.aggregate(aggregationPipeline);
-  let output=[];
+  let output = [];
   monthsWithinRange.forEach((month) => {
     var retroDataObj = {
       month: month,
@@ -173,20 +168,20 @@ async function getCountOfAllParticipantsOverTime(req) {
     };
     retroData.forEach((retroArray) => {
       if (month == retroArray._id) {
-        let users=[]
+        let users = [];
         retroArray.data.forEach((retro) => {
           retro.action.forEach((action) => {
-            if(action.actionName=="joinRetro"&&action.userId!=""){
-                users.push(action.userId)
+            if (action.actionName == "joinRetro" && action.userId != "") {
+              users.push(action.userId);
             }
           });
         });
-        retroDataObj.users=[... new Set(users)];
-        retroDataObj.userCount=retroDataObj.users.length;
-        retroDataObj.retros=retroArray.data;
+        retroDataObj.users = [...new Set(users)];
+        retroDataObj.userCount = retroDataObj.users.length;
+        retroDataObj.retros = retroArray.data;
       }
     });
-    output.push(retroDataObj)
+    output.push(retroDataObj);
   });
 
   return output;
