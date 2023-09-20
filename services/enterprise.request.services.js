@@ -11,7 +11,7 @@ module.exports = {
 
 async function create(enterpriseRequestParam) {
   const enterpriseRequestId =
-    enterpriseRequestParam.type.toString().replace(" ", "_").toLowerCase() +
+    enterpriseRequestParam.fromName.toString().replace(" ", "_").toLowerCase() +
     Math.random();
 
   const requested_data = {
@@ -23,12 +23,11 @@ async function create(enterpriseRequestParam) {
     toEmails: enterpriseRequestParam.toEmails,
     isApproved: enterpriseRequestParam.isApproved,
   };
-
   const enterpriseRequest = new EnterpriseRequest(requested_data);
 
   // save enterpriseRequest
   await enterpriseRequest.save();
-  return organisationId;
+  return requested_data;
 }
 
 async function getAllByEnterpriseId(organisationId) {
@@ -65,5 +64,7 @@ async function _delete(enterpriseRequestId) {
   // validate
   if (!enterpriseRequest) throw "EnterpriseRequest not found";
 
-  await EnterpriseRequest.deleteMany({ enterpriseRequestId: enterpriseRequestId });
+  await EnterpriseRequest.deleteMany({
+    enterpriseRequestId: enterpriseRequestId,
+  });
 }
