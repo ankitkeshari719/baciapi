@@ -28,7 +28,6 @@
         const jiraMonth = new Date(jiraAction.updatedAt).getMonth();
        
         if (chartYear == jiraYear && chartMonth == jiraMonth) {
-          console.log("matched month",chartYear , jiraYear,"month",chartMonth,jiraMonth,jiraAction.status);
           if (jiraAction.status == "DONE") {
             chartObject.completed = chartObject.completed + 1;
           } else {

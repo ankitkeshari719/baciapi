@@ -31,7 +31,36 @@ async function create(enterpriseRequestParam) {
 }
 
 async function getAllByEnterpriseId(organisationId) {
-  return await EnterpriseRequest.find({ organisationId: organisationId });
+  const enterpriseRequests = await EnterpriseRequest.aggregate([
+    {
+      $match: {
+        organisationId: organisationId,
+        isApproved: false,
+      },
+    },
+    {
+      $unwind: {
+        path: "$team",
+        preserveNullAndEmptyArrays: true, // Preserve empty arrays
+      },
+    },
+    {
+      $lookup: {
+        from: "teams", // Name of the teams collection
+        localField: "fromTeams",
+        foreignField: "teamId",
+        as: "teamInfo",
+      },
+    },
+    {
+      $group: {
+        _id: "$_id",
+        enterpriseRequest: { $first: "$$ROOT" },
+      },
+    },
+  ]);
+
+  return enterpriseRequests;
 }
 
 async function getByEnterpriseRequestId(enterpriseRequestId) {
