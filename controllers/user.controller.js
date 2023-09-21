@@ -11,6 +11,7 @@ router.post("/update/:emailId", update);
 router.get("/", getAll);
 router.post("/", getAllByEmails);
 router.get("/:emailId", getByEmail);
+router.get("/checkUserExistOrNot/:emailId", checkUserExistOrNot);
 router.delete("/:userId", _delete);
 router.get(
   "/getAllUsersByEnterpriseId/:enterpriseId",
@@ -210,7 +211,6 @@ function _deleteMany(req, res, next) {
 }
 
 function deactivateMultipleByIds(req, res, next) {
-  console.log('req.body', req.body);
   userService
     .deactivateMultipleByIds(req.body)
     .then(() =>
@@ -223,6 +223,31 @@ function deactivateMultipleByIds(req, res, next) {
       res.json({
         status: STATUS.FAILED,
         message: "Users deactivated FAILED!" + " " + err,
+        data: err,
+      })
+    );
+}
+
+function checkUserExistOrNot(req, res, next) {
+  userService
+    .checkUserExistOrNot(req.params.emailId)
+    .then((user) =>
+      user
+        ? res.status(200).json({
+            status: STATUS.SUCCESS,
+            message: "User fetched successfully!",
+            data: user,
+          })
+        : res.status(200).json({
+            status: STATUS.SUCCESS,
+            message: "User not found!",
+            data: null,
+          })
+    )
+    .catch((err) =>
+      res.json({
+        status: STATUS.FAILED,
+        message: "User fetched FAILED!" + " " + err,
         data: err,
       })
     );

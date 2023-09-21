@@ -14,6 +14,7 @@ module.exports = {
   getAllUsersByEnterpriseId,
   deleteMany: _deleteMany,
   deactivateMultipleByIds,
+  checkUserExistOrNot,
 };
 
 async function authenticate(userParam) {
@@ -58,6 +59,10 @@ async function create(userParam) {
 
 async function getAll() {
   return await User.find();
+}
+
+async function checkUserExistOrNot(emailId) {
+  return await User.findOne({ emailId: emailId });
 }
 
 async function getByEmail(emailId) {
