@@ -56,17 +56,18 @@ async function getEmotionsAsPerCategory(req) {
 
   retroList.forEach((element) => {
     element.emotionsAsPerCategory.forEach((group) => {
-
-emotions.forEach(emotion=>{
-    if(emotion.groupName==group.groupName)
-    emotion.happyCardsLength =  emotion.happyCardsLength ?emotion.happyCardsLength : 0 +group.happyCards.length
-    emotion.sadCardsLength =  emotion.sadCardsLength ?emotion.sadCardsLength : 0 +group.sadCards.length
-    emotion.neutralCardsLength =  emotion.neutralCardsLength ?emotion.neutralCardsLength : 0 +group.neutralCards.length
-
-
-})
-
-   
+      emotions.forEach((emotion) => {
+        if (emotion.groupName == group.groupName)
+          emotion.happyCardsLength = emotion.happyCardsLength
+            ? emotion.happyCardsLength
+            : 0 + group.happyCards.length;
+        emotion.sadCardsLength = emotion.sadCardsLength
+          ? emotion.sadCardsLength
+          : 0 + group.sadCards.length;
+        emotion.neutralCardsLength = emotion.neutralCardsLength
+          ? emotion.neutralCardsLength
+          : 0 + group.neutralCards.length;
+      });
     });
   });
 

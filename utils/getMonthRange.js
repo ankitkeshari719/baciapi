@@ -36,7 +36,7 @@
           }
         }
 
-        chartObject.completedInPer=(chartObject.completed/chartObject.pending)*100 ?(chartObject.completed/chartObject.pending)*100: 0
+        chartObject.completedInPer=(chartObject.completed/(chartObject.pending+chartObject.completed))*100 ?(chartObject.completed/(chartObject.pending+chartObject.completed))*100: 0
 
       });
     });

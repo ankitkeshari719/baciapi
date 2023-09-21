@@ -118,10 +118,10 @@ async function getTeamLevelActionsDataForChart(req){
   
   
       teamObj.completedInPer =
-        (teamObj.completed * 100) / teamObj.pending
-          ? (teamObj.completed * 100) / teamObj.pending
+        ( (teamObj.completed/teamObj.actions.length) * 100) 
+          ? ((teamObj.completed/teamObj.actions.length) * 100) 
           : 0;
-  
+
       teamActionsData.push(teamObj);
     });
   
