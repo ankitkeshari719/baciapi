@@ -13,6 +13,8 @@ module.exports = {
   delete: _delete,
   getAllUsersByEnterpriseId,
   deleteMany: _deleteMany,
+  deactivateMultipleByIds,
+  checkUserExistOrNot,
 };
 
 async function authenticate(userParam) {
@@ -57,6 +59,10 @@ async function create(userParam) {
 
 async function getAll() {
   return await User.find();
+}
+
+async function checkUserExistOrNot(emailId) {
+  return await User.findOne({ emailId: emailId });
 }
 
 async function getByEmail(emailId) {
@@ -174,4 +180,12 @@ async function getAllUsersByEnterpriseId(enterpriseId) {
 
 async function _deleteMany(userParam) {
   await User.deleteMany({ emailId: userParam.emailIds });
+}
+
+async function deactivateMultipleByIds(userParam) {
+  await User.updateMany(
+    { emailId: { $in: userParam.emailIds } },
+    { $set: { isActive: false } },
+    { multi: true }
+  );
 }
