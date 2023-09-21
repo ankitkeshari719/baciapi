@@ -13,6 +13,7 @@ module.exports = {
   delete: _delete,
   getAllUsersByEnterpriseId,
   deleteMany: _deleteMany,
+  deactivateMultipleByIds,
 };
 
 async function authenticate(userParam) {
@@ -174,4 +175,12 @@ async function getAllUsersByEnterpriseId(enterpriseId) {
 
 async function _deleteMany(userParam) {
   await User.deleteMany({ emailId: userParam.emailIds });
+}
+
+async function deactivateMultipleByIds(userParam) {
+  await User.updateMany(
+    { emailId: { $in: userParam.emailIds } },
+    { $set: { isActive: false } },
+    { multi: true }
+  );
 }

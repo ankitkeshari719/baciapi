@@ -17,6 +17,7 @@ router.get(
   getAllUsersByEnterpriseId
 );
 router.post("/deleteMany", _deleteMany);
+router.post("/deactivateMultiple", deactivateMultipleByIds);
 
 module.exports = router;
 
@@ -203,6 +204,25 @@ function _deleteMany(req, res, next) {
       res.json({
         status: STATUS.FAILED,
         message: "Users delete FAILED!" + " " + err,
+        data: err,
+      })
+    );
+}
+
+function deactivateMultipleByIds(req, res, next) {
+  console.log('req.body', req.body);
+  userService
+    .deactivateMultipleByIds(req.body)
+    .then(() =>
+      res.status(200).json({
+        status: STATUS.SUCCESS,
+        message: "Users deactivated successfully!",
+      })
+    )
+    .catch((err) =>
+      res.json({
+        status: STATUS.FAILED,
+        message: "Users deactivated FAILED!" + " " + err,
         data: err,
       })
     );

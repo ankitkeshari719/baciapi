@@ -35,6 +35,7 @@ async function getAllByEnterpriseId(organisationId) {
     {
       $match: {
         organisationId: organisationId,
+        isApproved: false,
       },
     },
     {
