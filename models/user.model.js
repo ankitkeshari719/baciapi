@@ -55,6 +55,9 @@ const userModel = mongoose.Schema(
     isActive: {
       type: Boolean,
     },
+    enterpriseRequestId: {
+      type: String,
+    },
   },
   {
     timestamps: true,
