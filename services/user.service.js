@@ -48,6 +48,7 @@ async function create(userParam) {
     isEnterpriserRequested: userParam.isEnterpriserRequested,
     teams: userParam.teams,
     isActive: userParam.isActive,
+    enterpriseRequestId: userParam.enterpriseRequestId
   };
   const user = new User(requested_data);
 
@@ -124,10 +125,6 @@ async function getAllByEmails(userParam) {
   }
   return await user;
 }
-
-// async function getAllUsersByEnterpriseId(enterpriseId) {
-//   return await User.find({ enterpriseId: enterpriseId });
-// }
 
 async function getAllUsersByEnterpriseId(enterpriseId) {
   const users = await User.aggregate([
