@@ -7,6 +7,7 @@ module.exports = {
   getByEnterpriseRequestId,
   update,
   delete: _delete,
+  approvedMultipleEnterpriseRequestByIds
 };
 
 async function create(enterpriseRequestParam) {
@@ -96,4 +97,13 @@ async function _delete(enterpriseRequestId) {
   await EnterpriseRequest.deleteMany({
     enterpriseRequestId: enterpriseRequestId,
   });
+}
+
+// Update isApproved for all Approved and decline multiple enterprise requests
+async function approvedMultipleEnterpriseRequestByIds(userParam) {
+  await EnterpriseRequest.updateMany(
+    { enterpriseRequestId: { $in: userParam.enterpriseRequestIds } },
+    { $set: { isApproved: true } },
+    { multi: true }
+  );
 }

@@ -15,6 +15,7 @@ module.exports = {
   deleteMany: _deleteMany,
   deactivateMultipleByIds,
   checkUserExistOrNot,
+  updateRoleOnEnterpriseRequest,
 };
 
 async function authenticate(userParam) {
@@ -48,7 +49,7 @@ async function create(userParam) {
     isEnterpriserRequested: userParam.isEnterpriserRequested,
     teams: userParam.teams,
     isActive: userParam.isActive,
-    enterpriseRequestId: userParam.enterpriseRequestId
+    enterpriseRequestId: userParam.enterpriseRequestId,
   };
   const user = new User(requested_data);
 
@@ -183,6 +184,20 @@ async function deactivateMultipleByIds(userParam) {
   await User.updateMany(
     { emailId: { $in: userParam.emailIds } },
     { $set: { isActive: false } },
+    { multi: true }
+  );
+}
+
+async function updateRoleOnEnterpriseRequest(userParam) {
+  await User.updateMany(
+    { emailId: { $in: userParam.emailIds } },
+    {
+      $set: {
+        roleId: userParam.roleId,
+        roleName: userParam.roleName,
+        isEnterpriserRequested: userParam.isEnterpriserRequested,
+      },
+    },
     { multi: true }
   );
 }
