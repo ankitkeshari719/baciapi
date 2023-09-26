@@ -9,6 +9,10 @@ router.post("/update/:enterpriseRequestId", update);
 router.get("/:organisationId", getAllByEnterpriseId);
 router.get("/:enterpriseRequestId", getByEnterpriseRequestId);
 router.delete("/:enterpriseRequestId", _delete);
+router.post(
+  "/approvedDeclinedEnterpriseRequests",
+  _approvedMultipleEnterpriseRequestByIds
+);
 
 module.exports = router;
 
@@ -107,6 +111,24 @@ function _delete(req, res, next) {
       res.json({
         status: STATUS.FAILED,
         message: "Enterprise Requests delete FAILED!" + " " + err,
+        data: err,
+      })
+    );
+}
+
+function _approvedMultipleEnterpriseRequestByIds(req, res, next) {
+  enterpriseRequestService
+    .approvedMultipleEnterpriseRequestByIds(req.body)
+    .then(() =>
+      res.status(200).json({
+        status: STATUS.SUCCESS,
+        message: "Enterprise Request Updated Successfully!",
+      })
+    )
+    .catch((err) =>
+      res.json({
+        status: STATUS.FAILED,
+        message: "Enterprise Request Updated FAILED!" + " " + err,
         data: err,
       })
     );
