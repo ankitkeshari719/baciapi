@@ -11,13 +11,16 @@ async function getTeamDataForTable(req) {
   const enterpriseId = req.body.enterpriseId;
   const teamId = req.body.teamId;
   var teamIds = [];
+  var enableMatch=true
   // let timestamp1 = new Date(req.body.fromDate).getTime();
   // let timestamp2 = new Date(req.body.toDate).getTime();
 
   if (roleName == ROLE_NAME.ENTERPRISE_ADMIN) {
+    enableMatch=false;
   } else {
     const user = await usersDB.find({ emailId: id });
     teamIds = user && user[0] ? user[0].teams : [];
+     enableMatch=true;
     if (teamIds == []) {
       return {
         actionsData: teamActionsData,

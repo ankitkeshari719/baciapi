@@ -172,6 +172,9 @@ async function getAllUsersByEnterpriseId(enterpriseId) {
         user: { $first: "$$ROOT" },
       },
     },
+    {$replaceRoot:{
+      newRoot:"$user"
+    }}
   ]);
   return users;
 }
