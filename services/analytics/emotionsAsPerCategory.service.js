@@ -53,8 +53,9 @@ async function getEmotionsAsPerCategory(req) {
   //   console.log(typeof(retroList),retroList[0]);
 
   var emotions = EMOTIONS_PER_CATEGORY;
-
-  retroList.forEach((element) => {
+  console.log(retroList,"retroList")
+if(retroList.length>0)
+ { retroList.forEach((element) => {
     element.emotionsAsPerCategory.forEach((group) => {
       emotions.forEach((emotion) => {
         if (emotion.groupName == group.groupName)
@@ -69,7 +70,15 @@ async function getEmotionsAsPerCategory(req) {
           : 0 + group.neutralCards.length;
       });
     });
-  });
+  });}
+  else{
+    emotions.forEach((emotion) => {
+      emotion.happyCardsLength=0;
+      emotion.sadCardsLength=0;
+      emotion.neutralCardsLength=0;
+
+    })
+  }
 
   return emotions;
 }
