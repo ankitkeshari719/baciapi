@@ -15,6 +15,7 @@ module.exports = {
   deleteMany: _deleteMany,
   deactivateMultipleByIds,
   checkUserExistOrNot,
+  updateRoleOnEnterpriseRequest,
 };
 
 async function authenticate(userParam) {
@@ -48,6 +49,7 @@ async function create(userParam) {
     isEnterpriserRequested: userParam.isEnterpriserRequested,
     teams: userParam.teams,
     isActive: userParam.isActive,
+    enterpriseRequestId: userParam.enterpriseRequestId,
   };
   const user = new User(requested_data);
 
@@ -125,10 +127,6 @@ async function getAllByEmails(userParam) {
   return await user;
 }
 
-// async function getAllUsersByEnterpriseId(enterpriseId) {
-//   return await User.find({ enterpriseId: enterpriseId });
-// }
-
 async function getAllUsersByEnterpriseId(enterpriseId) {
   const users = await User.aggregate([
     {
@@ -186,6 +184,20 @@ async function deactivateMultipleByIds(userParam) {
   await User.updateMany(
     { emailId: { $in: userParam.emailIds } },
     { $set: { isActive: false } },
+    { multi: true }
+  );
+}
+
+async function updateRoleOnEnterpriseRequest(userParam) {
+  await User.updateMany(
+    { emailId: { $in: userParam.emailIds } },
+    {
+      $set: {
+        roleId: userParam.roleId,
+        roleName: userParam.roleName,
+        isEnterpriserRequested: userParam.isEnterpriserRequested,
+      },
+    },
     { multi: true }
   );
 }
