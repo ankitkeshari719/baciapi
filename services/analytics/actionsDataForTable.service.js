@@ -1,134 +1,120 @@
-
 const db = require("../../_helpers/db");
 const usersDB = db.User;
 const teamsDB = db.Team;
 const actionsDB = db.Action;
-const { JIRA_STATUS,ROLE_NAME } = require("../../_helpers/const");
-async function getTeamLevelActionsDataForChart(req){
-    const id = req.body.userId;
-    const roleName = req.body.roleName;
-    const enterpriseId = req.body.enterpriseId;
-    const teamId = req.body.teamId;
-    let timestamp1 = new Date(req.body.fromDate).getTime();
-    let timestamp2 = new Date(req.body.toDate).getTime();
-  
-  
-  var queryForActions="";
-  
-  if(teamId=="0")
-  {if(roleName==ROLE_NAME.ENTERPRISE_ADMIN){
-    queryForActions={
-      enterpriseId: enterpriseId,
-      createdAt: { $gte: timestamp1, $lte: timestamp2 },
-    }
-  }
-  else{
+const { JIRA_STATUS, ROLE_NAME } = require("../../_helpers/const");
+async function getActionsDataForTable(req) {
+  const id = req.body.userId;
+  const roleName = req.body.roleName;
+  const enterpriseId = req.body.enterpriseId;
+  const teamId = req.body.teamId;
+  var teamIds = [];
+  // let timestamp1 = new Date(req.body.fromDate).getTime();
+  // let timestamp2 = new Date(req.body.toDate).getTime();
+
+  var enableMatch=true
+
+  if (roleName == ROLE_NAME.ENTERPRISE_ADMIN) {
+    enableMatch=false;
+  } else {
     const user = await usersDB.find({ emailId: id });
-    const teamIds = user && user[0]?user[0].teams :[];
-    if(teamIds==[]){
-    return {
+    teamIds = user && user[0] ? user[0].teams : [];
+    enableMatch=true;
+    if (teamIds == []) {
+      return {
         actionsData: teamActionsData,
-      }
-    }
-    queryForActions={
-      enterpriseId: enterpriseId,
-      createdAt: { $gte: timestamp1, $lte: timestamp2 },
-      teamId: { $in: teamIds }
-    }
-  }}
-  else{
-  
-    
-      queryForActions={
-        enterpriseId: enterpriseId,
-        createdAt: { $gte: timestamp1, $lte: timestamp2 },
-        teamId:  teamId 
-      
+      };
     }
   }
-  const teamsData = await teamsDB
-  .find({
-    enterpriseId:enterpriseId
-  })
-  ;
 
-  
-    const j = await actionsDB
-      .find(queryForActions)
-    
-  
-    var result = j.reduce((acc, elem) => {
-      isPresent = acc.findIndex((k) => k.actionId == elem.actionId);
-      if (isPresent == -1) {
-        acc.push(elem);
-      } else {
-        if (new Date(acc[isPresent].updatedAt) < new Date(elem.updatedAt))
-          acc[isPresent] = elem;
-      }
-      return acc;
-    }, []);
-  
-    // Create a dictionary to store grouped elements
-    const groupedData = {};
-  
-    // Iterate through the array and group elements by "id"
-    result.forEach((item) => {
-      const { teamId } = item;
-  
-      // Check if the "id" already exists in the groupedData dictionary
-      if (!groupedData[teamId]) {
-        groupedData[teamId] = [];
-      }
-  
-      // Add the current item to the corresponding group
-      groupedData[teamId].push(item);
-    });
-  
-    // Convert the grouped data into an array of arrays
-    const result1 = Object.values(groupedData);
-    let teamActionsData = [];
-    result1.forEach((teamData) => {
-      const teamObj = {
-        teamId: "",
-        teamName: "",
-        completed: 0,
-        pending: 0,
-        completedInPer: 0,
-        actions: teamData,
-      };
-  
-   
-  
-      teamData.forEach((jiraAction) => {
-        teamObj.teamId = jiraAction.teamId;
-        if (jiraAction.status == JIRA_STATUS.DONE) {
-          teamObj.completed = teamObj.completed + 1;
-        } else {
-          teamObj.pending = teamObj.pending + 1;
+  const result = actionsDB.aggregate([
+    {
+      $match: {
+        // Add your existing $match conditions here
+        isActive: true,
+        enterpriseId: enterpriseId,
+        $expr: {
+          $cond: {
+            if: enableMatch, // Condition to enable or disable the $match stage
+            then: {
+              $in: ["$teamId", teamIds],
+            },
+            else: {},
+          },
         }
-      });
-  
-  
-      teamsData.forEach((element) => {
-        if (element.teamId == teamObj.teamId) {
-          teamObj.teamName = element.teamName;
-          teamId
-        }
-      });
-  
-  
-      teamObj.completedInPer =
-        (teamObj.completed * 100) / teamObj.pending
-          ? (teamObj.completed * 100) / teamObj.pending
-          : 0;
-  
-      teamActionsData.push(teamObj);
-    });
-  
-    return teamActionsData;
+      }
+    },
+    {
+      $sort: {
+        updatedAt: -1 // Sort by updatedAt in descending order
+      }
+    },
+    {
+      $group: {
+        _id: "$actionId", // Group by the actionId field
+        latestDocument: { $first: "$$ROOT" } // Select the latest document in each group
+      }
+    },
+    {
+      $replaceRoot: {
+        newRoot: "$latestDocument" // Replace the root with the latest document in each group
+      }
+    }
+ ,
+    {
+      $lookup: {
+        from: "users",
+        localField: "assignedTo",
+        foreignField: "emailId",
+        as: "userObj",
+      },
+    },
+    {
+      $lookup: {
+        from: "retros",
+        localField: "retroId",
+        foreignField: "humanId",
+        as: "retroData",
+      },
+    },
+    {
+      $lookup: {
+        from: "teams",
+        localField: "teamId",
+        foreignField: "teamId",
+        as: "teamData",
+      },
+    },
 
+    {
+      $project: {
+        actionId: 1,
+        actionName: 1,
+        jiraId: 1,
+        retroId: 1,
+        teamId: 1,
+        assignedTo: 1,
+        createdBy: 1,
+        status: 1,
+        isActive: 1,
+        jiraUrl: 1,
+        enterpriseId: 1,
+        createdAt: 1,
+        updatedAt: 1,
+        avatar:{ $arrayElemAt: ["$userObj.selectedAvatar", 0] },
+        assigneeFName:{ $arrayElemAt: ["$userObj.firstName", 0]  },
+        assigneeLName:{ $arrayElemAt: ["$userObj.lastName", 0] },
+        initialSession: { $arrayElemAt: ["$retroData.name", 0] },
+        teamName: { $arrayElemAt: ["$teamData.teamName", 0] },
+        department:{ $arrayElemAt: ["$teamData.teamDepartment", 0] }
+        // Add other fields from retros collection as needed
+      },
+    },
+  ]);
+
+  return result;
 }
 
-module.exports={
-    getTeamLevelActionsDataForChart
-}
+module.exports = {
+  getActionsDataForTable,
+};
