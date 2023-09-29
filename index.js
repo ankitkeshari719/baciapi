@@ -362,7 +362,7 @@ const getRetrosData = async () => {
     const duration = moment.duration(ms);
     const timeElapsed = Math.floor(duration.asDays());
     if (timeElapsed > 90) {
-      deleteOlderRetro(e._id);
+      // deleteOlderRetro(e._id);
     }
   });
 };
