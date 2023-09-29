@@ -7,6 +7,7 @@ const participantMoodCount =require("../services/analytics/participantMood.servi
 const overAllSummary =require("../services/analytics/overallSummary.service")
 const teamDataForTable =require("../services/analytics/teamDataForTable.service")
 const emotionsAsPerCategory =require("../services/analytics/emotionsAsPerCategory.service")
+const actionsDataForTable =require("../services/analytics/actionsDataForTable.service")
 
 
 const { STATUS,JIRA_STATUS } = require("../_helpers/const");
@@ -21,6 +22,7 @@ router.post("/getParticipantMoodCount",getParticipantMoodCount);
 router.post("/getOverAllSummary",getOverAllSummary);
 router.post("/getTeamDataForTable",getTeamDataForTable)
 router.post("/getEmotionsAsPerCategory",getEmotionsAsPerCategory)
+router.post("/getActionsDataForTable",getActionsDataForTable)
 
 
 
@@ -142,6 +144,28 @@ function getTeamLevelActionsDataForChart(req, res, next) {
         })
       );
   }
+
+  
+  function getActionsDataForTable(req, res, next) {
+    actionsDataForTable
+      .getActionsDataForTable(req)
+      .then((action) =>
+        res.status(200).json({
+          status: STATUS.SUCCESS,
+          message: "Actions data for table fetched successfully!",
+          data: action,
+        })
+      )
+      .catch((err) =>
+        res.json({
+          status: STATUS.FAILED,
+          message: "Actions data for table fetched FAILED!" + " " + err,
+          data: err,
+        })
+      );
+  }
+
+
   function getEmotionsAsPerCategory(req, res, next) {
     emotionsAsPerCategory
       .getEmotionsAsPerCategory(req)
@@ -159,4 +183,6 @@ function getTeamLevelActionsDataForChart(req, res, next) {
           data: err,
         })
       );
+
+
   }

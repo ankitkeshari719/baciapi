@@ -362,7 +362,7 @@ const getRetrosData = async () => {
     const duration = moment.duration(ms);
     const timeElapsed = Math.floor(duration.asDays());
     if (timeElapsed > 90) {
-      deleteOlderRetro(e._id);
+      // deleteOlderRetro(e._id);
     }
   });
 };
@@ -519,7 +519,7 @@ app.post("/createRetroSummary", async (req, res) => {
   `;
   const emotionsPerCategory= JSON.stringify(EMOTIONS_PER_CATEGORY, null, 2)
     const stringForRetroEmotionsSummary = `Please count the number of happy, sad, and neutral cards in the following list:${cards}. 
-  The output should be in json and the keys should be in camelCase notation`;
+  The output should be in json and the keys should be in camelCase notation example {happyCards:happycount, sadCards:sadcount, neutralCards: neutralCount}`;
 
     const stringForRetroEmotionsSummaryAsPerCategory = `categories below cards as per group name and push them depending on emotions also return it in the form of JSON  ${emotionsPerCategory},
      the cards are :${cards}, dont't include any note or other thing it should be only json of array, we have to push cards in one of group mentioned above`;

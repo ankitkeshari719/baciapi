@@ -84,7 +84,15 @@ if(retroSummaryArray.length!=0)
     model: "prod-baci-chat",
     messages: [{ role: "user", content: stringForRetroSummary }],
   });
-  return completion.data.choices[0].message.content;
+
+  const stringForKeywordExtraction=`Please extract the keywords from the text return an array of keywords in json. example ["keyword1","keyword2",...],${completion.data.choices[0].message.content}. `
+  const keywords = await openai.createChatCompletion({
+    model: "prod-baci-chat",
+    messages: [{ role: "user", content: stringForKeywordExtraction }],
+  });
+  
+  
+  return {summary:completion.data.choices[0].message.content,keywords:JSON.parse(keywords.data.choices[0].message.content)};
   }
 else return ""
 }
