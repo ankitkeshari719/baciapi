@@ -20,6 +20,7 @@ router.get(
 router.post("/deleteMany", _deleteMany);
 router.post("/deactivateMultiple", deactivateMultipleByIds);
 router.post("/updateRoleOnEnterpriseRequest", _updateRoleOnEnterpriseRequest);
+router.post("/updateUsersTeamArray", _updateUsersTeamArray);
 
 module.exports = router;
 
@@ -267,6 +268,25 @@ function _updateRoleOnEnterpriseRequest(req, res, next) {
       res.json({
         status: STATUS.FAILED,
         message: "Users updated FAILED!" + " " + err,
+        data: err,
+      })
+    );
+}
+
+
+function _updateUsersTeamArray(req, res, next) {
+  userService
+    .updateUsersTeamArray(req.body)
+    .then(() =>
+      res.status(200).json({
+        status: STATUS.SUCCESS,
+        message: "Users Updated Successfully!",
+      })
+    )
+    .catch((err) =>
+      res.json({
+        status: STATUS.FAILED,
+        message: "Users Updated FAILED!" + " " + err,
         data: err,
       })
     );
