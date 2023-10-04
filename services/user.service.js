@@ -212,7 +212,7 @@ async function updateRoleOnEnterpriseRequest(userParam) {
 async function updateUsersTeamArray(userParam) {
   await User.updateMany(
     { emailId: { $in: userParam.userEmailIdsFromRecord } },
-    { $set: { teams: teams.push(userParam.teamId) } },
+    { $push: { teams: userParam.teamId } },
     { multi: true }
   );
 }
