@@ -16,6 +16,7 @@ module.exports = {
   deactivateMultipleByIds,
   checkUserExistOrNot,
   updateRoleOnEnterpriseRequest,
+  updateUsersTeamArray,
 };
 
 async function authenticate(userParam) {
@@ -172,9 +173,11 @@ async function getAllUsersByEnterpriseId(enterpriseId) {
         user: { $first: "$$ROOT" },
       },
     },
-    {$replaceRoot:{
-      newRoot:"$user"
-    }}
+    {
+      $replaceRoot: {
+        newRoot: "$user",
+      },
+    },
   ]);
   return users;
 }
@@ -201,6 +204,15 @@ async function updateRoleOnEnterpriseRequest(userParam) {
         isEnterpriserRequested: userParam.isEnterpriserRequested,
       },
     },
+    { multi: true }
+  );
+}
+
+// Update isApproved for all Approved and decline multiple enterprise requests
+async function updateUsersTeamArray(userParam) {
+  await User.updateMany(
+    { emailId: { $in: userParam.userEmailIdsFromRecord } },
+    { $set: { teams: teams.push(userParam.teamId) } },
     { multi: true }
   );
 }
