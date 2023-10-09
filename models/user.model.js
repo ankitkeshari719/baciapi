@@ -58,6 +58,15 @@ const userModel = mongoose.Schema(
     enterpriseRequestId: {
       type: String,
     },
+    isSessionNotificationChecked: {
+      type: Boolean,
+    },
+    isActionNotificationChecked: {
+      type: Boolean,
+    },
+    isTeamNotificationChecked: {
+      type: Boolean,
+    },
   },
   {
     timestamps: true,

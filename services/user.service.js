@@ -51,6 +51,9 @@ async function create(userParam) {
     teams: userParam.teams,
     isActive: userParam.isActive,
     enterpriseRequestId: userParam.enterpriseRequestId,
+    isSessionNotificationChecked: userParam.isSessionNotificationChecked,
+    isActionNotificationChecked: userParam.isActionNotificationChecked,
+    isTeamNotificationChecked: userParam.isTeamNotificationChecked,
   };
   const user = new User(requested_data);
 
