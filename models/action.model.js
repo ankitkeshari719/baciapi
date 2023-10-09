@@ -19,7 +19,7 @@ const actionModel = mongoose.Schema(
     },
     retroIdEnc:{
       type:String,
-      required:true,
+      // required:true,
     },
     teamId: {
       type: String,

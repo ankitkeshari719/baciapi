@@ -51,6 +51,9 @@ async function create(userParam) {
     teams: userParam.teams,
     isActive: userParam.isActive,
     enterpriseRequestId: userParam.enterpriseRequestId,
+    isSessionNotificationChecked: userParam.isSessionNotificationChecked,
+    isActionNotificationChecked: userParam.isActionNotificationChecked,
+    isTeamNotificationChecked: userParam.isTeamNotificationChecked,
   };
   const user = new User(requested_data);
 
@@ -212,7 +215,7 @@ async function updateRoleOnEnterpriseRequest(userParam) {
 async function updateUsersTeamArray(userParam) {
   await User.updateMany(
     { emailId: { $in: userParam.userEmailIdsFromRecord } },
-    { $set: { teams: teams.push(userParam.teamId) } },
+    { $push: { teams: userParam.teamId } },
     { multi: true }
   );
 }
