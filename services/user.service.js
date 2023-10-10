@@ -17,6 +17,7 @@ module.exports = {
   checkUserExistOrNot,
   updateRoleOnEnterpriseRequest,
   updateUsersTeamArray,
+  updatePullUsersTeamArray,
 };
 
 async function authenticate(userParam) {
@@ -211,11 +212,20 @@ async function updateRoleOnEnterpriseRequest(userParam) {
   );
 }
 
-// Update isApproved for all Approved and decline multiple enterprise requests
+// Update the team array by pushing the team id
 async function updateUsersTeamArray(userParam) {
   await User.updateMany(
     { emailId: { $in: userParam.userEmailIdsFromRecord } },
     { $push: { teams: userParam.teamId } },
+    { multi: true }
+  );
+}
+
+// Update the team array by pulling the team id
+async function updatePullUsersTeamArray(userParam) {
+  await User.updateMany(
+    { emailId: { $in: userParam.userEmailIdsFromRecord } },
+    { $pull: { teams: userParam.teamId } },
     { multi: true }
   );
 }
