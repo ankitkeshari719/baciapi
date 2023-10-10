@@ -42,7 +42,7 @@ async function create(teamParam) {
 }
 
 async function getAll() {
-  return await Team.find();
+  return await Team.find({ isActive: true });
 }
 
 async function getById(teamId) {
@@ -78,5 +78,5 @@ async function _delete(teamId) {
 }
 
 async function getAllTeamsByEnterpriseId(enterpriseId) {
-  return await Team.find({ enterpriseId: enterpriseId });
+  return await Team.find({ enterpriseId: enterpriseId, isActive: true });
 }
