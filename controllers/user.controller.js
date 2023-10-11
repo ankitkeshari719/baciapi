@@ -21,6 +21,7 @@ router.post("/deleteMany", _deleteMany);
 router.post("/deactivateMultiple", deactivateMultipleByIds);
 router.post("/updateRoleOnEnterpriseRequest", _updateRoleOnEnterpriseRequest);
 router.post("/updateUsersTeamArray", _updateUsersTeamArray);
+router.post("/updatePullUsersTeamArray", _updatePullUsersTeamArray);
 
 module.exports = router;
 
@@ -47,19 +48,19 @@ function create(req, res, next) {
   userService
     .create(req.body)
     .then((user) => {
-      let mailOptions = {
-        from: "ankit.keshari@evoltech.com.au",
-        to: "vishal.gawande@evoltech.com.au",
-        subject: "Nodemailer Project",
-        text: "Hi from your nodemailer project",
-      };
-      transporter.sendMail(mailOptions, function (err, data) {
-        if (err) {
-          console.log("Error " + err);
-        } else {
-          console.log("Email sent successfully");
-        }
-      });
+      // let mailOptions = {
+      //   from: "ankit.keshari@evoltech.com.au",
+      //   to: "vishal.gawande@evoltech.com.au",
+      //   subject: "Nodemailer Project",
+      //   text: "Hi from your nodemailer project",
+      // };
+      // transporter.sendMail(mailOptions, function (err, data) {
+      //   if (err) {
+      //     console.log("Error " + err);
+      //   } else {
+      //     console.log("Email sent successfully");
+      //   }
+      // });
       return res.status(200).json({
         status: STATUS.SUCCESS,
         message: "User created successfully!",
@@ -273,10 +274,27 @@ function _updateRoleOnEnterpriseRequest(req, res, next) {
     );
 }
 
-
 function _updateUsersTeamArray(req, res, next) {
   userService
     .updateUsersTeamArray(req.body)
+    .then(() =>
+      res.status(200).json({
+        status: STATUS.SUCCESS,
+        message: "Users Updated Successfully!",
+      })
+    )
+    .catch((err) =>
+      res.json({
+        status: STATUS.FAILED,
+        message: "Users Updated FAILED!" + " " + err,
+        data: err,
+      })
+    );
+}
+
+function _updatePullUsersTeamArray(req, res, next) {
+  userService
+    .updatePullUsersTeamArray(req.body)
     .then(() =>
       res.status(200).json({
         status: STATUS.SUCCESS,

@@ -17,6 +17,7 @@ module.exports = {
   checkUserExistOrNot,
   updateRoleOnEnterpriseRequest,
   updateUsersTeamArray,
+  updatePullUsersTeamArray,
 };
 
 async function authenticate(userParam) {
@@ -51,6 +52,9 @@ async function create(userParam) {
     teams: userParam.teams,
     isActive: userParam.isActive,
     enterpriseRequestId: userParam.enterpriseRequestId,
+    isSessionNotificationChecked: userParam.isSessionNotificationChecked,
+    isActionNotificationChecked: userParam.isActionNotificationChecked,
+    isTeamNotificationChecked: userParam.isTeamNotificationChecked,
   };
   const user = new User(requested_data);
 
@@ -208,11 +212,20 @@ async function updateRoleOnEnterpriseRequest(userParam) {
   );
 }
 
-// Update isApproved for all Approved and decline multiple enterprise requests
+// Update the team array by pushing the team id
 async function updateUsersTeamArray(userParam) {
   await User.updateMany(
     { emailId: { $in: userParam.userEmailIdsFromRecord } },
-    { $set: { teams: teams.push(userParam.teamId) } },
+    { $push: { teams: userParam.teamId } },
+    { multi: true }
+  );
+}
+
+// Update the team array by pulling the team id
+async function updatePullUsersTeamArray(userParam) {
+  await User.updateMany(
+    { emailId: { $in: userParam.userEmailIdsFromRecord } },
+    { $pull: { teams: userParam.teamId } },
     { multi: true }
   );
 }
