@@ -163,18 +163,34 @@ app.post("/createRetro", async (req, res) => {
   let retro = req.body.retro;
   let creator = req.body.creator;
   console.log("serverTimestamp", Date.now());
-  const result = await collection.insertOne({
-    ...retro,
+
+  const requestData = {
+    name: req.body.retro.name,
+    humanId: req.body.retro.humanId,
+    joinUrl: req.body.retro.joinUrl,
+    retroGoal: req.body.retro.retroGoal,
+    retroTimeframe: req.body.retro.retroTimeframe,
+    selectedTemplate: req.body.retro.selectedTemplate,
+    selectedPulseCheck: req.body.retro.selectedPulseCheck,
+    userName: req.body.retro.userName,
+    selectedAvatar: req.body.retro.selectedAvatar,
+    userType: req.body.retro.userType,
+    selectedTeam: req.body.retro.selectedTeam,
+    scheduleRetroType: req.body.retro.scheduleRetroType,
+    scheduleRetroTime: req.body.retro.scheduleRetroTime,
+    scheduleDescription: req.body.retro.scheduleDescription,
+    isLoginUser: req.body.retro.isLoginUser,
+    retroSummary: req.body.retro.retroSummary,
+    enterpriseId: req.body.retro.enterpriseId,
+    action: req.body.retro.action,
     creatorId: creator.id,
     timestamp: Date.now(),
     retroStatus: "waiting",
     waitingTimestamp: Date.now(),
-    teamId: req.body.teamId ? req.body.teamId : 0,
-    enterpriseId: req.body.teamId ? req.body.teamId : 0,
-    facilitatorId: req.body.facilitatorId ? req.body.facilitatorId : creator,
     retroDate: req.body.retroDate ? req.body.retroDate : Date.now(),
     isActive: true,
-  });
+  };
+  const result = await collection.insertOne(requestData);
   return res.status(200).json({ id: result.insertedId });
 });
 
@@ -517,7 +533,7 @@ app.post("/createRetroSummary", async (req, res) => {
     const stringForRetroSummary = `Please extract the summary from retro data
   \n\n${column}
   `;
-  const emotionsPerCategory= JSON.stringify(EMOTIONS_PER_CATEGORY, null, 2)
+    const emotionsPerCategory = JSON.stringify(EMOTIONS_PER_CATEGORY, null, 2);
     const stringForRetroEmotionsSummary = `Please count the number of happy, sad, and neutral cards in the following list:${cards}. 
   The output should be in json and the keys should be in camelCase notation example {happyCards:happycount, sadCards:sadcount, neutralCards: neutralCount}`;
 
