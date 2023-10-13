@@ -42,10 +42,10 @@ const retroModel = mongoose.Schema(
     userType: {
       type: Number,
     },
-    selectedTeam: {
+    teamId: {
       type: String,
     },
-    selectedFacilitator: {
+    facilitatorId: {
       type: String,
     },
     scheduleRetroType: {
