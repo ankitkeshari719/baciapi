@@ -7,6 +7,9 @@ module.exports = {
   create,
   update,
   delete: _delete,
+  addEnterpriseRequestNotification,
+  getAllValidNotification,
+  markAllNotificationById
 };
 
 async function getAll() {
@@ -28,12 +31,9 @@ async function create(notificationParam) {
   const requested_data = {
     notificationId: notificationId,
     type: notificationParam.type,
-    userName: notificationParam.userName,
-    userId: notificationParam.userId,
     organisationId: notificationParam.organisationId,
-    description: notificationParam.description,
-    From: notificationParam.From,
-    To: notificationParam.To,
+    fromId: notificationParam.fromId,
+    toId: notificationParam.toId,
     isRead: notificationParam.isRead,
   };
 
@@ -68,4 +68,68 @@ async function _delete(notificationId) {
   if (!notification) throw "Notification not found";
 
   await Notification.deleteMany({ notificationId: notificationId });
+}
+
+async function addEnterpriseRequestNotification(notificationParam) {
+  for (let i = 0; i < notificationParam.toId.length; i++) {
+    const notificationId =
+      notificationParam.type.toString().replace(" ", "_").toLowerCase() +
+      Math.random();
+
+    const requested_data = {
+      notificationId: notificationId,
+      type: notificationParam.type,
+      organisationId: notificationParam.organisationId,
+      fromId: notificationParam.fromId,
+      toId: notificationParam.toId[i],
+      isRead: false,
+    };
+
+    const notification = new Notification(requested_data);
+    await notification.save();
+  }
+}
+
+async function getAllValidNotification(notificationParam) {
+  const notifications = await Notification.aggregate([
+    {
+      $match: {
+        organisationId: notificationParam.organisationId,
+        toId: notificationParam.userId,
+        isRead: false,
+      },
+    },
+    {
+      $unwind: {
+        path: "$users",
+        preserveNullAndEmptyArrays: true, // Preserve empty arrays
+      },
+    },
+    {
+      $lookup: {
+        from: "users", // The name of the "users" collection
+        localField: "fromId",
+        foreignField: "emailId",
+        as: "fromUserDetails",
+      },
+    },
+    {
+      $lookup: {
+        from: "users", // The name of the "users" collection
+        localField: "toId",
+        foreignField: "emailId",
+        as: "toUserDetails",
+      },
+    },
+  ]);
+
+  return notifications;
+}
+
+async function markAllNotificationById(userParam) {
+  await User.updateMany(
+    { toId: { $in: userParam.userId } },
+    { $set: { isRead: true } },
+    { multi: true }
+  );
 }
