@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 
-const facilitatorModel={id:String,name:String,avatar:String, userType:Number}
+const facilitatorModel = {
+  id: String,
+  name: String,
+  avatar: String,
+  userType: Number,
+};
 
 const retroModel = mongoose.Schema(
   {
@@ -16,25 +21,60 @@ const retroModel = mongoose.Schema(
       type: String,
       required: true,
     },
+    retroGoal: {
+      type: String,
+    },
+    retroTimeframe: {
+      type: String,
+    },
+    selectedTemplate: {
+      type: Object,
+    },
+    selectedPulseCheck: {
+      type: Object,
+    },
+    userName: {
+      type: String,
+    },
+    selectedAvatar: {
+      type: String,
+    },
+    userType: {
+      type: Number,
+    },
+    selectedTeam: {
+      type: String,
+    },
+    selectedFacilitator: {
+      type: String,
+    },
+    scheduleRetroType: {
+      type: String,
+    },
+    scheduleRetroTime: {
+      type: String,
+    },
+    scheduleDescription: {
+      type: String,
+    },
+    isLoginUser: {
+      type: Boolean,
+    },
+    retroSummary: { type: String },
+    enterpriseId: { type: String },
+    action: { type: Array },
     creatorId: {
-        type: String,
+      type: String,
     },
     timestamp: {
-      type: Number
+      type: Number,
     },
-    retroStatus:{ type: String,},
-    waitingTimeStamp:{},
-    teamId:{ type: String,},
-    enterpriseId:{ type: String,},
-    facilitatorId:{type:facilitatorModel},
-    retroDate:{type:Number},
-    retroSummary:{type:String},
-    isActive:{type:Boolean},
-    action:{  type: Array,
-        },
-        emotionsAsPerCategory:{type:Array},
-        retroEmotions:{type:Object}
-
+    retroStatus: { type: String },
+    waitingTimeStamp: {},
+    retroDate: { type: Number },
+    isActive: { type: Boolean },
+    emotionsAsPerCategory: { type: Array },
+    retroEmotions: { type: Object },
   },
   {
     timestamps: true,
