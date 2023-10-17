@@ -13,20 +13,11 @@ const notificationModel = mongoose.Schema(
     organisationId: {
       type: String,
     },
-    fromName: {
-      type: String,
-    },
     fromId: {
       type: String,
     },
-    fromTeam: {
+    toId: {
       type: String,
-    },
-    description: {
-      type: String,
-    },
-    To: {
-      type: Array,
     },
     isRead: {
       type: Boolean,
