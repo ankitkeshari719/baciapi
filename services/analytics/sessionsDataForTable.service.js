@@ -68,7 +68,7 @@ async function getSessionsDataForTable(req) {
     {
       $project: {
         retroId: 1,
-        retroName: 1,
+        name: 1,
         humanId: 1,
         joinUrl: 1,
         creatorId: 1,
@@ -79,6 +79,10 @@ async function getSessionsDataForTable(req) {
         teamName: "$teamInfo.teamName",
         teamDepartment: "$teamInfo.teamDepartment",
         userEmailIds: "$teamInfo.userEmailIds",
+        selectedTemplate:1,
+        selectedPulseCheck:1,
+        isLoginUser:1
+        // action:1
       },
     },
   ]);
