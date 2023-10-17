@@ -85,12 +85,7 @@ let transporter = nodemailer.createTransport({
   }
 });
 
-let mailOptions = {
-  from: 'birdie.hayes@ethereal.email',     // Sender address
-  to: 'ankit.keshari@evoltech.com.au',      // Recipient address
-  subject: 'Test Email',             // Email subject
-  text: 'This is a test email from BACI.'     // Email body
-};
+
 
 
 
@@ -301,7 +296,15 @@ app.post("/addRetroAction", async (req, res) => {
 });
 
 
+
 app.get("/sendEmail",async (req,res)=>{
+
+  let mailOptions = {
+    from: 'birdie.hayes@ethereal.email',     // Sender address
+    to: 'ankit.keshari@evoltech.com.au',      // Recipient address
+    subject: 'Test Email',             // Email subject
+    text: 'This is a test email from BACI.'     // Email body
+  };
 
   // Send email
   console.log("In /sendEmail")
