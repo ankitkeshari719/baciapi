@@ -26,6 +26,7 @@ const collection = db.collection("retros");
 const teamsDB = db.collection("teams");
 const usersDB = db.collection("users");
 const actionsDB = db.collection("actions");
+const nodemailer = require('nodemailer');
 const {
   ROLE_NAME,
   RETRO_STATUS,
@@ -65,6 +66,37 @@ const {
   superannuationTeamMoodResult,
   insuranceTeamMoodResult,
 } = require("./_helpers/analyticsConst");
+
+
+
+
+
+
+//open below url and paste the username and password
+// https://ethereal.email/create
+
+
+let transporter = nodemailer.createTransport({
+  host: 'smtp.ethereal.email',
+  port: 587,
+  auth: {
+      user: 'birdie.hayes@ethereal.email',
+      pass: 'GnrAJ3nNr3rA4HX43V'
+  }
+});
+
+let mailOptions = {
+  from: 'birdie.hayes@ethereal.email',     // Sender address
+  to: 'ankit.keshari@evoltech.com.au',      // Recipient address
+  subject: 'Test Email',             // Email subject
+  text: 'This is a test email from BACI.'     // Email body
+};
+
+
+
+
+
+
 
 
 
@@ -267,6 +299,23 @@ app.post("/addRetroAction", async (req, res) => {
   ]);
   return res.status(200).json({ id: result.value?._id });
 });
+
+
+app.get("/sendEmail",async (req,res)=>{
+
+  // Send email
+  console.log("In /sendEmail")
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+      console.error(error);
+  } else {
+      console.log('Email sent: ' + info.response);
+      return res.status(200).json({ status:"Email sent" });
+  }
+});
+})
+
+
 
 app.get("/getRetro", async (req, res) => {
   let id = req.query.id;
