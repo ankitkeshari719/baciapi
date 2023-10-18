@@ -26,11 +26,14 @@ const collection = db.collection("retros");
 const teamsDB = db.collection("teams");
 const usersDB = db.collection("users");
 const actionsDB = db.collection("actions");
+const nodemailer = require('nodemailer');
 const {
   ROLE_NAME,
   RETRO_STATUS,
   EMOTIONS_PER_CATEGORY,
 } = require("./_helpers/const");
+// const ACE = require('atlassian-connect-express');
+
 
 //openAI
 const { Configuration, OpenAIApi } = require("azure-openai");
@@ -63,6 +66,44 @@ const {
   superannuationTeamMoodResult,
   insuranceTeamMoodResult,
 } = require("./_helpers/analyticsConst");
+
+
+
+
+
+
+//open below url and paste the username and password
+// https://ethereal.email/create
+
+
+let transporter = nodemailer.createTransport({
+  host: 'smtp.ethereal.email',
+  port: 587,
+  auth: {
+      user: 'birdie.hayes@ethereal.email',
+      pass: 'GnrAJ3nNr3rA4HX43V'
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // const { inputLayer } = require("@tensorflow/tfjs-layers/dist/exports_layers");
 
@@ -144,6 +185,25 @@ app.get(
     });
   }
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Api routes
 app.use("/users", require("./controllers/user.controller"));
@@ -234,6 +294,31 @@ app.post("/addRetroAction", async (req, res) => {
   ]);
   return res.status(200).json({ id: result.value?._id });
 });
+
+
+
+app.get("/sendEmail",async (req,res)=>{
+
+  let mailOptions = {
+    from: 'birdie.hayes@ethereal.email',     // Sender address
+    to: 'ankit.keshari@evoltech.com.au',      // Recipient address
+    subject: 'Test Email',             // Email subject
+    text: 'This is a test email from BACI.'     // Email body
+  };
+
+  // Send email
+  console.log("In /sendEmail")
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+      console.error(error);
+  } else {
+      console.log('Email sent: ' + info.response);
+      return res.status(200).json({ status:"Email sent" });
+  }
+});
+})
+
+
 
 app.get("/getRetro", async (req, res) => {
   let id = req.query.id;
@@ -685,6 +770,18 @@ app.get("/getJiraToken", async (req, res) => {
     });
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
 app.get("/listJiraProjects", async (req, res) => {
   let access_token = req.query.jiraCode;
   let cloudId = "";
@@ -757,6 +854,77 @@ app.get("/listJiraMeta", async (req, res) => {
       console.log("This is the error", err);
     });
 });
+
+
+//------------ list the jira users ------------------//
+
+app.post("/getJiraUsers", async (req, res) => {
+  // let projectId = req.body.projectId;
+  // let issueType = req.body.issueType;
+  let access_token = req.body.access_token;
+  // let description = req.body.description;
+  let cloudId = "";
+  let assignee = "";
+  let config = {
+    headers: {
+      Authorization: "Bearer " + access_token,
+      Accept: "application/json",
+    },
+  };
+
+  // await axios
+  //   .get("https://api.atlassian.com/me", config)
+  //   .then(async (response) => {
+  //     console.log(response);
+  //     assignee = response.data.account_id;
+  //   })
+  //   .catch((err) => {
+  //     console.log("This is the error", JSON.stringify(err.response.data));
+  //   });
+
+  // const payload = {
+  //   fields: {
+  //     assignee: {
+  //       id: assignee,
+  //     },
+  //     project: {
+  //       id: projectId,
+  //     },
+  //     issuetype: {
+  //       id: issueType,
+  //     },
+  //     summary: "BACI - TEST",
+  //     description: description,
+  //   },
+  //   update: {},
+  // };
+  await axios
+    .get("https://api.atlassian.com/oauth/token/accessible-resources", config)
+    .then(async (response) => {
+      console.log("cloud id", response.data[0]);
+      cloudId = response.data[0].id;
+      await axios
+        .get(
+          "https://api.atlassian.com/ex/jira/" + cloudId + `/rest/api/2/users/search`,
+          config
+        )
+        .then((response) => {
+          console.log("getJiraUsers",response.message);
+          if (response.status === 200) {
+            return res.status(200).json({ response: "Success",data:response.data });
+          } else return res.status(400).json({ response: "Error" });
+        });
+    })
+    .catch((err) => {
+      console.log(
+        "This is the error",
+        JSON.stringify(err.response.data)
+      );
+    });
+});
+
+
+
 
 app.post("/createJiraIssue", async (req, res) => {
   let projectId = req.body.projectId;

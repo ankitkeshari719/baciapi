@@ -1,0 +1,55 @@
+{
+
+    "authentication": {
+        "type": "jwt"
+      },
+    "modules": {
+      "webItems": [
+        {
+          "key": "create-issue-link",
+          "location": "system.top.navigation.bar",
+          "name": {
+            "value": "Create Issue"
+          },
+          "url": "/secure/CreateIssue.jspa"
+        }
+      ],
+      "webPanels": [
+        {
+          "key": "create-issue-panel",
+          "location": "atl.jira.view.issue.right.context",
+          "name": {
+            "value": "Create Issue Panel"
+          },
+          "url": "/create-issue-panel"
+        }
+      ],
+      "postInstallPage": {
+        "url": "/installed"
+      },
+      "configurePage": {
+        "url": "/configure"
+      },
+      "webSections": {
+        "issue-tools": [
+          {
+            "location": "atl.jira.view.issue.right.context",
+            "name": {
+              "value": "Issue Tools"
+            },
+            "key": "issue-tools-section"
+          }
+        ]
+      },
+      "webFragment": [
+        {
+          "context": "atl.jira.view.issue.right.context",
+          "resource": {
+            "url": "/create-issue-panel",
+            "type": "download"
+          }
+        }
+      ]
+    }
+  }
+  
