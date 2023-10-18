@@ -173,9 +173,13 @@ async function getParticipantMoodCount(req) {
         });
 
         retroDataObj.pulseCheck.forEach((pulseobj)=>{
-          retroDataObj.pulseCheckChartData.happyCards=retroDataObj.pulseCheckChartData.happyCards+pulseobj.happyCards;
-          retroDataObj.pulseCheckChartData.sadCards=retroDataObj.pulseCheckChartData.sadCards+pulseobj.sadCards;
-          retroDataObj.pulseCheckChartData.neutralCards=retroDataObj.pulseCheckChartData.neutralCards+pulseobj.neutralCards;
+          if(pulseobj!=undefined){
+            console.log(pulseobj)
+            retroDataObj.pulseCheckChartData.happyCards=retroDataObj.pulseCheckChartData.happyCards+pulseobj.happyCards;
+            retroDataObj.pulseCheckChartData.sadCards=retroDataObj.pulseCheckChartData.sadCards+pulseobj.sadCards;
+            retroDataObj.pulseCheckChartData.neutralCards=retroDataObj.pulseCheckChartData.neutralCards+pulseobj.neutralCards;
+          }
+      
 
         })
      
