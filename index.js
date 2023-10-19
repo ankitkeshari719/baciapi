@@ -236,6 +236,7 @@ app.post("/createRetro", async (req, res) => {
     selectedAvatar: req.body.retro.selectedAvatar,
     userType: req.body.retro.userType,
     selectedTeam: req.body.retro.selectedTeam,
+    teamId:req.body.retro.selectedTeam,
     scheduleRetroType: req.body.retro.scheduleRetroType,
     scheduleRetroTime: req.body.retro.scheduleRetroTime,
     scheduleDescription: req.body.retro.scheduleDescription,
