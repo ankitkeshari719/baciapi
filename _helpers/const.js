@@ -42,5 +42,20 @@ module.exports = {
   ROLE_NAME,
   QUICK_PULSE_CHECK_QUESTIONS,
   RETRO_STATUS,
-  EMOTIONS_PER_CATEGORY
+  EMOTIONS_PER_CATEGORY,
+  APPROVED_ENTERPRISE_REQUEST,
+  DECLINE_ENTERPRISE_REQUEST,
+  REQUEST_FOR_ENTERPRISE,
+  ADDED_IN_TEAM,
+  ADDED_IN_NEW_SESSION,
+  ADDED_IN_NEW_ACTION
 };
+
+
+// Notification Constast
+export const APPROVED_ENTERPRISE_REQUEST = 'approvedEnterpriseRequest';
+export const DECLINE_ENTERPRISE_REQUEST = 'declineEnterpriseRequest';
+export const REQUEST_FOR_ENTERPRISE = 'requestForEnterprise';
+export const ADDED_IN_TEAM = 'addedInTeam';
+export const ADDED_IN_NEW_SESSION = 'addedInNewSession';
+export const ADDED_IN_NEW_ACTION = 'addedInNewAction';
