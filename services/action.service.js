@@ -57,7 +57,7 @@ async function create(actionParam) {
       type:ADDED_IN_NEW_ACTION,
       organisationId: enterpriseId,
       fromId: createdBy,
-      toId: "",
+      toId: createdBy,
       isRead: false,
     };
 
