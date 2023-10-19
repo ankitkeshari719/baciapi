@@ -1,5 +1,9 @@
 const db = require("../_helpers/db");
 const Action = db.Action;
+const Notification = db.Notification;
+const {
+  ADDED_IN_NEW_ACTION
+} = require("./../_helpers/const");
 
 module.exports = {
   getAll,
@@ -29,11 +33,11 @@ async function create(actionParam) {
     actionName: actionParam.actionName,
     jiraId: actionParam.jiraId,
     retroId: actionParam.retroId,
-    retroIdEnc:actionParam.retroIdEnc,
-    enterpriseId:actionParam.enterpriseId,
+    retroIdEnc: actionParam.retroIdEnc,
+    enterpriseId: actionParam.enterpriseId,
     assignedTo: actionParam.assignedTo,
     createdBy: actionParam.createdBy,
-    jiraUrl:actionParam.jiraUrl,
+    jiraUrl: actionParam.jiraUrl,
     status: actionParam.status,
     isActive: actionParam.isActive,
     teamId: actionParam.teamId,
@@ -43,6 +47,43 @@ async function create(actionParam) {
 
   // save action
   await action.save();
+
+  if (assignedTo === "") {
+    const notificationId =
+     ADDED_IN_NEW_ACTION.replace(" ", "_").toLowerCase() + Math.random();
+    // Created : Actions has been created
+    const notificationRequest = {
+      notificationId: notificationId,
+      type:ADDED_IN_NEW_ACTION,
+      organisationId: enterpriseId,
+      fromId: createdBy,
+      toId: createdBy,
+      isRead: false,
+    };
+
+    const notification = new Notification(notificationRequest);
+
+    // save notification
+    await notification.save();
+  } else {
+    const notificationId =
+     ADDED_IN_NEW_ACTION.replace(" ", "_").toLowerCase() + Math.random();
+    // Created :
+    // AssignTo
+    const notificationRequest = {
+      notificationId: notificationId,
+      type:ADDED_IN_NEW_ACTION,
+      organisationId: enterpriseId,
+      fromId: createdBy,
+      toId: assignedTo,
+      isRead: false,
+    };
+
+    const notification = new Notification(notificationRequest);
+
+    // save notification
+    await notification.save();
+  }
   return actionId;
 }
 
