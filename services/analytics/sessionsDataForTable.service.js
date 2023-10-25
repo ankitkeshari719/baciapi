@@ -79,6 +79,7 @@ async function getSessionsDataForTable(req) {
         teamName: "$teamInfo.teamName",
         teamDepartment: "$teamInfo.teamDepartment",
         userEmailIds: "$teamInfo.userEmailIds",
+        selectedFacilitator:1,
         selectedTemplate:1,
         selectedPulseCheck:1,
         isLoginUser:1
