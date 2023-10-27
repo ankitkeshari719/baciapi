@@ -11,8 +11,10 @@ module.exports = {
 
 async function create(enterpriseParam) {
   let organisationId =
-    enterpriseParam.organisationName.toString().replace(" ", "_").toLowerCase() +
-    Math.random();
+    enterpriseParam.organisationName
+      .toString()
+      .replace(" ", "_")
+      .toLowerCase() + Math.random();
 
   // validate
   const tempEnterprise = await Enterprise.findOne({
@@ -51,7 +53,9 @@ async function getById(organisationId) {
 }
 
 async function update(organisationId, enterpriseParam) {
-  const enterprise = await Enterprise.findOne({ organisationId: organisationId });
+  const enterprise = await Enterprise.findOne({
+    organisationId: organisationId,
+  });
 
   // validate
   if (!enterprise) throw "Enterprise not found";
@@ -64,7 +68,9 @@ async function update(organisationId, enterpriseParam) {
 }
 
 async function _delete(organisationId) {
-  const enterprise = await Enterprise.findOne({ organisationId: organisationId });
+  const enterprise = await Enterprise.findOne({
+    organisationId: organisationId,
+  });
 
   // validate
   if (!enterprise) throw "Enterprise not found";
