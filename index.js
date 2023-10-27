@@ -26,14 +26,13 @@ const collection = db.collection("retros");
 const teamsDB = db.collection("teams");
 const usersDB = db.collection("users");
 const actionsDB = db.collection("actions");
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 const {
   ROLE_NAME,
   RETRO_STATUS,
   EMOTIONS_PER_CATEGORY,
 } = require("./_helpers/const");
 // const ACE = require('atlassian-connect-express');
-
 
 //openAI
 const { Configuration, OpenAIApi } = require("azure-openai");
@@ -67,43 +66,17 @@ const {
   insuranceTeamMoodResult,
 } = require("./_helpers/analyticsConst");
 
-
-
-
-
-
 //open below url and paste the username and password
 // https://ethereal.email/create
 
-
-let transporter = nodemailer.createTransport({
-  host: 'smtp.ethereal.email',
+const transporter = nodemailer.createTransport({
+  host: "smtp.ethereal.email",
   port: 587,
   auth: {
-      user: 'birdie.hayes@ethereal.email',
-      pass: 'GnrAJ3nNr3rA4HX43V'
-  }
+    user: "yoshiko.howell@ethereal.email",
+    pass: "EP2JbQ2mPZfRvxdw2h",
+  },
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // const { inputLayer } = require("@tensorflow/tfjs-layers/dist/exports_layers");
 
@@ -186,25 +159,6 @@ app.get(
   }
 );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Api routes
 app.use("/users", require("./controllers/user.controller"));
 app.use("/roles", require("./controllers/role.controller"));
@@ -236,8 +190,8 @@ app.post("/createRetro", async (req, res) => {
     selectedAvatar: req.body.retro.selectedAvatar,
     userType: req.body.retro.userType,
     selectedTeam: req.body.retro.selectedTeam,
-    selectedFacilitator:req.body.retro.selectedFacilitator,
-    teamId:req.body.retro.selectedTeam,
+    selectedFacilitator: req.body.retro.selectedFacilitator,
+    teamId: req.body.retro.selectedTeam,
     scheduleRetroType: req.body.retro.scheduleRetroType,
     scheduleRetroTime: req.body.retro.scheduleRetroTime,
     scheduleDescription: req.body.retro.scheduleDescription,
@@ -297,30 +251,25 @@ app.post("/addRetroAction", async (req, res) => {
   return res.status(200).json({ id: result.value?._id });
 });
 
-
-
-app.get("/sendEmail",async (req,res)=>{
-
+app.get("/sendEmail", async (req, res) => {
   let mailOptions = {
-    from: 'birdie.hayes@ethereal.email',     // Sender address
-    to: 'ankit.keshari@evoltech.com.au',      // Recipient address
-    subject: 'Test Email',             // Email subject
-    text: 'This is a test email from BACI.'     // Email body
+    from: "kelsie.hammes@ethereal.email", // Sender address
+    to: "ankit.keshari@gslab.com", // Recipient address
+    subject: "Test Email", // Email subject
+    text: "This is a test email from BACI.", // Email body
   };
 
   // Send email
-  console.log("In /sendEmail")
-transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
+  console.log("In /sendEmail");
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
       console.error(error);
-  } else {
-      console.log('Email sent: ' + info.response);
-      return res.status(200).json({ status:"Email sent" });
-  }
+    } else {
+      console.log("Email sent: " + info.response);
+      return res.status(200).json({ status: "Email sent" });
+    }
+  });
 });
-})
-
-
 
 app.get("/getRetro", async (req, res) => {
   let id = req.query.id;
@@ -740,7 +689,7 @@ app.get("/connectJira", async (req, res) => {
   let retroId = req.query.retroId;
   console.log("in connect jira");
   let url = process.env.JIRA_URL + `&state=${retroId}`;
-  console.log(url);
+
   return res.status(200).json({ response: url });
 });
 
@@ -763,7 +712,7 @@ app.get("/getJiraToken", async (req, res) => {
       })
     )
     .then(async (response) => {
-      console.log(response.data.access_token);
+
       access_token = response.data.access_token;
       return res.status(200).json({ response: access_token });
     })
@@ -771,18 +720,6 @@ app.get("/getJiraToken", async (req, res) => {
       console.log("Error", error);
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.get("/listJiraProjects", async (req, res) => {
   let access_token = req.query.jiraCode;
@@ -797,7 +734,7 @@ app.get("/listJiraProjects", async (req, res) => {
   await axios
     .get("https://api.atlassian.com/oauth/token/accessible-resources", config)
     .then(async (response) => {
-      console.log("cloud id", response.data[0].id);
+    
       cloudId = response.data[0].id;
       await axios
         .get(
@@ -807,6 +744,9 @@ app.get("/listJiraProjects", async (req, res) => {
           config
         )
         .then((response) => {
+          if (response.data == undefined) {
+            return res.status(401).json({ response: "Unauthorized" });
+          }
           console.log("list of projects", response.data);
           let projects = response.data;
           projects.forEach((project) => {
@@ -817,6 +757,7 @@ app.get("/listJiraProjects", async (req, res) => {
     })
     .catch((err) => {
       console.log("This is the error", err);
+      return res.status(401).json({ response: "Unauthorized" });
     });
 });
 
@@ -856,7 +797,6 @@ app.get("/listJiraMeta", async (req, res) => {
       console.log("This is the error", err);
     });
 });
-
 
 //------------ list the jira users ------------------//
 
@@ -907,34 +847,33 @@ app.post("/getJiraUsers", async (req, res) => {
       cloudId = response.data[0].id;
       await axios
         .get(
-          "https://api.atlassian.com/ex/jira/" + cloudId + `/rest/api/2/users/search`,
+          "https://api.atlassian.com/ex/jira/" +
+            cloudId +
+            `/rest/api/2/users/search`,
           config
         )
         .then((response) => {
-          console.log("getJiraUsers",response.message);
+          console.log("getJiraUsers", response.message);
           if (response.status === 200) {
-            return res.status(200).json({ response: "Success",data:response.data });
+            return res
+              .status(200)
+              .json({ response: "Success", data: response.data });
           } else return res.status(400).json({ response: "Error" });
         });
     })
     .catch((err) => {
-      console.log(
-        "This is the error",
-        JSON.stringify(err.response.data)
-      );
+      console.log("This is the error", JSON.stringify(err.response.data));
     });
 });
-
-
-
 
 app.post("/createJiraIssue", async (req, res) => {
   let projectId = req.body.projectId;
   let issueType = req.body.issueType;
   let access_token = req.body.access_token;
   let description = req.body.description;
+  let action =req.body.action;
   let cloudId = "";
-  let assignee = "";
+  let assignee = null;
   let config = {
     headers: {
       Authorization: "Bearer " + access_token,
@@ -942,48 +881,109 @@ app.post("/createJiraIssue", async (req, res) => {
     },
   };
 
-  await axios
+  if(!!action.assigneeId&& action.assigneeId!=="")
+  {await axios
     .get("https://api.atlassian.com/me", config)
     .then(async (response) => {
-      console.log(response);
+      // console.log(response);
       assignee = response.data.account_id;
     })
     .catch((err) => {
       console.log("This is the error", JSON.stringify(err.response.data));
-    });
+      assignee=null;
+    });}
 
-  const payload = {
-    fields: {
-      assignee: {
-        id: assignee,
-      },
-      project: {
-        id: projectId,
-      },
-      issuetype: {
-        id: issueType,
-      },
-      summary: "BACI - TEST",
-      description: description,
-    },
-    update: {},
-  };
+  
+
   await axios
     .get("https://api.atlassian.com/oauth/token/accessible-resources", config)
     .then(async (response) => {
-      console.log("cloud id", response.data[0]);
+      // console.log("cloud id", response.data[0]);
       cloudId = response.data[0].id;
-      await axios
+      var jiraUser
+      if(!!action.assigneeId&&action.assigneeId!="" ){
+        jiraUser=  await axios
+        .get(
+          "https://api.atlassian.com/ex/jira/" +
+            cloudId +
+            `/rest/api/2/user/search?query=${action.assigneeId}`,
+          config
+        )
+        .then(
+          (res) => {
+            const users = response.data;
+            console.log(users[0].id);
+            jiraUser=users[0].id;
+          },
+          (error) => {
+            console.log(error.response ? error.response.data : error.message);
+          }
+        );
+      }
+
+      const payload = {
+        fields: {
+          assignee: {
+            id: jiraUser?jiraUser:assignee,
+          },
+          project: {
+            id: projectId,
+          },
+          issuetype: {
+            id: issueType,
+          },
+          summary:action.value  ,
+          description: action.value + action.assigneeId +action.assigneeName,
+        },
+        update: {},
+      };
+
+
+   await axios
         .post(
           "https://api.atlassian.com/ex/jira/" + cloudId + `/rest/api/2/issue`,
           payload,
           config
         )
-        .then((response) => {
-          console.log(response.data.errors);
+        .then(async (response) => {
+
+          // console.log(response.data.errors);
+          const actionData ={
+            actionId: action.id,
+            actionName: action.value,
+            jiraId: response.data.id,
+            jiraKey:response.data.key,
+            retroId: action.retroId,
+            retroIdEnc: action.retroIdEnc,
+            enterpriseId: action.enterpriseId,
+            assignedTo: action.assignedTo?action.assignedTo:action.assigneeId,
+            createdBy: action.createdBy,
+            jiraUrl: response.data.self,
+            status: "TO DO",
+            isActive:true,
+            teamId: action.teamId,
+          };
           if (response.status === 201) {
-            return res.status(200).json({ response: "Success" });
-          } else return res.status(400).json({ response: "Error" });
+            
+         await actionsDB.insertOne(actionData).then(
+          actionDBResponse=>{
+            console.log(actionDBResponse,"actionDBResponse")
+            return res
+            .status(200)
+            .json({ message: "Jira ticket created successfully", data: response.data });
+        } ,
+          
+          actionDBError=>{
+            return res
+            .status(200)
+            .json({ message: "Jira ticket created successfully, but didn't able to update in db", data: response.data });
+          }
+         )
+        
+        }
+        else return res.status(400).json({ message: "Error" });
+
+       
         });
     })
     .catch((err) => {
@@ -993,6 +993,41 @@ app.post("/createJiraIssue", async (req, res) => {
       );
     });
 });
+
+const getUserAccountIdByEmail = async (
+  JIRA_BASE_URL,
+  EMAIL_ADDRESS,
+  ACCESS_TOKEN
+) => {
+  try {
+    const response = await axios.get(
+      `https://api.atlassian.com/ex/jira/${CLOUD_ID}/rest/api/3/user/search?query=${EMAIL_ADDRESS}`,
+      {
+        headers: {
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+          Accept: "application/json",
+        },
+      }
+    );
+    console.log(`Jira ID (Account ID) for `, response);
+
+    const users = response.data;
+    if (users && users.length > 0) {
+      // The first user in the list is likely to be the exact match for the email address
+      const userAccountId = users[0].accountId;
+      console.log(
+        `Jira ID (Account ID) for ${EMAIL_ADDRESS}: ${userAccountId}`
+      );
+    } else {
+      console.log(`User with email address ${EMAIL_ADDRESS} not found.`);
+    }
+  } catch (error) {
+    console.error(
+      "Error fetching user information:",
+      error.response ? error.response.data : error.message
+    );
+  }
+};
 
 // ------------------------------- Analytics API's ----------------------------------------------
 // Api to get dummy chart data

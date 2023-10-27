@@ -101,6 +101,7 @@ async function getActionsDataForTable(req) {
         enterpriseId: 1,
         createdAt: 1,
         updatedAt: 1,
+        jiraKey:1,
         avatar:{ $arrayElemAt: ["$userObj.selectedAvatar", 0] },
         assigneeFName:{ $arrayElemAt: ["$userObj.firstName", 0]  },
         assigneeLName:{ $arrayElemAt: ["$userObj.lastName", 0] },
