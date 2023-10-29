@@ -866,11 +866,17 @@ app.post("/getJiraUsers", async (req, res) => {
     });
 });
 
+
+//create Jira issue 
+// step 1 : check the fetch the cloud id using access code
+//step 2 : check if assigned to any user if yes try to fetch jira accessId
+//step 3 : create jira ticket
+//step4 : update the data i.e action in action table
+//return status : same steps need to be follwed to edit token
 app.post("/createJiraIssue", async (req, res) => {
   let projectId = req.body.projectId;
   let issueType = req.body.issueType;
   let access_token = req.body.access_token;
-  let description = req.body.description;
   let action =req.body.action;
   let cloudId = "";
   let assignee = null;
@@ -885,7 +891,6 @@ app.post("/createJiraIssue", async (req, res) => {
   {await axios
     .get("https://api.atlassian.com/me", config)
     .then(async (response) => {
-      // console.log(response);
       assignee = response.data.account_id;
     })
     .catch((err) => {
@@ -962,6 +967,8 @@ app.post("/createJiraIssue", async (req, res) => {
             status: "TO DO",
             isActive:true,
             teamId: action.teamId,
+            createdAt:new Date(),
+            updatedAt:new Date()
           };
           if (response.status === 201) {
             
@@ -994,40 +1001,131 @@ app.post("/createJiraIssue", async (req, res) => {
     });
 });
 
-const getUserAccountIdByEmail = async (
-  JIRA_BASE_URL,
-  EMAIL_ADDRESS,
-  ACCESS_TOKEN
-) => {
-  try {
-    const response = await axios.get(
-      `https://api.atlassian.com/ex/jira/${CLOUD_ID}/rest/api/3/user/search?query=${EMAIL_ADDRESS}`,
-      {
-        headers: {
-          Authorization: `Bearer ${ACCESS_TOKEN}`,
-          Accept: "application/json",
-        },
-      }
-    );
-    console.log(`Jira ID (Account ID) for `, response);
 
-    const users = response.data;
-    if (users && users.length > 0) {
-      // The first user in the list is likely to be the exact match for the email address
-      const userAccountId = users[0].accountId;
+app.put("/editJiraIssue", async (req, res) => {
+ let issueKey =req.body.action.jiraId;
+  let access_token = req.body.access_token;
+  let action =req.body.action;
+  let actionValue=req.body.actionValue;
+  let cloudId = "";
+  let assignee = null;
+  let config = {
+    headers: {
+      Authorization: "Bearer " + access_token,
+      Accept: "application/json",
+    },
+  };
+
+  if(!!action.assigneeId&& action.assigneeId!=="")
+  {await axios
+    .get("https://api.atlassian.com/me", config)
+    .then(async (response) => {
+      console.log(`User response ${response.data}`)
+      assignee = response.data.account_id;
+    })
+    .catch((err) => {
+      console.log("This is the error", JSON.stringify(err.response.data));
+      assignee=null;
+    });}
+
+  
+
+  await axios
+    .get("https://api.atlassian.com/oauth/token/accessible-resources", config)
+    .then(async (response) => {
+      // console.log("cloud id", response.data[0]);
+      cloudId = response.data[0].id;
+      var jiraUser
+      if(!!action.assigneeId&&action.assigneeId!="" ){
+        jiraUser=  await axios
+        .get(
+          "https://api.atlassian.com/ex/jira/" +
+            cloudId +
+            `/rest/api/2/user/search?query=${action.assigneeId}`,
+          config
+        )
+        .then(
+          (res) => {
+            const users = response.data;
+            console.log(users[0].id);
+            jiraUser=users[0].id;
+          },
+          (error) => {
+            console.log(error.response ? error.response.data : error.message);
+          }
+        );
+      }
+
+      const payload = {
+        fields: {
+          assignee: {
+            id: jiraUser?jiraUser:assignee,
+          },
+          summary:actionValue  ,
+          description: actionValue + action.assigneeId +action.assigneeName,
+        },
+        update: {},
+      };
+
+
+   await axios
+        .put(
+          "https://api.atlassian.com/ex/jira/" + cloudId + `/rest/api/2/issue/${issueKey}`,
+          payload,
+          config
+        )
+        .then(async (response) => {
+
+          // console.log(response.data.errors);
+          const actionData ={
+            actionId: action.id,
+            actionName: actionValue,
+            jiraId: action.jiraId,
+            jiraKey:issueKey,
+            retroId: action.retroId,
+            retroIdEnc: action.retroIdEnc,
+            enterpriseId: action.enterpriseId,
+            assignedTo: action.assignedTo?action.assignedTo:action.assigneeId,
+            createdBy: action.createdBy,
+            jiraUrl: response.data.self,
+            status:  (action.status||  action.status!="")?"TO DO":action.status,
+            isActive:true,
+            teamId: action.teamId,
+            updatedAt:new Date()
+          };
+          console.log(response,"jira edited")
+          if (200<response.status < 300) {
+            
+         await actionsDB.insertOne(actionData).then(
+          actionDBResponse=>{
+            console.log(actionDBResponse,"actionDBResponse")
+            return res
+            .status(200)
+            .json({ message: "Jira ticket edited successfully", data: response.data });
+        } ,
+          
+          actionDBError=>{
+            return res
+            .status(200)
+            .json({ message: "Jira ticket edited successfully, but didn't able to update in db", data: response.data });
+          }
+         )
+        
+        }
+        else return res.status(400).json({ message: "Error" });
+
+       
+        });
+    })
+    .catch((err) => {
       console.log(
-        `Jira ID (Account ID) for ${EMAIL_ADDRESS}: ${userAccountId}`
+        "This is the error",
+        JSON.stringify(err.response.data.errors)
       );
-    } else {
-      console.log(`User with email address ${EMAIL_ADDRESS} not found.`);
-    }
-  } catch (error) {
-    console.error(
-      "Error fetching user information:",
-      error.response ? error.response.data : error.message
-    );
-  }
-};
+    });
+});
+
+
 
 // ------------------------------- Analytics API's ----------------------------------------------
 // Api to get dummy chart data
