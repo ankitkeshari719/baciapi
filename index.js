@@ -207,7 +207,39 @@ app.post("/createRetro", async (req, res) => {
     isActive: true,
   };
   const result = await collection.insertOne(requestData);
-  return res.status(200).json({ id: result.insertedId });
+
+if(requestData.enterpriseId!=undefined && requestData.enterpriseId!="" && requestData.teamId!=''&&requestData.teamId!=undefined){
+const teamData= await teamsDB.findOne({teamId:requestData.teamId});
+console.log(teamData.userEmailIds)
+
+
+const recipients = teamData.userEmailIds;
+const emailStatusArray=[]
+try {
+  const subject= `${requestData.name} retro created`;
+  const text =`To join retro click on ${requestData.joinUrl}. `
+  const emailResults = await sendEmailsToUsers(recipients,subject,text);
+  emailResults.forEach((emailResult) => {
+    if (emailResult.status === 'fulfilled') {
+      console.log(`Email sent to ${emailResult.value.email} with Message ID: ${emailResult.value.messageId}`);
+      emailStatusArray.push(`Email sent to ${emailResult.value.email} with Message ID: ${emailResult.value.messageId}`);
+    } else {
+      console.error(`Failed to send email to ${emailResult.reason.email}: ${emailResult.reason.error}`);
+      emailStatusArray.push(`Failed to send email to ${emailResult.reason.email}: ${emailResult.reason.error}`);
+    }
+  });
+} catch (error) {
+  console.error('Error sending emails:', error);
+  emailStatusArray.push('Error sending emails:', error)
+}
+// 
+return res.status(200).json({ id: result.insertedId, emailStatus:emailStatusArray });
+}
+else 
+return res.status(200).json({ id: result.insertedId });
+
+
+
 });
 
 app.post("/addRetroAction", async (req, res) => {
@@ -270,6 +302,33 @@ app.get("/sendEmail", async (req, res) => {
     }
   });
 });
+
+
+// Function to send emails to multiple users (returns a promise)
+function sendEmailToUser(recipient,subject,text) {
+  return new Promise((resolve, reject) => {
+
+    const mailOptions = {
+      from: 'your-email@gmail.com',
+      to: recipient,
+      subject: subject,
+      text: text
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        reject({ email: recipient, status: 'failed', error: error.message });
+      } else {
+        resolve({ email: recipient, status: 'sent', messageId: info.messageId });
+      }
+    });
+  });
+}
+async function sendEmailsToUsers(recipients,subject,text) {
+  const emailPromises = recipients.map((recipient) => sendEmailToUser(recipient,subject,text));
+  return Promise.allSettled(emailPromises);
+}
+
 
 app.get("/getRetro", async (req, res) => {
   let id = req.query.id;
@@ -814,32 +873,7 @@ app.post("/getJiraUsers", async (req, res) => {
     },
   };
 
-  // await axios
-  //   .get("https://api.atlassian.com/me", config)
-  //   .then(async (response) => {
-  //     console.log(response);
-  //     assignee = response.data.account_id;
-  //   })
-  //   .catch((err) => {
-  //     console.log("This is the error", JSON.stringify(err.response.data));
-  //   });
 
-  // const payload = {
-  //   fields: {
-  //     assignee: {
-  //       id: assignee,
-  //     },
-  //     project: {
-  //       id: projectId,
-  //     },
-  //     issuetype: {
-  //       id: issueType,
-  //     },
-  //     summary: "BACI - TEST",
-  //     description: description,
-  //   },
-  //   update: {},
-  // };
   await axios
     .get("https://api.atlassian.com/oauth/token/accessible-resources", config)
     .then(async (response) => {
