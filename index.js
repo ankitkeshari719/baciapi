@@ -332,7 +332,7 @@ function sendEmailToUser(recipient,subject,text) {
     });
   });
 }
-export async function sendEmailsToUsers(recipients,subject,text) {
+ async function sendEmailsToUsers(recipients,subject,text) {
   const emailPromises = recipients.map((recipient) => sendEmailToUser(recipient,subject,text));
   return Promise.allSettled(emailPromises);
 }
