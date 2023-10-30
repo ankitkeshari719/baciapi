@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const enterpriseRequestService = require("../services/enterprise.request.services");
 const { STATUS } = require("../_helpers/const");
+const { sendEmailsToUsers } = require("..");
 
 // routes
 router.post("/create", create);
@@ -19,12 +20,16 @@ module.exports = router;
 function create(req, res, next) {
   enterpriseRequestService
     .create(req.body)
-    .then((enterpriseRequestId) =>
+    .then(async (enterpriseRequestId) =>
+
+  
+ { await sendEmailsToUsers(req.body.toEmails,"Enterprise Admin Account Requested","Please login the BACI Portal to accept the request of users");
+
       res.status(200).json({
         status: STATUS.SUCCESS,
         message: "Enterprise Requests created successfully!",
         data: enterpriseRequestId,
-      })
+      })}
     )
     .catch((err) =>
       res.json({

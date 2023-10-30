@@ -283,6 +283,14 @@ app.post("/addRetroAction", async (req, res) => {
   return res.status(200).json({ id: result.value?._id });
 });
 
+app.post("/sendEmails",async (req,res)=>{
+  const {recipients,subject,text}=req.body
+  const emailResults = await sendEmailsToUsers(recipients,subject,text);
+  return res.status(200).json({ message:"" , data:emailResults });
+})
+
+
+
 app.get("/sendEmail", async (req, res) => {
   let mailOptions = {
     from: "kelsie.hammes@ethereal.email", // Sender address
@@ -324,7 +332,7 @@ function sendEmailToUser(recipient,subject,text) {
     });
   });
 }
-async function sendEmailsToUsers(recipients,subject,text) {
+export async function sendEmailsToUsers(recipients,subject,text) {
   const emailPromises = recipients.map((recipient) => sendEmailToUser(recipient,subject,text));
   return Promise.allSettled(emailPromises);
 }
