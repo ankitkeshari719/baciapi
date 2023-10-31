@@ -9,7 +9,7 @@ module.exports = {
   delete: _delete,
   addEnterpriseRequestNotification,
   getAllValidNotification,
-  markAllNotificationById
+  markAllNotificationById,
 };
 
 async function getAll() {
@@ -127,7 +127,7 @@ async function getAllValidNotification(notificationParam) {
 }
 
 async function markAllNotificationById(userParam) {
-  await User.updateMany(
+  await Notification.updateMany(
     { toId: { $in: userParam.userId } },
     { $set: { isRead: true } },
     { multi: true }
