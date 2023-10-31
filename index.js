@@ -759,7 +759,13 @@ app.get("/connectJira", async (req, res) => {
 
   return res.status(200).json({ response: url });
 });
+app.get("/connectJiraForAction", async (req, res) => {
+  let actionId = req.query.actionId;
+  console.log("in connect jira");
+  let url = process.env.JIRA_URL + `&actionId=${actionId}`;
 
+  return res.status(200).json({ response: url });
+});
 app.get("/getJiraToken", async (req, res) => {
   let jiraCode = req.query.jiraCode;
   console.log("in connect jira");
@@ -1045,7 +1051,7 @@ app.post("/createJiraIssue", async (req, res) => {
 
 
 app.put("/editJiraIssue", async (req, res) => {
- let issueKey =req.body.action.jiraId;
+ let issueKey =req.body.action.issueKey?req.body.action.issueKey:req.body.action.jiraId ;
   let access_token = req.body.access_token;
   let action =req.body.action;
   let actionValue=req.body.actionValue;
@@ -1066,8 +1072,10 @@ app.put("/editJiraIssue", async (req, res) => {
       assignee = response.data.account_id;
     })
     .catch((err) => {
+     
       console.log("This is the error", JSON.stringify(err.response.data));
       assignee=null;
+      return res.status(400).json({ message: "Error occured while connecting to JIRA" });
     });}
 
   
@@ -1123,7 +1131,7 @@ app.put("/editJiraIssue", async (req, res) => {
             actionId: action.id,
             actionName: actionValue,
             jiraId: action.jiraId,
-            jiraKey:issueKey,
+            jiraKey:action.jiraKey?action.jiraKey :issueKey,
             retroId: action.retroId,
             retroIdEnc: action.retroIdEnc,
             enterpriseId: action.enterpriseId,
@@ -1164,6 +1172,7 @@ app.put("/editJiraIssue", async (req, res) => {
         "This is the error",
         JSON.stringify(err.response.data.errors)
       );
+      return res.status(400).json({ message: "Error occured while connecting to JIRA" });
     });
 });
 

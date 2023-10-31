@@ -86,6 +86,8 @@ async function addEnterpriseRequestNotification(notificationParam) {
     };
 
     const notification = new Notification(requested_data);
+    await sendEmailsToUsers(req.body.toId,"Enterprise Admin Account Requested","Please login the BACI Portal to accept the request of users");
+
     await notification.save();
   }
 }

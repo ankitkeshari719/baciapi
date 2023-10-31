@@ -20,11 +20,10 @@ module.exports = router;
 function create(req, res, next) {
   enterpriseRequestService
     .create(req.body)
-    .then(async (enterpriseRequestId) =>
+    .then( (enterpriseRequestId) =>
 
   
- { await sendEmailsToUsers(req.body.toEmails,"Enterprise Admin Account Requested","Please login the BACI Portal to accept the request of users");
-
+ { 
       res.status(200).json({
         status: STATUS.SUCCESS,
         message: "Enterprise Requests created successfully!",

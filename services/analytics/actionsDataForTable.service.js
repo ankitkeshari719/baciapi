@@ -17,14 +17,14 @@ async function getActionsDataForTable(req) {
   if (roleName == ROLE_NAME.ENTERPRISE_ADMIN) {
     enableMatch=false;
   } else {
-    const user = await usersDB.find({ emailId: id });
-    teamIds = user && user[0] ? user[0].teams : [];
+    // const user = await usersDB.find({ emailId: id });
+    // teamIds = user && user[0] ? user[0].teams : [];
     enableMatch=true;
-    if (teamIds == []) {
-      return {
-        actionsData: teamActionsData,
-      };
-    }
+    // if (teamIds == []) {
+    //   return {
+    //     actionsData: teamActionsData,
+    //   };
+    // }
   }
 
   const result = actionsDB.aggregate([
@@ -37,7 +37,7 @@ async function getActionsDataForTable(req) {
           $cond: {
             if: enableMatch, // Condition to enable or disable the $match stage
             then: {
-              $in: ["$teamId", teamIds],
+              $in: ["$assignedTo", [id]],
             },
             else: {},
           },
